@@ -1,0 +1,21 @@
+diff -Nur pilot-link-0.11.6-orig/configure.in pilot-link-0.11.6/configure.in
+--- pilot-link-0.11.6-orig/configure.in	Wed Dec 25 02:46:13 2002
++++ pilot-link-0.11.6/configure.in	Thu Jan 16 13:48:36 2003
+@@ -246,13 +246,13 @@
+ 
+ 	cd = iconv_open ("UTF-8", "CP1252");
+ 	if (!cd)
+-		exit 1
++		 { exit(1); }
+ 	if (iconv (cd, &pc, &pc_len, &trans, &utf8_len) == -1 || pc_len != 0)
+-		exit 1
++		{ exit(1); }
+ 	if (memcmp (utf8, transbuf, utf8_real_len) != 0)
+-		exit 1
++		{ exit(1); }
+ 
+-	exit 0
++	exit(0);
+ }], AC_MSG_RESULT(yes); have_iconv=yes, [AC_MSG_RESULT(no);], AC_MSG_RESULT(not cross compiling);)])])
+ 
+ dnl ##  Fixed AC_TRY_RUN warning, missing third argument. -DD 22/01/2002
