@@ -67,16 +67,16 @@ CXXFLAGS="$RPM_OPT_FLAGS -fno-rtti -fno-exceptions -fno-implicit-templates" \
 	--target=%{_target_platform} \
 	--host=%{_host}
 
-make LIBDIR="/usr/share"
+make LIBDIR="%{_datadir}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/usr/share
+install -d $RPM_BUILD_ROOT%{_datadir}
 
 make install \
 	prefix=$RPM_BUILD_ROOT/usr
 
-mv $RPM_BUILD_ROOT%{_libdir}/pilot-link $RPM_BUILD_ROOT/usr/share
+mv $RPM_BUILD_ROOT%{_libdir}/pilot-link $RPM_BUILD_ROOT%{_datadir}
 
 strip --strip-unneeded $RPM_BUILD_ROOT%{_libdir}/lib*.so.*.*
 
@@ -94,7 +94,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc *.gz
 %attr(755,root,root) %{_libdir}/lib*.so.*.*
 %attr(755,root,root) /usr/bin/*
-/usr/share/pilot-link
+%{_datadir}/pilot-link
 %{_mandir}/man[17]/*
 
 %files devel
