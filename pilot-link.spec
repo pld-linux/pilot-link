@@ -1,8 +1,8 @@
 Summary:	File transfer utilities between Linux and PalmPilots
 Name:		pilot-link
 Version:	0.9.3
-Release:	3
-Copyright:	GPL/LGPL
+Release:	4
+License:	GPL/LGPL
 Group:		Applications/Communications
 Group(pl):	Aplikacje/Komunikacja
 Source:		ftp://ryeham.ee.ryerson.ca/pub/PalmOS/%{name}.%{version}.tar.gz 
@@ -13,7 +13,7 @@ Patch3:		pilot-link.sync-ldif.patch
 Patch4:		pilot-link-DESTDIR.patch
 BuildRequires:	libstdc++-devel
 BuildRequires:	ncurses-devel >= 5.0
-BuildRequires:	readline-devel
+BuildRequires:	readline-devel >= 4.1
 BuildRequires:	tcl-devel
 BuildRequires:	tk-devel
 BuildRequires:	XFree86-devel
