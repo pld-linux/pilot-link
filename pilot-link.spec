@@ -17,7 +17,7 @@ BuildRequires:	readline-devel
 BuildRequires:	tcl-devel
 BuildRequires:	tk-devel
 BuildRequires:	XFree86-devel
-BuildRoot:	/tmp/%{name}-%{version}-root
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 This suite of tools allows you to upload and download programs and data
