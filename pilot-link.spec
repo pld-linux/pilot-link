@@ -1,7 +1,7 @@
 Summary:	Pilot Link - USR Pilot to Unix transfer utilities.
 Name:		pilot-link
 Version:	0.9.3
-Release:	1
+Release:	2
 Copyright:	GPL/LGPL
 Group:		Applications/Communications
 Group(pl):	Aplikacje/Komunikacja
@@ -10,6 +10,7 @@ Patch0:		pilot-link-perl-install.patch
 Patch1:		pilot-link.perl.patch
 Patch2:		pilot-link-pixdir.patch
 Patch3:		pilot-link.sync-ldif.patch
+Patch4:		pilot-link-DESTDIR.patch
 BuildRequires:	libstdc++-devel
 BuildRequires:	ncurses-devel
 BuildRequires:	readline-devel
@@ -52,6 +53,7 @@ Pilot link static libraries.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 chmod +w configure
@@ -60,13 +62,11 @@ autoconf
 libtoolize --copy --force
 %endif
 
-CFLAGS="$RPM_OPT_FLAGS -I/usr/X11R6/include" \
-LDFLAGS="-s" \
-CXXFLAGS="$RPM_OPT_FLAGS -fno-rtti -fno-exceptions -fno-implicit-templates" \
-./configure \
-	--prefix=%{_prefix} \
-	--target=%{_target_platform} \
-	--host=%{_host}
+CFLAGS="$RPM_OPT_FLAGS -I/usr/X11R6/include"
+LDFLAGS="-s"
+CXXFLAGS="$RPM_OPT_FLAGS -fno-rtti -fno-exceptions -fno-implicit-templates"
+export CFLAGS LDFLAGS CXXFLAGS
+%configure
 
 make LIBDIR="%{_datadir}"
 
@@ -74,8 +74,7 @@ make LIBDIR="%{_datadir}"
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_datadir}
 
-make install \
-	prefix=$RPM_BUILD_ROOT%{_prefix}
+make install DESTDIR=$RPM_BUILD_ROOT
 
 mv $RPM_BUILD_ROOT%{_libdir}/pilot-link $RPM_BUILD_ROOT%{_datadir}
 
