@@ -5,24 +5,24 @@ Summary(pt_BR):	Utilitários de transferência de dados entre Unix e o Pilot
 Summary(ru):	õÔÉÌÉÔÁ ÐÅÒÅÓÙÌËÉ ÆÁÊÌÏ× ÍÅÖÄÕ Linux É PalmPilot
 Summary(uk):	õÔÉÌ¦ÔÁ ÐÅÒÅÓÉÌËÉ ÆÁÊÌ¦× Í¦Ö Linux ÔÁ PalmPilot
 Name:		pilot-link
-Version:	0.11.6
-Release:	2
+Version:	0.11.7
+Release:	1
 License:	GPL
 Group:		Applications/Communications
 Source0:	http://www.pilot-link.org/source/%{name}-%{version}.tar.gz
 URL:		http://www.pilot-link.org/
-Patch0:	%{name}-configure.patch
+Patch0:		%{name}-configure.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bison
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
-BuildRequires:	readline-devel >= 4.2
 BuildRequires:	perl-devel >= 5.6
+BuildRequires:	python-devel
+BuildRequires:	readline-devel >= 4.2
 BuildRequires:	tcl-devel >= 8.3.2
 BuildRequires:	tk-devel >= 8.3.2
-BuildRequires:	python-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -134,7 +134,7 @@ PalmPilot.
 
 %prep
 %setup -q
-%patch0 -p1
+# %patch0 -p1
 
 %build
 #rm -f missing
@@ -164,7 +164,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc ChangeLog README*
+%doc ChangeLog README* doc/README.usb doc/README.debugging NEWS
 %attr(755,root,root) %{_libdir}/lib*.so.*.*
 %attr(755,root,root) %{_bindir}/*
 %{_datadir}/pilot-link
