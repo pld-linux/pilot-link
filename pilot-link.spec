@@ -63,8 +63,8 @@ autoconf
 libtoolize --copy --force
 %endif
 
-CFLAGS="%{?debug:-O -g}%{!?debug:$RPM_OPT_FLAGS} -I/usr/X11R6/include"
-CXXFLAGS="%{?debug:-O -g}%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions -fno-implicit-templates"
+CFLAGS="%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS} -I/usr/X11R6/include"
+CXXFLAGS="%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions -fno-implicit-templates"
 %configure
 
 %{__make} LIBDIR="%{_datadir}"
