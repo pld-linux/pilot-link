@@ -76,9 +76,9 @@ install -d $RPM_BUILD_ROOT/usr/share
 make install \
 	prefix=$RPM_BUILD_ROOT/usr
 
-mv $RPM_BUILD_ROOT/usr/lib/pilot-link $RPM_BUILD_ROOT/usr/share
+mv $RPM_BUILD_ROOT%{_libdir}/pilot-link $RPM_BUILD_ROOT/usr/share
 
-strip --strip-unneeded $RPM_BUILD_ROOT/usr/lib/lib*.so.*.*
+strip --strip-unneeded $RPM_BUILD_ROOT%{_libdir}/lib*.so.*.*
 
 gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man*/* \
 	ChangeLog README*
@@ -92,19 +92,19 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc *.gz
-%attr(755,root,root) /usr/lib/lib*.so.*.*
+%attr(755,root,root) %{_libdir}/lib*.so.*.*
 %attr(755,root,root) /usr/bin/*
 /usr/share/pilot-link
 %{_mandir}/man[17]/*
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) /usr/lib/lib*.so
+%attr(755,root,root) %{_libdir}/lib*.so
 /usr/include/*
 
 %files static
 %defattr(644,root,root,755)
-/usr/lib/lib*.a
+%{_libdir}/lib*.a
 
 %changelog
 * Sun May  9 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
