@@ -1,22 +1,20 @@
 Summary:	File transfer utilities between Linux and PalmPilots
 Name:		pilot-link
-Version:	0.9.3
-Release:	11
-License:	GPL/LGPL
+Version:	0.9.5
+Release:	2
+License:	GPL
 Group:		Applications/Communications
 Group(de):	Applikationen/Kommunikation
 Group(pl):	Aplikacje/Komunikacja
-Source0:	ftp://ryeham.ee.ryerson.ca/pub/PalmOS/%{name}.%{version}.tar.gz
-Patch0:		%{name}-perl-install.patch
-Patch1:		%{name}.perl.patch
-Patch2:		%{name}-pixdir.patch
-Patch3:		%{name}.sync-ldif.patch
-Patch4:		%{name}-DESTDIR.patch
+Source0:	ftp://ryeham.ee.ryerson.ca/pub/PalmOS/%{name}-%{version}.tar.bz2
+Patch0:		%{name}-pixdir.patch
+Patch1:		%{name}-DESTDIR.patch
+Patch2:		%{name}-misc.patch
 BuildRequires:	libstdc++-devel
 BuildRequires:	ncurses-devel >= 5.0
 BuildRequires:	readline-devel >= 4.1
-BuildRequires:	tcl-devel
-BuildRequires:	tk-devel
+BuildRequires:	tcl-devel >= 8.3.2
+BuildRequires:	tk-devel >= 8.3.2
 BuildRequires:	XFree86-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -53,12 +51,10 @@ Requires:	%{name}-devel = %{version}
 Pilot link static libraries.
 
 %prep 
-%setup -q -n %{name}.%{version}
+%setup -q -n %{name}
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
-%patch4 -p1
 
 %build
 chmod +w configure
