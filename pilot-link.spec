@@ -7,8 +7,6 @@ Version:	0.9.5
 Release:	12
 License:	GPL
 Group:		Applications/Communications
-Group(de):	Applikationen/Kommunikation
-Group(pl):	Aplikacje/Komunikacja
 Source0:	ftp://ryeham.ee.ryerson.ca/pub/PalmOS/%{name}-%{version}.tar.bz2
 Patch0:		%{name}-pixdir.patch
 Patch1:		%{name}-DESTDIR.patch
@@ -58,13 +56,6 @@ Summary(es):	Archivos de inclusiСn para el desarrollo de programas
 Summary(pl):	Pliki nagЁСwkowe do biblioteki pilot-link
 Summary(pt_BR):	Arquivos de inclusЦo para o desenvolvimento de programas
 Group:		Development/Libraries
-Group(de):	Entwicklung/Libraries
-Group(es):	Desarrollo/Bibliotecas
-Group(fr):	Development/Librairies
-Group(pl):	Programowanie/Biblioteki
-Group(pt_BR):	Desenvolvimento/Bibliotecas
-Group(ru):	Разработка/Библиотеки
-Group(uk):	Розробка/Б╕бл╕отеки
 Requires:	%{name} = %{version}
 
 %description devel
@@ -89,13 +80,6 @@ Summary(es):	Bibliotecas estАticas necesarias para crear aplicaciones Pilot
 Summary(pl):	Statyczne biblioteki pilot-link
 Summary(pt_BR):	Bibliotecas estАticas necessАrias para gerar aplicaГУes Pilot
 Group:		Development/Libraries
-Group(de):	Entwicklung/Libraries
-Group(es):	Desarrollo/Bibliotecas
-Group(fr):	Development/Librairies
-Group(pl):	Programowanie/Biblioteki
-Group(pt_BR):	Desenvolvimento/Bibliotecas
-Group(ru):	Разработка/Библиотеки
-Group(uk):	Розробка/Б╕бл╕отеки
 Requires:	%{name}-devel = %{version}
 
 %description static
