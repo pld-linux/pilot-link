@@ -1,7 +1,7 @@
 Summary:	Pilot Link - USR Pilot to Unix transfer utilities.
 Name:		pilot-link
 Version:	0.9.2
-Release:	1
+Release:	2
 Copyright:	GPL/LGPL
 Group:		Applications/Communications
 Group(pl):	Aplikacje/Komunikacja
@@ -54,6 +54,7 @@ Pilot link static libraries.
 %patch3 -p1
 
 %build
+autoconf
 %ifarch armv4l
 libtoolize --copy --force
 %endif
@@ -76,7 +77,7 @@ mv $RPM_BUILD_ROOT/usr/lib/pilot-link $RPM_BUILD_ROOT/usr/share
 
 strip --strip-unneeded $RPM_BUILD_ROOT/usr/lib/lib*.so.*.*
 
-gzip -9nf $RPM_BUILD_ROOT/usr/man/man*/* \
+gzip -9nf $RPM_BUILD_ROOT/usr/share/man/man*/* \
 	ChangeLog README*
 
 %post   -p /sbin/ldconfig
@@ -91,7 +92,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) /usr/lib/lib*.so.*.*
 %attr(755,root,root) /usr/bin/*
 /usr/share/pilot-link
-/usr/man/man[17]/*
+/usr/share/man/man[17]/*
 
 %files devel
 %defattr(644,root,root,755)
@@ -103,6 +104,10 @@ rm -rf $RPM_BUILD_ROOT
 /usr/lib/lib*.a
 
 %changelog
+* Sun May  9 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
+  [0.9.2-2]
+- now package is FHS 2.0 compiliat.
+
 * Mon Apr 26 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
   [0.9.2-1]
 - added "-fno-rtti -fno-exceptions -fno-implicit-templates" c++ optimization
