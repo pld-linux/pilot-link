@@ -2,6 +2,8 @@ Summary:	File transfer utilities between Linux and PalmPilots
 Summary(es):	Bibliotecas estАticas necesarias para generar aplicaciones Pilot
 Summary(pl):	NarzЙdzia do przesyЁania plikСw miЙdzy Linuksem a PalmPilotami
 Summary(pt_BR):	UtilitАrios de transferЙncia de dados entre Unix e o Pilot
+Summary(ru):	Утилита пересылки файлов между Linux и PalmPilot
+Summary(uk):	Утил╕та пересилки файл╕в м╕ж Linux та PalmPilot
 Name:		pilot-link
 Version:	0.11.5
 Release:	1
@@ -19,7 +21,7 @@ BuildRequires:	readline-devel >= 4.2
 BuildRequires:	perl-devel >= 5.6
 BuildRequires:	tcl-devel >= 8.3.2
 BuildRequires:	tk-devel >= 8.3.2
-BuildRequires:  python-devel
+BuildRequires:	python-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -43,20 +45,33 @@ dodatkowych narzЙdzi pozwalaj╠cych na synchronizacjЙ kalendarza
 PalmPilota z programem Ical. Aby u©ywaФ interfejsu do Pythona, Tcl lub
 Perla, mo©e byФ potrzeba zajrzenia do ╪rСdeЁ pilot-linka.
 
-Obecna wersja dziaЁa rСwnie© z urz╠dzeniami z PalmOS wyposa©onymi
-w port USB (Sony CLIE, Palm m5xx, Handspring Visor).
+Obecna wersja dziaЁa rСwnie© z urz╠dzeniami z PalmOS wyposa©onymi w
+port USB (Sony CLIE, Palm m5xx, Handspring Visor).
 
 %description -l pt_BR
 Este conjunto de ferramentas permite transferir programas e dados
-entre mАquinas
-- *nix e o Palm Pilot. Alguns utilitАrios extras permitem coisas como
-  sincronizar dados entre o calendАrio do Pilot e o Ical.
+entre mАquinas *nix e o Palm Pilot. Alguns utilitАrios extras permitem
+coisas como sincronizar dados entre o calendАrio do Pilot e o Ical.
+
+%description -l uk
+Цей наб╕р ╕нструмент╕в дозволя╓ вам переносити програми та файли даних
+м╕ж системами Linux та PalmPilot. В╕н ма╓ також к╕лька додаткових
+утил╕т, як╕ забезпечують так╕ реч╕ як синхронизац╕я календаря
+PalmPilot та Ical.
+
+%description -l ru
+Этот набор инструментов позволяет вам переносить программы и файлы
+данных между системами Linux и PalmPilot. Он имеет также несколько
+дополнительных утилит, обеспечивающих такие вещи как синхронизация
+календаря PalmPilot и Ical.
 
 %package devel
 Summary:	Pilot development header files
 Summary(es):	Archivos de inclusiСn para el desarrollo de programas
 Summary(pl):	Pliki nagЁСwkowe do biblioteki pilot-link
 Summary(pt_BR):	Arquivos de inclusЦo para o desenvolvimento de programas
+Summary(ru):	Файлы для разработки программ взаимодействия с PalmPilot
+Summary(uk):	Файли для розробки програм вза╓мод╕╖ з PalmPilot
 Group:		Development/Libraries
 Requires:	%{name} = %{version}
 
@@ -76,11 +91,21 @@ pilot-link.
 Este pacote contИm os arquivos de inclusЦo necessАrios para gerar
 aplicaГУes Pilot.
 
+%description devel -l ru
+Этот пакет содержит файлы заголовков C для построения программ
+взаимодействия с PalmPilot.
+
+%description devel -l uk
+Цей пакет м╕стить файли заголовк╕в C для побудови програм вза╓мод╕╖ з
+PalmPilot.
+
 %package static
 Summary:	Pilot link static libraries
 Summary(es):	Bibliotecas estАticas necesarias para crear aplicaciones Pilot
 Summary(pl):	Statyczne biblioteki pilot-link
 Summary(pt_BR):	Bibliotecas estАticas necessАrias para gerar aplicaГУes Pilot
+Summary(ru):	Статические библиотеки для разработки программ взаимодействия с PalmPilot
+Summary(uk):	Статичн╕ б╕бл╕отеки для розробки програм вза╓мод╕╖ з PalmPilot
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}
 
@@ -97,6 +122,14 @@ Statyczne biblioteki pilot-link.
 %description static -l pt_BR
 Este pacote contИm as bibliotecas estАticas necessАrias para gerar
 aplicaГУes Pilot.
+
+%description static -l ru
+Этот пакет содержит статические библиотеки для построения программ
+взаимодействия с PalmPilot.
+
+%description static -l uk
+Цей пакет м╕стить статичн╕ б╕бл╕отеки для побудови програм вза╓мод╕╖ з
+PalmPilot.
 
 %prep
 %setup -q
