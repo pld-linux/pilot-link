@@ -16,6 +16,7 @@ BuildRequires:	bison
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
 BuildRequires:	readline-devel >= 4.2
+BuildRequires:	perl-devel >= 5.6
 BuildRequires:	tcl-devel >= 8.3.2
 BuildRequires:	tk-devel >= 8.3.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -28,6 +29,9 @@ PalmPilot's calendar app with Ical. Note that you might still need to
 consult the sources for pilot-link if you would like the Python, Tcl,
 or Perl bindings.
 
+Now also with support for USB PalmOS devices (Sony CLIE, Palm m5xx,
+Handspring Visor).
+
 %description -l es
 Bibliotecas estáticas necesarias para generar aplicaciones Pilot.
 
@@ -37,6 +41,9 @@ pomiêdzy maszyn± linuksow±/uniksow± a PalmPilotem. Ma kilka
 dodatkowych narzêdzi pozwalaj±cych na synchronizacjê kalendarza
 PalmPilota z programem Ical. Aby u¿ywaæ interfejsu do Pythona, Tcl lub
 Perla, mo¿e byæ potrzeba zajrzenia do ¼róde³ pilot-linka.
+
+Obecna wersja dzia³a równie¿ z urz±dzeniami z PalmOS wyposa¿onymi
+w port USB (Sony CLIE, Palm m5xx, Handspring Visor).
 
 %description -l pt_BR
 Este conjunto de ferramentas permite transferir programas e dados
