@@ -80,7 +80,7 @@ mv $RPM_BUILD_ROOT/usr/lib/pilot-link $RPM_BUILD_ROOT/usr/share
 
 strip --strip-unneeded $RPM_BUILD_ROOT/usr/lib/lib*.so.*.*
 
-gzip -9nf $RPM_BUILD_ROOT/usr/share/man/man*/* \
+gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man*/* \
 	ChangeLog README*
 
 %post   -p /sbin/ldconfig
@@ -95,7 +95,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) /usr/lib/lib*.so.*.*
 %attr(755,root,root) /usr/bin/*
 /usr/share/pilot-link
-/usr/share/man/man[17]/*
+%{_mandir}/man[17]/*
 
 %files devel
 %defattr(644,root,root,755)
