@@ -10,7 +10,12 @@ Patch0:		pilot-link-perl-install.patch
 Patch1:		pilot-link.perl.patch
 Patch2:		pilot-link-pixdir.patch
 Patch3:		ftp://ryeham.ee.ryerson.ca/pub/PalmOS/pilot-link.sync-ldif.patch
-BuildPrereq:	glibc-devel
+BuildPrereq:	libstdc++-devel
+BuildPrereq:	ncurses-devel
+BuildPrereq:	readline-devel
+BuildPrereq:	tcl-devel
+BuildPrereq:	tk-devel
+BuildPrereq:	XFree86-devel
 BuildRoot:	/tmp/%{name}-%{version}-root
 
 %description
