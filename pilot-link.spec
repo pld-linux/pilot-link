@@ -5,7 +5,7 @@ Release:	4
 License:	GPL/LGPL
 Group:		Applications/Communications
 Group(pl):	Aplikacje/Komunikacja
-Source:		ftp://ryeham.ee.ryerson.ca/pub/PalmOS/%{name}.%{version}.tar.gz 
+Source0:	ftp://ryeham.ee.ryerson.ca/pub/PalmOS/%{name}.%{version}.tar.gz
 Patch0:		pilot-link-perl-install.patch
 Patch1:		pilot-link.perl.patch
 Patch2:		pilot-link-pixdir.patch
@@ -20,26 +20,29 @@ BuildRequires:	XFree86-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-This suite of tools allows you to upload and download programs and data
-files between a Linux/UNIX machine and the PalmPilot. It has a few extra
-utils that will allow for things like syncing the PalmPilot's calendar app
-with Ical. Note that you might still need to consult the sources for
-pilot-link if you would like the Python, Tcl, or Perl bindings.
+This suite of tools allows you to upload and download programs and
+data files between a Linux/UNIX machine and the PalmPilot. It has a
+few extra utils that will allow for things like syncing the
+PalmPilot's calendar app with Ical. Note that you might still need to
+consult the sources for pilot-link if you would like the Python, Tcl,
+or Perl bindings.
 
 %package devel
 Summary:	Pilot development header files
 Group:		Development/Libraries
+Group(fr):	Development/Librairies
 Group(pl):	Programowanie/Biblioteki
 Requires:	%{name} = %{version}
 
 %description devel
-This package contains the development headers that are used
-to build the pilot-link package.  It also includes the static
-libraries necessary to build static pilot apps.
+This package contains the development headers that are used to build
+the pilot-link package. It also includes the static libraries
+necessary to build static pilot apps.
 
 %package static
 Summary:	Pilot link static libraries
 Group:		Development/Libraries
+Group(fr):	Development/Librairies
 Group(pl):	Programowanie/Biblioteki
 Requires:	%{name}-devel = %{version}
 
