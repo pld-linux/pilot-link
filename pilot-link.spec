@@ -1,16 +1,17 @@
 Summary:	File transfer utilities between Linux and PalmPilots
 Name:		pilot-link
 Version:	0.9.3
-Release:	5
+Release:	11
 License:	GPL/LGPL
 Group:		Applications/Communications
+Group(de):	Applikationen/Kommunikation
 Group(pl):	Aplikacje/Komunikacja
 Source0:	ftp://ryeham.ee.ryerson.ca/pub/PalmOS/%{name}.%{version}.tar.gz
-Patch0:		pilot-link-perl-install.patch
-Patch1:		pilot-link.perl.patch
-Patch2:		pilot-link-pixdir.patch
-Patch3:		pilot-link.sync-ldif.patch
-Patch4:		pilot-link-DESTDIR.patch
+Patch0:		%{name}-perl-install.patch
+Patch1:		%{name}.perl.patch
+Patch2:		%{name}-pixdir.patch
+Patch3:		%{name}.sync-ldif.patch
+Patch4:		%{name}-DESTDIR.patch
 BuildRequires:	libstdc++-devel
 BuildRequires:	ncurses-devel >= 5.0
 BuildRequires:	readline-devel >= 4.1
@@ -30,6 +31,7 @@ or Perl bindings.
 %package devel
 Summary:	Pilot development header files
 Group:		Development/Libraries
+Group(de):	Entwicklung/Libraries
 Group(fr):	Development/Librairies
 Group(pl):	Programowanie/Biblioteki
 Requires:	%{name} = %{version}
@@ -42,6 +44,7 @@ necessary to build static pilot apps.
 %package static
 Summary:	Pilot link static libraries
 Group:		Development/Libraries
+Group(de):	Entwicklung/Libraries
 Group(fr):	Development/Librairies
 Group(pl):	Programowanie/Biblioteki
 Requires:	%{name}-devel = %{version}
@@ -64,10 +67,8 @@ autoconf
 libtoolize --copy --force
 %endif
 
-CFLAGS="$RPM_OPT_FLAGS -I/usr/X11R6/include"
-LDFLAGS="-s"
-CXXFLAGS="$RPM_OPT_FLAGS -fno-rtti -fno-exceptions -fno-implicit-templates"
-export CFLAGS LDFLAGS CXXFLAGS
+CFLAGS="%{!?debug:$RPM_OPT_FLAGS}%{?debug:-O -g} -I/usr/X11R6/include"
+CXXFLAGS="%{!?debug:$RPM_OPT_FLAGS}%{?debug:-O -g} -fno-rtti -fno-exceptions -fno-implicit-templates"
 %configure
 
 %{__make} LIBDIR="%{_datadir}"
@@ -78,12 +79,9 @@ install -d $RPM_BUILD_ROOT%{_datadir}
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
-mv $RPM_BUILD_ROOT%{_libdir}/pilot-link $RPM_BUILD_ROOT%{_datadir}
+mv -f $RPM_BUILD_ROOT%{_libdir}/pilot-link $RPM_BUILD_ROOT%{_datadir}
 
-strip --strip-unneeded $RPM_BUILD_ROOT%{_libdir}/lib*.so.*.*
-
-gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man*/* \
-	ChangeLog README*
+gzip -9nf ChangeLog README*
 
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
