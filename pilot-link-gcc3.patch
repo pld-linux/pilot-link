@@ -1,0 +1,11 @@
+--- pilot-link.0.9.5/include/pi-datebook.hxx.orig	Mon Nov 12 15:17:18 2001
++++ pilot-link.0.9.5/include/pi-datebook.hxx	Mon Nov 12 15:17:35 2001
+@@ -34,7 +34,7 @@
+      };
+ 
+    private:
+-     friend appointmentList_t;
++     friend class appointmentList_t;
+      
+      tm _begin;			// When the appointment begins
+      tm _end;			// When the appointment ends
