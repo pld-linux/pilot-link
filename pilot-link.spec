@@ -3,18 +3,12 @@ Summary(es):	Bibliotecas estáticas necesarias para generar aplicaciones Pilot
 Summary(pl):	Narzêdzia do przesy³ania plików miêdzy Linuksem a PalmPilotami
 Summary(pt_BR):	Utilitários de transferência de dados entre Unix e o Pilot
 Name:		pilot-link
-Version:	0.9.5
-Release:	12
+Version:	0.10.99
+Release:	1
 License:	GPL
 Group:		Applications/Communications
-Source0:	ftp://ryeham.ee.ryerson.ca/pub/PalmOS/%{name}-%{version}.tar.bz2
-Patch0:		%{name}-pixdir.patch
-Patch1:		%{name}-DESTDIR.patch
-Patch2:		%{name}-misc.patch
-Patch3:		%{name}-ack.patch
-Patch4:		%{name}-gcc3.patch
-Patch5:		%{name}-ac_fixes.patch
-URL:		http://www.gnu-designs.com/pilot-link/
+Source0:	http://www.pilot-link.org/source/%{name}-%{version}.tar.gz
+URL:		http://www.pilot-link.org/
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -97,13 +91,7 @@ Este pacote contém as bibliotecas estáticas necessárias para gerar
 aplicações Pilot.
 
 %prep
-%setup -q -n %{name}
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
+%setup -q
 
 %build
 %{__libtoolize}
@@ -122,8 +110,6 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_datadir}
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
-
-mv -f $RPM_BUILD_ROOT%{_libdir}/pilot-link $RPM_BUILD_ROOT%{_datadir}
 
 gzip -9nf ChangeLog README*
 
