@@ -93,7 +93,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc *.gz
 %attr(755,root,root) %{_libdir}/lib*.so.*.*
-%attr(755,root,root) /usr/bin/*
+%attr(755,root,root) %{_bindir}/*
 %{_datadir}/pilot-link
 %{_mandir}/man[17]/*
 
@@ -149,4 +149,4 @@ rm -rf $RPM_BUILD_ROOT
 * Thu Jan 29 1998 Otto Hammersmith <otto@redhat.com>
 - added changelog
 - updated to 0.8.9
-- removed explicit requires for /usr/bin/perl
+- removed explicit requires for %{_bindir}/perl
