@@ -1,7 +1,7 @@
 Summary:	File transfer utilities between Linux and PalmPilots
 Name:		pilot-link
 Version:	0.9.5
-Release:	3
+Release:	4
 License:	GPL
 Group:		Applications/Communications
 Group(de):	Applikationen/Kommunikation
@@ -12,7 +12,9 @@ Patch1:		%{name}-DESTDIR.patch
 Patch2:		%{name}-misc.patch
 Patch3:		%{name}-ack.patch
 URL:		http://www.gnu-designs.com/pilot-link/
+BuildRequires:	autoconf
 BuildRequires:	libstdc++-devel
+BuildRequires:	libtool
 BuildRequires:	readline-devel >= 4.2
 BuildRequires:	tcl-devel >= 8.3.2
 BuildRequires:	tk-devel >= 8.3.2
@@ -59,11 +61,9 @@ Pilot link static libraries.
 %patch3 -p1
 
 %build
+libtoolize --copy --force
 chmod +w configure
 autoconf
-%ifarch armv4l
-libtoolize --copy --force
-%endif
 
 CFLAGS="%{rpmcflags} -I/usr/X11R6/include"
 CXXFLAGS="%{rpmcflags} -fno-rtti -fno-exceptions -fno-implicit-templates"
