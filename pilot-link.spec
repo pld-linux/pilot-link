@@ -60,7 +60,7 @@ libtoolize --copy --force
 
 CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="-s" \
 CXXFLAGS="$RPM_OPT_FLAGS -fno-rtti -fno-exceptions -fno-implicit-templates" \
-./configure \
+./configure %{_target} \
 	--prefix=/usr
 
 make LIBDIR="/usr/share"
