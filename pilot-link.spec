@@ -88,8 +88,8 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc *.gz
-/usr/lib/lib*.so.*.*
-/usr/bin/*
+%attr(755,root,root) /usr/lib/lib*.so.*.*
+%attr(755,root,root) /usr/bin/*
 /usr/share/pilot-link
 /usr/man/man[17]/*
 
