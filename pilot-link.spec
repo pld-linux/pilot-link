@@ -77,7 +77,7 @@ Summary(pt_BR):	Arquivos de inclusЦo para o desenvolvimento de programas
 Summary(ru):	Файлы для разработки программ взаимодействия с PalmPilot
 Summary(uk):	Файли для розробки програм вза╓мод╕╖ з PalmPilot
 Group:		Development/Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 
 %description devel
 This package contains the development headers that are used to build
@@ -111,7 +111,7 @@ Summary(pt_BR):	Bibliotecas estАticas necessАrias para gerar aplicaГУes Pilot
 Summary(ru):	Статические библиотеки для разработки программ взаимодействия с PalmPilot
 Summary(uk):	Статичн╕ б╕бл╕отеки для розробки програм вза╓мод╕╖ з PalmPilot
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}
+Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Pilot link static libraries.
