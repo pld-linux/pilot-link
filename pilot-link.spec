@@ -83,7 +83,7 @@ rm -fr $RPM_BUILD_ROOT
 - added using $RPM_OPT_FLAGS during compile,
 - added stripping shared libraries,
 - removed perl stuff (now is buggy),
-- added %attr and %defattr macros in %files (allow build package from
+- added %attr and %defattr macros in %files (allows build package from
   non-root account).
 
 * Tue May 19 1998 Michael Maher <mike@redhat.com>
