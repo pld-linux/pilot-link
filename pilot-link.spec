@@ -78,7 +78,7 @@ rm -fr $RPM_BUILD_ROOT
 - added using %%{name} and %%{version} in Source,
 - added static subpackage,
 - fixed %post{un},
-- changeded dependences to "Requires: %%{name} = %%{version}" in devel
+- changed dependencies to "Requires: %%{name} = %%{version}" in devel
   subpackage,
 - added using $RPM_OPT_FLAGS during compile,
 - added striping shared libraries,
