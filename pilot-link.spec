@@ -1,7 +1,7 @@
 Summary:	File transfer utilities between Linux and PalmPilots
 Name:		pilot-link
 Version:	0.9.5
-Release:	2
+Release:	3
 License:	GPL
 Group:		Applications/Communications
 Group(de):	Applikationen/Kommunikation
@@ -10,9 +10,10 @@ Source0:	ftp://ryeham.ee.ryerson.ca/pub/PalmOS/%{name}-%{version}.tar.bz2
 Patch0:		%{name}-pixdir.patch
 Patch1:		%{name}-DESTDIR.patch
 Patch2:		%{name}-misc.patch
+Patch3:		%{name}-ack.patch
+URL:		http://www.gnu-designs.com/pilot-link/
 BuildRequires:	libstdc++-devel
-BuildRequires:	ncurses-devel >= 5.0
-BuildRequires:	readline-devel >= 4.1
+BuildRequires:	readline-devel >= 4.2
 BuildRequires:	tcl-devel >= 8.3.2
 BuildRequires:	tk-devel >= 8.3.2
 BuildRequires:	XFree86-devel
@@ -55,6 +56,7 @@ Pilot link static libraries.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 chmod +w configure
@@ -63,8 +65,8 @@ autoconf
 libtoolize --copy --force
 %endif
 
-CFLAGS="%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS} -I/usr/X11R6/include"
-CXXFLAGS="%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions -fno-implicit-templates"
+CFLAGS="%{rpmcflags} -I/usr/X11R6/include"
+CXXFLAGS="%{rpmcflags} -fno-rtti -fno-exceptions -fno-implicit-templates"
 %configure
 
 %{__make} LIBDIR="%{_datadir}"
