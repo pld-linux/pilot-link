@@ -1,0 +1,18 @@
+diff -rc pilot-link.0.8.7/Perl5/Makefile.PL.in pilot-link.0.8.7_perlpatch/Perl5/Makefile.PL.in
+*** pilot-link.0.8.7/Perl5/Makefile.PL.in	Tue Jul 15 11:35:49 1997
+--- pilot-link.0.8.7_perlpatch/Perl5/Makefile.PL.in	Sun Nov 23 23:44:27 1997
+***************
+*** 17,20 ****
+--- 17,28 ----
+      'VERSION'	=> '0.1',
+      'LIBS'	=> $lib,
+      'INC'	=> '-I../include',
++     'INSTALLPRIVLIB' => '$(PREFIX)/lib/perl5',
++     'INSTALLARCHLIB' => '$(PREFIX)/lib/perl5/i386-linux/5.00401',
++     'INSTALLSITELIB' => '$(PREFIX)/lib/perl5/site_perl',
++     'INSTALLSITEARCH' => '$(PREFIX)/lib/perl5/site_perl/i386-linux',
++     'INSTALLBIN' => '$(PREFIX)/bin',
++     'INSTALLSCRIPT' => '$(PREFIX)/bin',
++ 	 'INSTALLMAN1DIR' => '$(PREFIX)/man/man1',
++ 	 'INSTALLMAN3DIR' => '$(PREFIX)/man/man3',
+  );

@@ -1,0 +1,11 @@
+--- pilot-link.0.8.9/Perl5/Makefile.PL.in.orig	Tue May 19 14:41:59 1998
++++ pilot-link.0.8.9/Perl5/Makefile.PL.in	Tue May 19 14:42:38 1998
+@@ -18,7 +18,7 @@
+     'LIBS'	=> $lib,
+     'INC'	=> '-I../include',
+     'INSTALLPRIVLIB' => '$(PREFIX)/lib/perl5',
+-    'INSTALLARCHLIB' => '$(PREFIX)/lib/perl5/i386-linux/5.00401',
++    'INSTALLARCHLIB' => '$(PREFIX)/lib/perl5/i386-linux/5.00404',
+     'INSTALLSITELIB' => '$(PREFIX)/lib/perl5/site_perl',
+     'INSTALLSITEARCH' => '$(PREFIX)/lib/perl5/site_perl/i386-linux',
+     'INSTALLBIN' => '$(PREFIX)/bin',
