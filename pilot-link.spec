@@ -100,6 +100,8 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Mon Apr 26 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
   [0.9.2-1]
+- added "-fno-rtti -fno-exceptions -fno-implicit-templates" c++ optimization
+  options,
 - added patch with sync-ldif (application which sync the PalmPilot address
   book with a Netscape Communicator address book LDIF file,
 - addded gzipping man pages and %doc,
