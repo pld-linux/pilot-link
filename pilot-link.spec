@@ -1,7 +1,7 @@
-Summary:	Pilot Link - USR Pilot to Unix transfer utilities.
+Summary:	File transfer utilities between Linux and PalmPilots
 Name:		pilot-link
 Version:	0.9.3
-Release:	2
+Release:	3
 Copyright:	GPL/LGPL
 Group:		Applications/Communications
 Group(pl):	Aplikacje/Komunikacja
@@ -12,7 +12,7 @@ Patch2:		pilot-link-pixdir.patch
 Patch3:		pilot-link.sync-ldif.patch
 Patch4:		pilot-link-DESTDIR.patch
 BuildRequires:	libstdc++-devel
-BuildRequires:	ncurses-devel
+BuildRequires:	ncurses-devel >= 5.0
 BuildRequires:	readline-devel
 BuildRequires:	tcl-devel
 BuildRequires:	tk-devel
@@ -20,12 +20,11 @@ BuildRequires:	XFree86-devel
 BuildRoot:	/tmp/%{name}-%{version}-root
 
 %description
-This suite of tools allows you to upload and download programs
-and data files between a *nix machine and the USR Pilot.  It has
-a few extra utils that will allow for things like syncing the
-Pilot's calendar app with Ical.  Note that you might still need
-to consult the sources for pilot-link if you would like the
-Python, Tcl, or Perl bindings.
+This suite of tools allows you to upload and download programs and data
+files between a Linux/UNIX machine and the PalmPilot. It has a few extra
+utils that will allow for things like syncing the PalmPilot's calendar app
+with Ical. Note that you might still need to consult the sources for
+pilot-link if you would like the Python, Tcl, or Perl bindings.
 
 %package devel
 Summary:	Pilot development header files
