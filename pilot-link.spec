@@ -10,6 +10,7 @@ Release:	1
 License:	GPL
 Group:		Applications/Communications
 Source0:	http://www.pilot-link.org/source/%{name}-%{version}.tar.gz
+# Source0-md5: f51ad0900548a6600de7513cc8f606e6
 URL:		http://www.pilot-link.org/
 Patch0:		%{name}-configure.patch
 BuildRequires:	XFree86-devel
