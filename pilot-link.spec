@@ -9,7 +9,7 @@ Source:		ftp://ryeham.ee.ryerson.ca/pub/PalmOS/%{name}.%{version}.tar.gz
 Patch0:		pilot-link-perl-install.patch
 Patch1:		pilot-link.perl.patch
 Patch2:		pilot-link-pixdir.patch
-Patch3:		pilot-link.sync-ldif.patch
+Patch3:		ftp://ryeham.ee.ryerson.ca/pub/PalmOS/pilot-link.sync-ldif.patch
 BuildPrereq:	glibc-devel
 BuildRoot:	/tmp/%{name}-%{version}-root
 
@@ -72,7 +72,7 @@ mv $RPM_BUILD_ROOT/usr/lib/pilot-link $RPM_BUILD_ROOT/usr/share
 strip --strip-unneeded $RPM_BUILD_ROOT/usr/lib/lib*.so.*.*
 
 gzip -9nf $RPM_BUILD_ROOT/usr/man/man*/* \
-	ChangeLog README
+	ChangeLog README*
 
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
@@ -100,6 +100,8 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Mon Apr 26 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
   [0.9.2-1]
+- added patch with sync-ldif (application which sync the PalmPilot address
+  book with a Netscape Communicator address book LDIF file,
 - addded gzipping man pages and %doc,
 - /sbin/ldconfig now is runed as -p parameter in %post, %postun,
 - added Group(pl),
