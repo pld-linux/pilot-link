@@ -12,6 +12,7 @@ Group:		Applications/Communications
 Source0:	http://www.pilot-link.org/source/%{name}-%{version}.tar.bz2
 # Source0-md5:	586f84add601e8b86da3093ab784e997
 Patch0:		%{name}-tcl_m4.patch
+Patch1:		%{name}-link.patch
 URL:		http://www.pilot-link.org/
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
@@ -136,9 +137,9 @@ PalmPilot.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
-rm -f missing
 %{__libtoolize}
 %{__aclocal}
 %{__autoheader}
@@ -154,7 +155,6 @@ CXXFLAGS="%{rpmcflags} -fno-rtti -fno-exceptions -fno-implicit-templates"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_datadir}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -168,8 +168,8 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc ChangeLog README* doc/README.usb doc/README.debugging NEWS
-%attr(755,root,root) %{_libdir}/lib*.so.*.*
 %attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_libdir}/lib*.so.*.*
 %{_datadir}/pilot-link
 %{_mandir}/man[17]/*
 
