@@ -1,0 +1,125 @@
+--- pilot-link/configure.in~	Mon Jul 31 02:18:39 2000
++++ pilot-link/configure.in	Sat Nov 24 09:57:31 2001
+@@ -13,9 +13,9 @@
+ 
+ dnl Checks for programs.
+ AC_PROG_CC
++AC_PROG_CXX
+ AC_PROG_INSTALL
+ AM_PROG_LIBTOOL
+-AC_PROG_RANLIB
+ AC_PROG_YACC
+ 
+ WITHTCL="WITHOUTTCL"
+@@ -25,57 +25,6 @@
+ WITHPYTHON="WITHOUTPYTHON"
+ WITHJAVA="WITHOUTJAVA"
+ 
+-AC_ARG_WITH(cpp,      [  --with-cpp[=c++ compiler]  use C++     [default=yes]])
+-
+-if test "x$with_cpp" = "xno"; then
+-	CXX=
+-	ac_cv_prog_cxx_works=no
+-else
+-
+-if test "x$with_cpp" = "xyes"; then
+-	with_cpp=""
+-fi
+-
+-if test "x$with_cpp" = "x"; then
+-	AC_CHECK_PROGS(CXX,$CCC c++ g++ gcc CC cxx cc++, gcc)
+-else
+-	CXX=$with_cpp
+-fi
+-
+-AC_LANG_SAVE
+-AC_LANG_CPLUSPLUS
+-AC_CACHE_CHECK([whether C++ compiler ($CXX $CXFLAGS $LDFLAGS) works],
+-  ac_cv_prog_cxx_works,
+-[AC_TRY_COMPILE([#include <stdio.h>], [class a { public: int b; a(void); };
+-a b; ],
+-  ac_cv_prog_cxx_works=yes,ac_cv_prog_cxx_works=no)])
+-AC_LANG_RESTORE
+-
+-AC_PROG_CXX_GNU
+-
+-if test $ac_cv_prog_gxx = yes; then
+-  GXX=yes
+-dnl Check whether -g works, even if CXXFLAGS is set, in case the package
+-dnl plays around with CXXFLAGS (such as to build both debugging and
+-dnl normal versions of a library), tasteless as that idea is.
+-  ac_test_CXXFLAGS="${CXXFLAGS+set}"
+-  ac_save_CXXFLAGS="$CXXFLAGS"
+-  CXXFLAGS=
+-  AC_PROG_CXX_G
+-  if test "$ac_test_CXXFLAGS" = set; then
+-    CXXFLAGS="$ac_save_CXXFLAGS"
+-  elif test $ac_cv_prog_cxx_g = yes; then
+-    CXXFLAGS="-g -O2"
+-  else
+-    CXXFLAGS="-O2"
+-  fi
+-else
+-  GXX=
+-  test "${CXXFLAGS+set}" = set || CXXFLAGS="-g"
+-fi
+-
+-fi
+-
+ ccexecs=''
+ cclib=''
+ libcclib=''
+@@ -84,7 +33,7 @@
+ SUBMAKE_COMM_CC='-true'
+ EXT=''
+ CXXLIBS=''
+-if test $ac_cv_prog_cxx_works = yes; then
++if test "x$ac_cv_prog_cxx_works" = "xyes"; then
+   ccexecs='$(CCEXECS)'
+   cclib='libpicc.a'
+   libcclib='libcc/libpicc.a'
+@@ -116,14 +65,6 @@
+ dnl Checks for libraries.
+ 
+ 
+-if test $ac_cv_prog_cxx_works = yes; then
+-  AC_LANG_SAVE
+-  AC_LANG_CPLUSPLUS
+-  if test $ac_cv_prog_gxx = yes; then
+-    AC_CHECK_LIB(g++, main, CXXLIBS="$CXXLIBS -lg++")
+-  fi
+-  AC_LANG_RESTORE
+-fi
+ AC_CHECK_LIB(m, ldexp, LIBS="$LIBS -lm")
+ AC_CHECK_LIB(PW, alloca, LIBS="$LIBS -lPW")
+ 
+@@ -185,11 +126,6 @@
+ if test "$tcl_checkSocket" = 1; then
+     AC_CHECK_LIB(socket, main, LIBS="$LIBS -lsocket", tcl_checkBoth=1)
+ fi
+-if test "$tcl_checkBoth" = 1; then
+-    tk_oldLibs=$LIBS
+-    LIBS="$LIBS -lsocket -lnsl"
+-    AC_CHECK_FUNC(accept, tcl_checkNsl=0, [LIBS=$tk_oldLibs])
+-fi
+ AC_CHECK_FUNC(gethostbyname, , AC_CHECK_LIB(nsl, main, [LIBS="$LIBS -lnsl"]))
+ AC_CHECK_LIB(inet, main, [LIBS="$LIBS -linet"])
+ 
+@@ -203,7 +139,7 @@
+ [AC_TRY_COMPILE([#include <termios.h>], [int main(void) {
+  struct termios t;t.c_ispeed=t.c_ospeed=0;}],
+   ac_cv_termios_cspeed=yes,ac_cv_termios_cspeed=no)])
+-if test $ac_cv_termios_cspeed = yes; then
++if test "x$ac_cv_termios_cspeed" = "xyes"; then
+   AC_DEFINE(TERMIOS_CSPEED)
+ fi
+ 
+@@ -559,7 +495,7 @@
+ 
+ AC_CONFIG_HEADER(include/pi-config.h include/pi-sockaddr.h)
+ 
+-if test $ac_cv_prog_cxx_works = yes; then
++if test "x$ac_cv_prog_cxx_works" = "xyes"; then
+   cc_m='libcc/Makefile'
+ fi
+ 
