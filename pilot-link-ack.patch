@@ -1,0 +1,23 @@
+--- pilot-link/libsock/padp.c.broken	Fri Oct 27 19:10:05 2000
++++ pilot-link/libsock/padp.c	Wed Jan 31 18:51:39 2001
+@@ -150,14 +150,17 @@
+ 	    else
+ 	       if ((slp->type == (unsigned char) 2)
+ 		   && (padp.type == (unsigned char) padData)
+-		   && (slp->id == ps->xid) && (len == 0)) {
++		   && (slp->id == ps->xid) && (len == tlen)) {
++#ifdef DEBUG
+ 	       fprintf(stderr, "Missing ack\n");
++#endif
+ 	       /* Incoming padData from response to this transmission.
+ 	          Maybe the Ack was lost */
+ 	       /* Don't consume packet, and return success. */
+-	       count = 0;
++	       len = 0;
++	       count += tlen;
++	       flags = 0;
+ 	       goto done;
+-	       return 0;
+ 	    }
+ 	    else if (padp.type == (unsigned char) 4) {
+ 	       /* Tickle to avoid timeout */
