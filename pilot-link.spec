@@ -3,7 +3,7 @@ Summary(es):	Bibliotecas estáticas necesarias para generar aplicaciones Pilot
 Summary(pl):	Narzêdzia do przesy³ania plików miêdzy Linuksem a PalmPilotami
 Summary(pt_BR):	Utilitários de transferência de dados entre Unix e o Pilot
 Name:		pilot-link
-Version:	0.10.99
+Version:	0.11.5
 Release:	1
 License:	GPL
 Group:		Applications/Communications
