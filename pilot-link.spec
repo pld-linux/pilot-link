@@ -1,9 +1,10 @@
 Summary:	File transfer utilities between Linux and PalmPilots
 Summary(es):	Bibliotecas estáticas necesarias para generar aplicaciones Pilot
+Summary(pl):	Narzêdzia do przesy³ania plików miêdzy Linuksem a PalmPilotami
 Summary(pt_BR):	Utilitários de transferência de dados entre Unix e o Pilot
 Name:		pilot-link
 Version:	0.9.5
-Release:	11
+Release:	12
 License:	GPL
 Group:		Applications/Communications
 Group(de):	Applikationen/Kommunikation
@@ -38,6 +39,13 @@ or Perl bindings.
 %description -l es
 Bibliotecas estáticas necesarias para generar aplicaciones Pilot.
 
+%description -l pl
+Ten zestaw narzêdzi pozwala na przesy³anie programów i plików z danymi
+pomiêdzy maszyn± linuksow±/uniksow± a PalmPilotem. Ma kilka
+dodatkowych narzêdzi pozwalaj±cych na synchronizacjê kalendarza
+PalmPilota z programem Ical. Aby u¿ywaæ interfejsu do Pythona, Tcl lub
+Perla, mo¿e byæ potrzeba zajrzenia do ¼róde³ pilot-linka.
+
 %description -l pt_BR
 Este conjunto de ferramentas permite transferir programas e dados
 entre máquinas
@@ -47,6 +55,7 @@ entre máquinas
 %package devel
 Summary:	Pilot development header files
 Summary(es):	Archivos de inclusión para el desarrollo de programas
+Summary(pl):	Pliki nag³ówkowe do biblioteki pilot-link
 Summary(pt_BR):	Arquivos de inclusão para o desenvolvimento de programas
 Group:		Development/Libraries
 Group(de):	Entwicklung/Libraries
@@ -60,20 +69,24 @@ Requires:	%{name} = %{version}
 
 %description devel
 This package contains the development headers that are used to build
-the pilot-link package. It also includes the static libraries
-necessary to build static pilot apps.
+the pilot-link package.
 
-%description -l es devel
+%description devel -l es
 Este paquete contiene los archivos de inclusión necesarios para crear
 aplicaciones Pilot.
 
-%description -l pt_BR devel
+%description devel -l pl
+Ten pakiet zawiera pliki nag³ówkowe u¿ywane przy budowaniu pakietu
+pilot-link.
+
+%description devel -l pt_BR
 Este pacote contém os arquivos de inclusão necessários para gerar
 aplicações Pilot.
 
 %package static
 Summary:	Pilot link static libraries
 Summary(es):	Bibliotecas estáticas necesarias para crear aplicaciones Pilot
+Summary(pl):	Statyczne biblioteki pilot-link
 Summary(pt_BR):	Bibliotecas estáticas necessárias para gerar aplicações Pilot
 Group:		Development/Libraries
 Group(de):	Entwicklung/Libraries
@@ -88,11 +101,14 @@ Requires:	%{name}-devel = %{version}
 %description static
 Pilot link static libraries.
 
-%description -l es static
+%description static -l es
 Este paquete contiene las bibliotecas estáticas necesarias para crear
 aplicaciones Pilot.
 
-%description -l pt_BR static
+%description static -l pl
+Statyczne biblioteki pilot-link.
+
+%description static -l pt_BR
 Este pacote contém as bibliotecas estáticas necessárias para gerar
 aplicações Pilot.
 
@@ -127,11 +143,11 @@ mv -f $RPM_BUILD_ROOT%{_libdir}/pilot-link $RPM_BUILD_ROOT%{_datadir}
 
 gzip -9nf ChangeLog README*
 
-%post   -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
-
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post   -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
