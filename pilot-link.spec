@@ -1,7 +1,7 @@
 Summary:	Pilot Link - USR Pilot to Unix transfer utilities.
 Name:		pilot-link
-Version:	0.9.2
-Release:	2
+Version:	0.9.3
+Release:	1
 Copyright:	GPL/LGPL
 Group:		Applications/Communications
 Group(pl):	Aplikacje/Komunikacja
@@ -63,7 +63,7 @@ CFLAGS="$RPM_OPT_FLAGS -I/usr/X11R6/include" \
 LDFLAGS="-s" \
 CXXFLAGS="$RPM_OPT_FLAGS -fno-rtti -fno-exceptions -fno-implicit-templates" \
 ./configure \
-	--prefix=/usr \
+	--prefix=%{_prefix} \
 	--target=%{_target_platform} \
 	--host=%{_host}
 
@@ -74,7 +74,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_datadir}
 
 make install \
-	prefix=$RPM_BUILD_ROOT/usr
+	prefix=$RPM_BUILD_ROOT%{_prefix}
 
 mv $RPM_BUILD_ROOT%{_libdir}/pilot-link $RPM_BUILD_ROOT%{_datadir}
 
@@ -107,46 +107,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/lib*.a
 
 %changelog
-* Sun May  9 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
-  [0.9.2-2]
-- now package is FHS 2.0 compliant.
-
-* Mon Apr 26 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
-  [0.9.2-1]
-- added "-fno-rtti -fno-exceptions -fno-implicit-templates" c++ optimization
-  options,
-- added patch with sync-ldif (application which sync the PalmPilot address
-  book with a Netscape Communicator address book LDIF file,
-- addded gzipping man pages and %doc,
-- /sbin/ldconfig now is runed as -p parameter in %post, %postun,
-- added Group(pl),
-- added "BuildPrereq: glibc-devel".
-
-* Tue Apr 06 1999 Preston Brown <pbrown@redhat.com>
-- strip binaries
-
-* Tue Mar 30 1999 Preston Brown <pbrown@redhat.com>
-- added missing files from devel subpackage
-
-* Fri Mar 26 1999 Preston Brown <pbrown@redhat.com>
-- move /usr/lib/pix to /usr/lib/pilot-link (dumb, BAD name)
-
-* Sun Mar 21 1999 Cristian Gafton <gafton@redhat.com> 
-- auto rebuild in the new build environment (release 5)
-
-* Wed Feb 24 1999 Preston Brown <pbrown@redhat.com>
-- Injected new description and group.
-
-* Thu Jan 21 1999 Bill Nottingham <notting@redhat.com>
-- arm fix
-
-* Fri Sep 24 1998 Michael Maher <mike@redhat.com>
-- cleaned up spec file, updated package
-
-* Tue May 19 1998 Michael Maher <mike@redhat.com>
-- updated rpm
-
-* Thu Jan 29 1998 Otto Hammersmith <otto@redhat.com>
-- added changelog
-- updated to 0.8.9
-- removed explicit requires for %{_bindir}/perl
+* Thu May 27 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
+  [0.9.3-1]
+- based on RH spec,
+- spec rewrited by PLD team.
