@@ -1,7 +1,9 @@
 Summary:	File transfer utilities between Linux and PalmPilots
+Summary(es):	Bibliotecas estáticas necesarias para generar aplicaciones Pilot
+Summary(pt_BR):	Utilitários de transferência de dados entre Unix e o Pilot
 Name:		pilot-link
 Version:	0.9.5
-Release:	4
+Release:	11
 License:	GPL
 Group:		Applications/Communications
 Group(de):	Applikationen/Kommunikation
@@ -11,14 +13,18 @@ Patch0:		%{name}-pixdir.patch
 Patch1:		%{name}-DESTDIR.patch
 Patch2:		%{name}-misc.patch
 Patch3:		%{name}-ack.patch
+Patch4:		%{name}-gcc3.patch
+Patch5:		%{name}-ac_fixes.patch
 URL:		http://www.gnu-designs.com/pilot-link/
+BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	bison
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
 BuildRequires:	readline-devel >= 4.2
 BuildRequires:	tcl-devel >= 8.3.2
 BuildRequires:	tk-devel >= 8.3.2
-BuildRequires:	XFree86-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -29,12 +35,27 @@ PalmPilot's calendar app with Ical. Note that you might still need to
 consult the sources for pilot-link if you would like the Python, Tcl,
 or Perl bindings.
 
+%description -l es
+Bibliotecas estáticas necesarias para generar aplicaciones Pilot.
+
+%description -l pt_BR
+Este conjunto de ferramentas permite transferir programas e dados
+entre máquinas
+- *nix e o Palm Pilot. Alguns utilitários extras permitem coisas como
+  sincronizar dados entre o calendário do Pilot e o Ical.
+
 %package devel
 Summary:	Pilot development header files
+Summary(es):	Archivos de inclusión para el desarrollo de programas
+Summary(pt_BR):	Arquivos de inclusão para o desenvolvimento de programas
 Group:		Development/Libraries
 Group(de):	Entwicklung/Libraries
+Group(es):	Desarrollo/Bibliotecas
 Group(fr):	Development/Librairies
 Group(pl):	Programowanie/Biblioteki
+Group(pt_BR):	Desenvolvimento/Bibliotecas
+Group(ru):	òÁÚÒÁÂÏÔËÁ/âÉÂÌÉÏÔÅËÉ
+Group(uk):	òÏÚÒÏÂËÁ/â¦ÂÌ¦ÏÔÅËÉ
 Requires:	%{name} = %{version}
 
 %description devel
@@ -42,16 +63,38 @@ This package contains the development headers that are used to build
 the pilot-link package. It also includes the static libraries
 necessary to build static pilot apps.
 
+%description -l es devel
+Este paquete contiene los archivos de inclusión necesarios para crear
+aplicaciones Pilot.
+
+%description -l pt_BR devel
+Este pacote contém os arquivos de inclusão necessários para gerar
+aplicações Pilot.
+
 %package static
 Summary:	Pilot link static libraries
+Summary(es):	Bibliotecas estáticas necesarias para crear aplicaciones Pilot
+Summary(pt_BR):	Bibliotecas estáticas necessárias para gerar aplicações Pilot
 Group:		Development/Libraries
 Group(de):	Entwicklung/Libraries
+Group(es):	Desarrollo/Bibliotecas
 Group(fr):	Development/Librairies
 Group(pl):	Programowanie/Biblioteki
+Group(pt_BR):	Desenvolvimento/Bibliotecas
+Group(ru):	òÁÚÒÁÂÏÔËÁ/âÉÂÌÉÏÔÅËÉ
+Group(uk):	òÏÚÒÏÂËÁ/â¦ÂÌ¦ÏÔÅËÉ
 Requires:	%{name}-devel = %{version}
 
 %description static
 Pilot link static libraries.
+
+%description -l es static
+Este paquete contiene las bibliotecas estáticas necesarias para crear
+aplicaciones Pilot.
+
+%description -l pt_BR static
+Este pacote contém as bibliotecas estáticas necessárias para gerar
+aplicações Pilot.
 
 %prep 
 %setup -q -n %{name}
@@ -59,13 +102,16 @@ Pilot link static libraries.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
+%patch5 -p1
 
 %build
 libtoolize --copy --force
+aclocal
 chmod +w configure
 autoconf
 
-CFLAGS="%{rpmcflags} -I/usr/X11R6/include"
+CFLAGS="%{rpmcflags} -I%{_prefix}/X11R6/include"
 CXXFLAGS="%{rpmcflags} -fno-rtti -fno-exceptions -fno-implicit-templates"
 %configure
 
