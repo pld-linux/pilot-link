@@ -1,0 +1,81 @@
+--- pilot-link.0.9.0/Tcl/Makefile.in.pixdir	Fri Mar 26 08:45:45 1999
++++ pilot-link.0.9.0/Tcl/Makefile.in	Fri Mar 26 08:45:52 1999
+@@ -5,7 +5,7 @@
+ exec_prefix = @exec_prefix@
+ bindir = @bindir@
+ libdir = @libdir@
+-pixdir = ${libdir}/pix
++pixdir = ${libdir}/pilot-link
+ includedir = @includedir@
+ mandir = @mandir@/man1
+ srcdir = ../@srcdir@
+--- pilot-link.0.9.0/dubious/Makefile.in.pixdir	Fri Mar 26 08:46:00 1999
++++ pilot-link.0.9.0/dubious/Makefile.in	Fri Mar 26 08:46:08 1999
+@@ -3,7 +3,7 @@
+ exec_prefix = @exec_prefix@
+ bindir = @bindir@
+ libdir = @libdir@
+-pixdir = ${libdir}/pix
++pixdir = ${libdir}/pilot-link
+ includedir = @includedir@
+ mandir = @mandir@/man1
+ srcdir = @srcdir@
+--- pilot-link.0.9.0/tests/Makefile.in.pixdir	Fri Mar 26 08:46:43 1999
++++ pilot-link.0.9.0/tests/Makefile.in	Fri Mar 26 08:46:50 1999
+@@ -3,7 +3,7 @@
+ exec_prefix = @exec_prefix@
+ bindir = @bindir@
+ libdir = @libdir@
+-pixdir = ${libdir}/pix
++pixdir = ${libdir}/pilot-link
+ includedir = @includedir@
+ mandir = @mandir@/man1
+ srcdir = @srcdir@
+--- pilot-link.0.9.0/Makefile.in.pixdir	Fri Mar 26 08:43:24 1999
++++ pilot-link.0.9.0/Makefile.in	Fri Mar 26 08:43:35 1999
+@@ -2,7 +2,7 @@
+ exec_prefix = @exec_prefix@
+ bindir = @bindir@
+ libdir = @libdir@
+-pixdir = ${libdir}/pix
++pixdir = ${libdir}/pilot-link
+ includedir = @includedir@
+ mandir1 = @mandir@/man1
+ mandir7 = @mandir@/man7
+--- pilot-link.0.9.0/pilot-debug.c.pixdir	Fri Mar 26 08:43:54 1999
++++ pilot-link.0.9.0/pilot-debug.c	Fri Mar 26 08:44:56 1999
+@@ -1173,12 +1173,12 @@
+ wm title .remote {Pilot Remote UI}
+ 
+ catch {
+-	if {[file exists {pix/case.gif}]} {
+-		set dir {pix}
+-	} elseif {[file exists {",LIBDIR,"/pix/case.gif}]} {
+-		set dir {",LIBDIR,"/pix}
++	if {[file exists {pilot-link/case.gif}]} {
++		set dir {pilot-link}
++	} elseif {[file exists {",LIBDIR,"/pilot-link/case.gif}]} {
++		set dir {",LIBDIR,"/pilot-link}
+ 	} else {
+-		error {No pix}
++		error {No pilot-link}
+ 	}
+ 	image create photo Case -format gif -file \"$dir/case.gif\"
+ 	image create photo B1 -format gif -file \"$dir/b1.gif\"
+@@ -1554,11 +1554,11 @@
+ 
+ wm title . \"Pilot Debugger Console\"
+ catch {
+-	wm iconbitmap . {@pix/case.xbm}
+-	wm iconbitmap .remote {@pix/case.xbm}
+-	wm iconbitmap .console {@pix/case.xbm}
+-	wm iconbitmap .state {@pix/case.xbm}
+-	#wm iconmask . {@pix/casemask.xbm}
++	wm iconbitmap . {@pilot-link/case.xbm}
++	wm iconbitmap .remote {@pilot-link/case.xbm}
++	wm iconbitmap .console {@pilot-link/case.xbm}
++	wm iconbitmap .state {@pilot-link/case.xbm}
++	#wm iconmask . {@pilot-link/casemask.xbm}
+ }
+ 
+ frame .m -relief raised
