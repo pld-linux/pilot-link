@@ -33,9 +33,6 @@ Static libraries necessary to build static pilot apps.
 
 %prep 
 %setup -q -n %{name}.%{version}
-%patch0 -p1 -b .install
-%patch1 -p1 -b .perl
-#%patch2 -p1 -b .more-perl
 
 %build
 CFLAGS="$RPM_OPT_FLAGS" CXFLAGS="$RPM_OPT_FLAGS" LDFLAGS="-s" \
