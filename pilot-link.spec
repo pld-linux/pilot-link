@@ -96,7 +96,7 @@ Statyczne biblioteki pilot-link.
 Este pacote contém as bibliotecas estáticas necessárias para gerar
 aplicações Pilot.
 
-%prep 
+%prep
 %setup -q -n %{name}
 %patch0 -p1
 %patch1 -p1
