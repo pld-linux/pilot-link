@@ -19,6 +19,7 @@ BuildRequires:	readline-devel >= 4.2
 BuildRequires:	perl-devel >= 5.6
 BuildRequires:	tcl-devel >= 8.3.2
 BuildRequires:	tk-devel >= 8.3.2
+BuildRequires:  python-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -101,10 +102,12 @@ aplicações Pilot.
 %setup -q
 
 %build
+rm -f missing
 %{__libtoolize}
 aclocal
-chmod +w configure
+autoheader
 %{__autoconf}
+%{__automake}
 
 CFLAGS="%{rpmcflags} -I%{_prefix}/X11R6/include"
 CXXFLAGS="%{rpmcflags} -fno-rtti -fno-exceptions -fno-implicit-templates"
@@ -135,7 +138,9 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/lib*.so
+%attr(755,root,root) %{_libdir}/lib*.la
 %{_includedir}/*
+%{_aclocaldir}/*
 
 %files static
 %defattr(644,root,root,755)
