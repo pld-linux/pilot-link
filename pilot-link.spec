@@ -59,10 +59,13 @@ autoconf
 libtoolize --copy --force
 %endif
 
-CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="-s" \
+CFLAGS="$RPM_OPT_FLAGS -I/usr/X11R6/include" \
+LDFLAGS="-s" \
 CXXFLAGS="$RPM_OPT_FLAGS -fno-rtti -fno-exceptions -fno-implicit-templates" \
-./configure %{_target} \
-	--prefix=/usr
+./configure \
+	--prefix=/usr \
+	--target=%{_target_platform} \
+	--host=%{_host}
 
 make LIBDIR="/usr/share"
 
