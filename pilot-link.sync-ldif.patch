@@ -1,0 +1,3052 @@
+Index: pilot-link/Makefile.in
+diff -c pilot-link/Makefile.in:1.1.1.2 pilot-link/Makefile.in:1.7
+*** pilot-link/Makefile.in:1.1.1.2	Sun Apr  4 10:05:24 1999
+--- pilot-link/Makefile.in	Wed Apr  7 01:53:09 1999
+***************
+*** 82,87 ****
+--- 82,88 ----
+  		install-todos$(EXT) pilot-addresses$(EXT) pilot-clip$(EXT)\
+  		read-ical$(EXT) pilot-mail$(EXT) read-expenses$(EXT) @ccexecs@ \
+  	    reminders$(EXT) memos$(EXT) addresses$(EXT) read-todos$(EXT)\
++                 sync-ldif$(EXT) \
+  		debugsh$(EXT) dlpsh$(EXT) \
+  		getrom$(EXT) pi-getrom$(EXT) pi-getram$(EXT) pi-port$(EXT) \
+  		pi-csd$(EXT) pi-nredir$(EXT) \
+***************
+*** 161,166 ****
+--- 162,170 ----
+  pilot-addresses$(EXT): $(PILIB) $(GETOPT) pilot-addresses.o
+  	$(CCLINK) pilot-addresses.o $(PILIB) $(GETOPT) -o $@ $(LIBS)
+  
++ sync-ldif$(EXT): $(PILIB) $(GETOPT) sync-ldif.o line64.o
++ 	$(CCLINK) sync-ldif.o line64.o $(PILIB) $(GETOPT) -o $@ $(LIBS)
++ 
+  pilot-dedupe$(EXT): $(PILIB) $(GETOPT) pilot-dedupe.o
+  	$(CCLINK) pilot-dedupe.o $(PILIB) $(GETOPT) -o $@ $(LIBS)
+  
+***************
+*** 275,284 ****
+  
+  Tcl: FORCE
+  	cd Tcl; $(MAKE)
+! 	
+  Java: FORCE
+  	cd Java; $(MAKE)
+! 	
+  check test tests: FORCE
+  	cd tests; $(MAKE) tests
+  
+--- 279,288 ----
+  
+  Tcl: FORCE
+  	cd Tcl; $(MAKE)
+! 
+  Java: FORCE
+  	cd Java; $(MAKE)
+! 
+  check test tests: FORCE
+  	cd tests; $(MAKE) tests
+  
+***************
+*** 326,331 ****
+--- 330,341 ----
+  	gcc -o tarball scripts/tarball.c -Iinclude
+  	./tarball
+  
++ sync-ldif.usage.h: README.sync-ldif
++ 	sed -n \
++ 	-e '/_START_SYNC_LDIF_USAGE/,/_END_SYNC_LDIF_USAGE/ { s/^_.*//gp' \
++ 	-e 's/^\(.*\)$$/"\1\\n"/gp' \
++ 	-e '}' < README.sync-ldif > sync-ldif.usage.h
++ 
+  #Depend information starts here. Do not edit the text beyond this point!
+  addresses.o: addresses.c include/pi-source.h include/pi-config.h \
+   include/pi-socket.h include/pi-args.h include/pi-version.h \
+***************
+*** 367,372 ****
+--- 377,383 ----
+  install-user.o: install-user.c include/pi-source.h include/pi-config.h \
+   include/pi-socket.h include/pi-args.h include/pi-version.h \
+   include/pi-sockaddr.h include/pi-macros.h include/pi-dlp.h
++ line64.o: line64.c
+  memos.o: memos.c include/pi-source.h include/pi-config.h \
+   include/pi-socket.h include/pi-args.h include/pi-version.h \
+   include/pi-sockaddr.h include/pi-macros.h include/pi-memo.h \
+***************
+*** 450,452 ****
+--- 461,468 ----
+   include/pi-socket.h include/pi-args.h include/pi-version.h \
+   include/pi-sockaddr.h include/pi-macros.h include/pi-datebook.h \
+   include/pi-appinfo.h include/pi-dlp.h
++ sync-ldif.o: sync-ldif.c include/pi-source.h include/pi-config.h \
++  include/pi-socket.h include/pi-args.h include/pi-version.h \
++  include/pi-sockaddr.h include/pi-macros.h include/pi-dlp.h \
++  include/pi-address.h include/pi-appinfo.h include/pi-sync.h \
++  sync-ldif.usage.h
+Index: pilot-link/Makefile.os2
+diff -c pilot-link/Makefile.os2:1.1.1.2 pilot-link/Makefile.os2:1.4
+*** pilot-link/Makefile.os2:1.1.1.2	Sun Apr  4 10:05:24 1999
+--- pilot-link/Makefile.os2	Wed Apr  7 01:53:09 1999
+***************
+*** 82,87 ****
+--- 82,88 ----
+  		install-todos$(EXT) pilot-addresses$(EXT) pilot-clip$(EXT)\
+  		read-ical$(EXT) pilot-mail$(EXT) read-expenses$(EXT) $(CCEXECS) \
+  	    reminders$(EXT) memos$(EXT) addresses$(EXT) read-todos$(EXT)\
++                 sync-ldif$(EXT) \
+  		debugsh$(EXT) dlpsh$(EXT) \
+  		getrom$(EXT) pi-getrom$(EXT) pi-getram$(EXT) pi-port$(EXT) \
+  		pi-csd$(EXT) pi-nredir$(EXT) \
+***************
+*** 161,166 ****
+--- 162,170 ----
+  pilot-addresses$(EXT): $(PILIB) $(GETOPT) pilot-addresses.o
+  	$(CCLINK) pilot-addresses.o $(PILIB) $(GETOPT) -o $@ $(LIBS)
+  
++ sync-ldif$(EXT): $(PILIB) $(GETOPT) sync-ldif.o line64.o
++ 	$(CCLINK) sync-ldif.o line64.o $(PILIB) $(GETOPT) -o $@ $(LIBS)
++ 
+  pilot-dedupe$(EXT): $(PILIB) $(GETOPT) pilot-dedupe.o
+  	$(CCLINK) pilot-dedupe.o $(PILIB) $(GETOPT) -o $@ $(LIBS)
+  
+***************
+*** 275,284 ****
+  
+  Tcl: FORCE
+  	cd Tcl; $(MAKE)
+! 	
+  Java: FORCE
+  	cd Java; $(MAKE)
+! 	
+  check test tests: FORCE
+  	cd tests; $(MAKE) tests
+  
+--- 279,288 ----
+  
+  Tcl: FORCE
+  	cd Tcl; $(MAKE)
+! 
+  Java: FORCE
+  	cd Java; $(MAKE)
+! 
+  check test tests: FORCE
+  	cd tests; $(MAKE) tests
+  
+***************
+*** 326,331 ****
+--- 330,341 ----
+  	gcc -o tarball scripts/tarball.c -Iinclude
+  	./tarball
+  
++ sync-ldif.usage.h: README.sync-ldif
++ 	sed -n \
++ 	-e '/_START_SYNC_LDIF_USAGE/,/_END_SYNC_LDIF_USAGE/ { s/^_.*//gp' \
++ 	-e 's/^\(.*\)$$/"\1\\n"/gp' \
++ 	-e '}' < README.sync-ldif > sync-ldif.usage.h
++ 
+  #Depend information starts here. Do not edit the text beyond this point!
+  addresses.o: addresses.c include/pi-source.h include/pi-config.h \
+   include/pi-socket.h include/pi-args.h include/pi-version.h \
+***************
+*** 367,372 ****
+--- 377,383 ----
+  install-user.o: install-user.c include/pi-source.h include/pi-config.h \
+   include/pi-socket.h include/pi-args.h include/pi-version.h \
+   include/pi-sockaddr.h include/pi-macros.h include/pi-dlp.h
++ line64.o: line64.c
+  memos.o: memos.c include/pi-source.h include/pi-config.h \
+   include/pi-socket.h include/pi-args.h include/pi-version.h \
+   include/pi-sockaddr.h include/pi-macros.h include/pi-memo.h \
+***************
+*** 450,452 ****
+--- 461,468 ----
+   include/pi-socket.h include/pi-args.h include/pi-version.h \
+   include/pi-sockaddr.h include/pi-macros.h include/pi-datebook.h \
+   include/pi-appinfo.h include/pi-dlp.h
++ sync-ldif.o: sync-ldif.c include/pi-source.h include/pi-config.h \
++  include/pi-socket.h include/pi-args.h include/pi-version.h \
++  include/pi-sockaddr.h include/pi-macros.h include/pi-dlp.h \
++  include/pi-address.h include/pi-appinfo.h include/pi-sync.h \
++  sync-ldif.usage.h
+Index: pilot-link/README.sync-ldif
+diff -c /dev/null pilot-link/README.sync-ldif:1.4
+*** /dev/null	Wed Apr  7 01:06:21 1999
+--- pilot-link/README.sync-ldif	Wed Apr  7 00:41:31 1999
+***************
+*** 0 ****
+--- 1,109 ----
++ _START_SYNC_LDIF_USAGE
++ 
++ Usage: sync-ldif [-v] <ldif_file> [<ldif_sync_file> [<ldif_archive_file>]]
++ 
++ sync-ldif attempts to synchronize the PalmPilot address book with a
++ Netscape Communicator address book LDIF file.
++ 
++ To use it:
++ 
++ 0. BE SAFE AND BACKUP YOUR PALMPILOT AND YOUR COMMUNICATOR ADDRESS
++ BOOK.  To backup you Communicator address book, create a new address
++ book, select all of your old address book entries (i.e. cards) and
++ copy them into the new address book.
++ 
++ 1. Select 'File/Export' in your Communicator address book and enter a
++ file name such as 'net.ldif'.  This is the <ldif_file>.
++ 
++ 2. Run 'sync-ldif -v <ldif_file>'.  It should read <ldif_file>,
++ synchronize with the PalmPilot, and then replace <ldif_file> with a
++ synchronized version suitable for importing into Communicator.  It
++ also reads and writes two other files.  See below for details.  The
++ '-v' option causes 'sync-ldif' to be more verbose and print a short
++ message each time it makes a modification to the PalmPilot or
++ <ldif_file>.
++ 
++ 3. Delete all of the entries in your Communicator address book.  The
++ menu items 'Edit/Select All' and 'Edit/Delete' should do the trick.
++ You made a backup right?
++ 
++ 4. Select 'File/Import' in your Communicator address book and enter the
++ name of the <ldif_file> you used in step 1.
++ 
++ With a little luck, both Communicator and your PalmPilot should now
++ contain entries from both.
++ 
++ The first time you run the program, it will do a slow sync and create
++ a directory in your home directory called '.sync-ldif/'.  Here it will
++ create and maintain the default <ldif_sync_file> 'sync.ldif' and the
++ default <ldif_archive_file> 'archive.ldif'.  If you feel daring, you
++ can override either of these two locations when you run the program.
++ This might be necessary if you have multiple Communicator address
++ books, or multiple PalmPilots.
++ 
++ <ldif_sync_file> contains the <ldif_file> that resulted from the last
++ run of the program.  It is used to determine what changed in
++ Communicator between syncs.  WARNING #1: If you synchronize your
++ PalmPilot address book with something other than <ldif_sync_file>
++ (e.g. another computer, application, or file), you should remove
++ <ldif_sync_file> to force a slow sync.  WARNING #2: Do not synchronize
++ multiple PalmPilots with the same <ldif_sync_file>.
++ 
++ <ldif_archive_file> contains all entries that you marked for archival
++ on the PalmPilot.  The program appends newly archived entries each
++ time it runs.  To recover entries from the archive file, use
++ Communicator to import <ldif_archive_file> into a new address book and
++ then copy the desired entries to your main address book.
++ 
++ If either your PalmPilot or your Communicator address book becomes
++ corrupted, restore it from backup, remove <ldif_sync_file> to force a
++ slow sync, and run sync-ldif again.
++ 
++ FAQ: What is with the entries which start with '!' within Communicator?
++ 
++ Short answer: They indicate a potential conflict.  Look for another
++ entry with the same name or email.  If you find one, do a manual merge
++ if necessary and then delete one.  If you don't find a matching
++ entry, do not worry about it.  One way or the other, remove the '!'s and
++ everything should be OK.
++ 
++ Long answer: If you (a) add an entry on the PalmPilot, (b) modify an
++ existing entry in different ways in Communicator and the PalmPilot, or
++ (c) modify an entry on the PalmPilot such that it has the same name or
++ email as an entry in Communicator which currently exists or has been
++ deleted since the last sync, the sync algorithm tries to create a new
++ entry in Communicator.  This new entry must have a unique name and
++ email.  If the name or email you want already exists in Communicator,
++ the sync algorithm prepends '!'s to both the email and the name until
++ they are both unique in Communicator.
++ 
++ PalmPilot is a registered trademark of 3Com Corporation or its
++ subsidiaries.
++ 
++ Netscape and Netscape Communicator are registered trademarks of Netscape
++ Communications Corporation in the United States and other countries.
++ 
++ _END_SYNC_LDIF_USAGE
++ _START_SYNC_LDIF_DEVELOPER_NOTES
++ 
++ The code is a mess and needs a complete rewrite.  It implements and
++ uses the rather complex and now defunct interface defined by
++ 'pi-sync.h'.  The pilot-link maintainer is understandably reluctant to
++ incorporate this patch because it is based on that defunct interface.
++ I did not realize that the interface was defunct until development of
++ 'sync-ldif' was well underway, so I chose to quickly and sloppily
++ finish what I started and rewrite it later.  Since I am not likely to
++ have time to do a rewrite in the near future, I decided to release it
++ as a patch so that others could use the functionality.
++ 
++ Bottom line: The code seems to work, but it is extremely ugly.  It has
++ memory leaks.  It is poorly commented.  It is poorly structured.  It
++ is inefficient.  It uses a defunct interface (pi-sync.h).  In short,
++ it needs a complete rewrite.  DO NOT USE THIS CODE AS AN EXAMPLE OF
++ HOW TO WRITE A CONDUIT.  Use it as an example of how NOT to write a
++ conduit. :-)
++ 
++ Although I can't promise any help, I encourage you to send bug reports
++ and patches to <sync-ldif@brettle.com>.
++ 
++ _END_SYNC_LDIF_DEVELOPER_NOTES
+Index: pilot-link/line64.c
+diff -c /dev/null pilot-link/line64.c:1.2
+*** /dev/null	Wed Apr  7 01:06:21 1999
+--- pilot-link/line64.c	Tue Apr  6 01:34:34 1999
+***************
+*** 0 ****
+--- 1,328 ----
++ /*
++   Copyright (c) 1992-1996 Regents of the University of Michigan.
++   All rights reserved.
++ 
++   Redistribution and use in source and binary forms are permitted
++   provided that this notice is preserved and that due credit is given
++   to the University of Michigan at Ann Arbor. The name of the University
++   may not be used to endorse or promote products derived from this
++   software without specific prior written permission. This software
++   is provided ``as is'' without express or implied warranty.
++ 
++   This file is derived from line64.c in OpenLDAP which in turn in
++   derived from the University of Michigan's LDAP source code.
++ 
++   * 11 Jan 1999 Dean Brettle <dean@brettle.com>
++   - Copied from OpenLDAP into the pilot-link tree for use by the 
++     sync-addresses application.
++   - Added above copyright notice 
++   - Removed extraneous header files and other references to the other
++     packages
++ */
++ 
++ /* line64.c - routines for dealing with the slapd line format */
++ 
++ #include <stdio.h>
++ #include <stdlib.h>
++ #include <string.h>
++ #include <ctype.h>
++ 
++ #define RIGHT2			0x03
++ #define RIGHT4			0x0f
++ #define CONTINUED_LINE_MARKER	'\001'
++ 
++ #define LINE_WIDTH 76
++ /* VERY conservative estimate of space required for a type-value "line" */
++ #define LDIF_SIZE_NEEDED(t, v) (4*((t)+(v)))
++ 
++ static char nib2b64[0x40f] =
++         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
++ 
++ static unsigned char b642nib[0x80] = {
++ 	0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
++ 	0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
++ 	0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
++ 	0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
++ 	0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
++ 	0xff, 0xff, 0xff, 0x3e, 0xff, 0xff, 0xff, 0x3f,
++ 	0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b,
++ 	0x3c, 0x3d, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
++ 	0xff, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06,
++ 	0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e,
++ 	0x0f, 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16,
++ 	0x17, 0x18, 0x19, 0xff, 0xff, 0xff, 0xff, 0xff,
++ 	0xff, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f, 0x20,
++ 	0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28,
++ 	0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e, 0x2f, 0x30,
++ 	0x31, 0x32, 0x33, 0xff, 0xff, 0xff, 0xff, 0xff
++ };
++ 
++ /*
++  * str_parse_line - takes a line of the form "type:[:] value" and splits it
++  * into components "type" and "value".  if a double colon separates type from
++  * value, then value is encoded in base 64, and parse_line un-decodes it
++  * (in place) before returning.
++  */
++ 
++ int
++ str_parse_line(
++     char	*line,
++     char	**type,
++     char	**value,
++     int		*vlen
++ )
++ {
++ 	char	*p, *s, *d, *byte, *stop;
++ 	char	nib;
++ 	int	i, b64;
++ 
++ 	/* skip any leading space */
++ 	while ( isspace( *line ) ) {
++ 		line++;
++ 	}
++ 	*type = line;
++ 
++ 	for ( s = line; *s && *s != ':'; s++ )
++ 		;	/* NULL */
++ 	if ( *s == '\0' ) {
++ 		fprintf(stderr, "parse_line missing ':'\n");
++ 		return( -1 );
++ 	}
++ 
++ 	/* trim any space between type and : */
++ 	for ( p = s - 1; p > line && isspace( *p ); p-- ) {
++ 		*p = '\0';
++ 	}
++ 	*s++ = '\0';
++ 
++ 	/* check for double : - indicates base 64 encoded value */
++ 	if ( *s == ':' ) {
++ 		s++;
++ 		b64 = 1;
++ 
++ 	/* single : - normally encoded value */
++ 	} else {
++ 		b64 = 0;
++ 	}
++ 
++ 	/* skip space between : and value */
++ 	while ( isspace( *s ) ) {
++ 		s++;
++ 	}
++ 
++ 	/* if no value is present, error out */
++ 	if ( *s == '\0' ) {
++ 		fprintf(stderr, "parse_line missing value for %s\n", *type);
++ 		return( -1 );
++ 	}
++ 
++ 	/* check for continued line markers that should be deleted */
++ 	for ( p = s, d = s; *p; p++ ) {
++ 		if ( *p != CONTINUED_LINE_MARKER )
++ 			*d++ = *p;
++ 	}
++ 	*d = '\0';
++ 
++ 	*value = s;
++ 	if ( b64 ) {
++ 		stop = strchr( s, '\0' );
++ 		byte = s;
++ 		for ( p = s, *vlen = 0; p < stop; p += 4, *vlen += 3 ) {
++ 			for ( i = 0; i < 3; i++ ) {
++ 				if ( p[i] != '=' && (p[i] & 0x80 ||
++ 				    b642nib[ p[i] & 0x7f ] > 0x3f) ) {
++ 					fprintf(stderr, "invalid base 64 encoding char (%c) 0x%x\n",
++ 					    p[i], p[i]);
++ 					return( -1 );
++ 				}
++ 			}
++ 
++ 			/* first digit */
++ 			nib = b642nib[ p[0] & 0x7f ];
++ 			byte[0] = nib << 2;
++ 			/* second digit */
++ 			nib = b642nib[ p[1] & 0x7f ];
++ 			byte[0] |= nib >> 4;
++ 			byte[1] = (nib & RIGHT4) << 4;
++ 			/* third digit */
++ 			if ( p[2] == '=' ) {
++ 				*vlen += 1;
++ 				break;
++ 			}
++ 			nib = b642nib[ p[2] & 0x7f ];
++ 			byte[1] |= nib >> 2;
++ 			byte[2] = (nib & RIGHT2) << 6;
++ 			/* fourth digit */
++ 			if ( p[3] == '=' ) {
++ 				*vlen += 2;
++ 				break;
++ 			}
++ 			nib = b642nib[ p[3] & 0x7f ];
++ 			byte[2] |= nib;
++ 
++ 			byte += 3;
++ 		}
++ 		s[ *vlen ] = '\0';
++ 	} else {
++ 		*vlen = (int) (d - s);
++ 	}
++ 
++ 	return( 0 );
++ }
++ 
++ /*
++  * str_getline - return the next "line" (minus newline) of input from a
++  * string buffer of lines separated by newlines, terminated by \n\n
++  * or \0.  this routine handles continued lines, bundling them into
++  * a single big line before returning.  if a line begins with a white
++  * space character, it is a continuation of the previous line. the white
++  * space character (nb: only one char), and preceeding newline are changed
++  * into CONTINUED_LINE_MARKER chars, to be deleted later by the
++  * str_parse_line() routine above.
++  *
++  * it takes a pointer to a pointer to the buffer on the first call,
++  * which it updates and must be supplied on subsequent calls.
++  */
++ 
++ char *
++ str_getline( char **next )
++ {
++ 	char	*l;
++ 	char	c;
++ 
++ 	if ( *next == NULL || **next == '\n' || **next == '\0' ) {
++ 		return( NULL );
++ 	}
++ 
++ 	l = *next;
++ 	while ( (*next = strchr( *next, '\n' )) != NULL ) {
++ 		c = *(*next + 1);
++ 		if ( isspace( c ) && c != '\n' ) {
++ 			**next = CONTINUED_LINE_MARKER;
++ 			*(*next+1) = CONTINUED_LINE_MARKER;
++ 		} else {
++ 			*(*next)++ = '\0';
++ 			break;
++ 		}
++ 		(*next)++;
++ 	}
++ 
++ 	return( l );
++ }
++ 
++ void
++ put_type_and_value( char **out, char *t, char *val, int vlen )
++ {
++ 	unsigned char	*byte, *p, *stop;
++ 	unsigned char	buf[3];
++ 	unsigned long	bits;
++ 	char		*save;
++ 	int		i, b64, pad, len, savelen;
++ 	len = 0;
++ 
++ 	/* put the type + ": " */
++ 	for ( p = (unsigned char *) t; *p; p++, len++ ) {
++ 		*(*out)++ = *p;
++ 	}
++ 	*(*out)++ = ':';
++ 	len++;
++ 	save = *out;
++ 	savelen = len;
++ 	*(*out)++ = ' ';
++ 	b64 = 0;
++ 
++ 	stop = (unsigned char *) (val + vlen);
++ 	if ( isascii( val[0] ) && (isspace( val[0] ) || val[0] == ':') ) {
++ 		b64 = 1;
++ 	} else {
++ 		for ( byte = (unsigned char *) val; byte < stop;
++ 		    byte++, len++ ) {
++ 			if ( !isascii( *byte ) || !isprint( *byte ) ) {
++ 				b64 = 1;
++ 				break;
++ 			}
++ 			if ( len > LINE_WIDTH ) {
++ 				*(*out)++ = '\n';
++ 				*(*out)++ = ' ';
++ 				len = 1;
++ 			}
++ 			*(*out)++ = *byte;
++ 		}
++ 	}
++ 	if ( b64 ) {
++ 		*out = save;
++ 		*(*out)++ = ':';
++ 		*(*out)++ = ' ';
++ 		len = savelen + 2;
++ 		/* convert to base 64 (3 bytes => 4 base 64 digits) */
++ 		for ( byte = (unsigned char *) val; byte < stop - 2;
++ 		    byte += 3 ) {
++ 			bits = (byte[0] & 0xff) << 16;
++ 			bits |= (byte[1] & 0xff) << 8;
++ 			bits |= (byte[2] & 0xff);
++ 
++ 			for ( i = 0; i < 4; i++, len++, bits <<= 6 ) {
++ 				if ( len > LINE_WIDTH ) {
++ 					*(*out)++ = '\n';
++ 					*(*out)++ = ' ';
++ 					len = 1;
++ 				}
++ 
++ 				/* get b64 digit from high order 6 bits */
++ 				*(*out)++ = nib2b64[ (bits & 0xfc0000L) >> 18 ];
++ 			}
++ 		}
++ 
++ 		/* add padding if necessary */
++ 		if ( byte < stop ) {
++ 			for ( i = 0; byte + i < stop; i++ ) {
++ 				buf[i] = byte[i];
++ 			}
++ 			for ( pad = 0; i < 3; i++, pad++ ) {
++ 				buf[i] = '\0';
++ 			}
++ 			byte = buf;
++ 			bits = (byte[0] & 0xff) << 16;
++ 			bits |= (byte[1] & 0xff) << 8;
++ 			bits |= (byte[2] & 0xff);
++ 
++ 			for ( i = 0; i < 4; i++, len++, bits <<= 6 ) {
++ 				if ( len > LINE_WIDTH ) {
++ 					*(*out)++ = '\n';
++ 					*(*out)++ = ' ';
++ 					len = 1;
++ 				}
++ 
++ 				if( i + pad < 4 ) {
++ 					/* get b64 digit from low order 6 bits */
++ 					*(*out)++ = nib2b64[ (bits & 0xfc0000L) >> 18 ];
++ 				} else {
++ 					*(*out)++ = '=';
++ 				}
++ 			}
++ 		}
++ 	}
++ 	*(*out)++ = '\n';
++ }
++ 
++ 
++ char *
++ ldif_type_and_value( char *type, char *val, int vlen )
++ /*
++  * return malloc'd, zero-terminated LDIF line
++  */
++ {
++     char	*buf, *p;
++     int		tlen;
++ 
++     tlen = strlen( type );
++     if (( buf = (char *)malloc( LDIF_SIZE_NEEDED( tlen, vlen ) + 1 )) !=
++ 	    NULL ) {
++     }
++ 
++     p = buf;
++     put_type_and_value( &p, type, val, vlen );
++     *p = '\0';
++ 
++     return( buf );
++ }
+Index: pilot-link/sync-ldif.c
+diff -c /dev/null pilot-link/sync-ldif.c:1.7
+*** /dev/null	Wed Apr  7 01:06:21 1999
+--- pilot-link/sync-ldif.c	Wed Apr  7 00:41:31 1999
+***************
+*** 0 ****
+--- 1,1661 ----
++ /* sync-ldif.c:  Pilot Netscape Communicator address conduit.
++  *
++  * This is free software, licensed under the GNU Public License V2.
++  * See the file COPYING for details.
++  *
++  * IMPORTANT!! WARNING!! DANGER!!: Read the Developer Notes in
++  * README.sync-ldif before using this code.
++  *
++  * Code written by Dean Brettle <dean@brettle.com> based on some code
++  * by Kenneth Albanowski.
++  *
++  * */
++ 
++ #include <stdio.h>
++ #include <stdlib.h>
++ #include <assert.h>
++ 
++ #include <time.h>
++ 
++ #include "pi-source.h"
++ #include "pi-socket.h"
++ #include "pi-dlp.h"
++ #include "pi-address.h"
++ #include "pi-sync.h"
++ 
++ #include <sys/stat.h>
++ #include <sys/types.h>
++ #include <fcntl.h>
++ #include <unistd.h>
++ 
++ #define PILOTPORT "/dev/pilot"
++ 
++ static int sync_ldif_debug = 0;
++ /* Debugging printf */
++ #define dprintf if (sync_ldif_debug) printf
++ #define d2printf if (sync_ldif_debug > 1) printf
++ #define d2EntryPrint if (sync_ldif_debug > 1) EntryPrint
++ #define d2AttributePrint if (sync_ldif_debug > 1) AttributePrint
++ 
++ /* The following functions are defined in line64.c */
++ int
++ str_parse_line(
++     char	*line,
++     char	**type,
++     char	**value,
++     int		*vlen
++ );
++ 
++ char *
++ str_getline( char **next );
++ 
++ char *
++ ldif_type_and_value( char *type, char *val, int vlen );
++ 
++ 
++ /* Data structures used by sync-addresses */
++ 
++ typedef struct {
++   int status;
++   char *type, *value;
++   int value_length;
++ } Attribute;
++ 
++ /* Define our own LocalRecord type. */
++ typedef struct LocalRecord {
++   StandardLocalRecord;
++   long ID;
++   time_t mtime;
++   Attribute **attrs;
++   int num_attrs;
++   int num_attrs_allocated;
++ } Entry;
++ 
++ typedef struct {
++   Entry **entries;
++   int num_entries;
++   int num_entries_allocated;
++ } Database;
++ 
++ /* Define our own SyncAbs type */
++ struct SyncAbs {
++   StandardSyncAbs;
++   Database **db_p;
++   Database **db_archive_p;
++   struct AddressAppInfo *aai;
++   int slow_sync;
++   int sd;
++ };
++ 
++ /* Functions */
++ 
++ char * StringAppend(char **dest_p, char *src)
++ {
++   assert(dest_p && src);
++   if (!*dest_p) {
++     *dest_p = calloc(strlen(src)+1, sizeof(char));
++   } else {
++     *dest_p = realloc(*dest_p, strlen(*dest_p)+strlen(src)+1);
++   }
++   assert(*dest_p);
++   strcat(*dest_p, src);
++   return *dest_p;
++ }
++ 
++ 
++ void AttributePrint(Attribute *attr, FILE *fp)
++ {    
++   char *line 
++     = ldif_type_and_value( attr->type, attr->value, attr->value_length);
++     
++   assert(line != NULL);
++   fputs(line, fp);
++   free(line);
++ }
++ 
++ void EntryPrint(Entry *entry, FILE *fp)
++ {
++   int a;
++  
++  for (a = 0; a < entry->num_attrs; a++) {
++     Attribute *attr = entry->attrs[a];
++     AttributePrint(attr, fp);
++   }
++ }
++ 
++ int EntryFindAttribute(int *a_p, Entry *entry, char *type) 
++ {
++   int a = 0;
++   
++   assert(a_p);
++   if (!entry) return -1;
++   for (a = *a_p; a < entry->num_attrs; a++) {
++     Attribute *attr = entry->attrs[a]; 
++     if (strcmp(attr->type, type) == 0) break;
++   }
++   *a_p = a;
++   if (a < entry->num_attrs)
++     return a;
++   else
++     return -1;
++ }
++ 
++ 
++ Entry *EntryAppendAttribute(Entry **entry_p, Attribute *attr)
++ {
++   const int chunk_size = 10;
++   const int growth_factor = 2;
++   Entry *e = NULL;
++ 
++   assert(entry_p && attr);
++   if (!*entry_p) {
++     *entry_p = calloc(1, sizeof(Entry));
++   }
++   e = *entry_p;
++   if (!e->attrs) {
++     e->attrs = calloc(chunk_size, sizeof(Attribute*));
++     e->num_attrs_allocated = chunk_size;
++   }
++ 
++   assert(e->attrs);
++   if (e->num_attrs == e->num_attrs_allocated) {
++     e->num_attrs_allocated *= growth_factor;
++     e->attrs = realloc(e->attrs, 
++ 		       e->num_attrs_allocated * sizeof(Attribute*));
++     memset(e->attrs + e->num_attrs, 0,
++ 	   (e->num_attrs_allocated - e->num_attrs) * sizeof(Attribute*));
++   }
++   e->attrs[e->num_attrs] = attr;
++   e->num_attrs++;
++   *entry_p = e;
++   return *entry_p;
++ }
++ 
++ 
++ void EntryDeleteAttribute(Entry *entry, int a)
++ {
++   Attribute *attribute = NULL;
++ 
++   assert(entry);
++   assert(entry->attrs);
++   assert(a < entry->num_attrs);
++   assert(entry->attrs[a]);
++   
++   attribute = entry->attrs[a];
++   free(attribute->type);
++   free(attribute->value);
++   free(attribute);
++   memmove(entry->attrs + a, entry->attrs + a + 1, 
++ 	  (entry->num_attrs - a - 1) * sizeof(Attribute *));
++   entry->num_attrs--;
++ }  
++ 
++ 
++ Entry  *EntrySetAttribute(Entry **entry_p, char *name, char *value)
++ {
++   Entry *entry = NULL;
++   Attribute *attr = NULL;
++   int a = 0;
++ 
++   assert(entry_p);
++   assert(name);
++   entry = *entry_p;
++ 
++   if (EntryFindAttribute(&a, entry, name) < 0) {
++     if (!value) {
++       return entry;
++     }
++     attr = (Attribute *)calloc(1, sizeof(Attribute));
++     entry = EntryAppendAttribute(entry_p, attr);
++     attr->type = strdup(name);
++   } else {
++     if (!value) {
++       EntryDeleteAttribute(entry, a);
++       return entry;
++     }
++     attr = entry->attrs[a];
++     free(attr->value);
++   }    
++   attr->value = strdup(value);
++   attr->value_length = strlen(value);
++ 
++   return entry;
++ }
++ 
++ Database *DatabaseCreate()
++ {
++   Database *db = NULL;
++   const int chunk_size = 10;
++ 
++   db = calloc(1, sizeof(Database));
++   db->entries = calloc(chunk_size, sizeof(Entry*));
++   db->num_entries_allocated = chunk_size;
++   return db;
++ }
++ 
++ Database *DatabaseAppendEntry(Database **db_p, Entry *entry)
++ {
++   const int growth_factor = 2;
++   Database *db = NULL;
++ 
++   assert(db_p && entry);
++   if (!*db_p) {
++     *db_p = DatabaseCreate();
++   }
++   db = *db_p;
++ 
++   assert(db->entries);
++   if (db->num_entries == db->num_entries_allocated) {
++     db->num_entries_allocated *= growth_factor;
++     db->entries = realloc(db->entries, 
++ 		       db->num_entries_allocated * sizeof(Entry*));
++     memset(db->entries + db->num_entries, 0,
++ 	   (db->num_entries_allocated - db->num_entries) * sizeof(Entry*));
++   }
++   db->entries[db->num_entries] = entry;
++   db->num_entries++;
++   *db_p = db;
++ 
++   return *db_p;
++ }
++ 
++ 
++ void DatabaseDeleteEntry(Database *db, int e)
++ {
++   Entry *entry = NULL;
++ 
++   assert(db);
++   assert(db->entries);
++   assert(e < db->num_entries);
++   assert(db->entries[e]);
++   
++   entry = db->entries[e];
++   while (entry->num_attrs)
++     EntryDeleteAttribute(entry, 0);
++   free(entry);
++   memmove(db->entries + e, db->entries + e + 1, 
++ 	  (db->num_entries - e - 1) * sizeof(Entry *));
++   db->num_entries--;
++ }  
++   
++ 
++ Database *ReadLdif(char *filename)
++ {
++   Entry *entry;
++   FILE *fp = NULL;
++   int buf_length = 4096;
++   char buf[buf_length];
++   char *ldif_string = NULL;
++   char *line = NULL;
++   char *p = NULL;
++   Database *db = NULL;
++ 
++   if (!(fp = fopen(filename, "r"))) {
++     return NULL;
++   }
++ 
++   db = DatabaseCreate();
++   /* Read the whole file into a string */
++   while (!feof(fp)) {
++     int n_bytes = fread(buf, 1, buf_length-1, fp);
++     if (n_bytes > 0) {
++       buf[n_bytes] = 0;
++       StringAppend(&ldif_string, buf);
++     }
++   }
++ 
++   /* str_getline() takes a pointer to a pointer to the buffer on the
++      first call, which it updates and must be supplied on subsequent
++      calls. */
++   p = ldif_string;
++   while (p && *p) {
++     /* Skip any leading blank lines */
++     while (*p /* not eof */
++ 	   && (line = str_getline(&p)) == NULL /* blank */)
++       ;
++     entry = NULL;
++     while (line) {
++       Attribute *attr;
++     
++       if (line[0] == '#') continue; /* Skip comments */
++       attr = (Attribute *)calloc(1, sizeof(Attribute));
++       if (str_parse_line(line,
++ 			 &(attr->type), &(attr->value), &(attr->value_length))
++ 	  < 0) {
++ 	exit(1);
++       }
++       /* We need our own separately allocated copies of the type and value */
++       attr->type = strdup(attr->type);
++       attr->value = strdup(attr->value);
++       EntryAppendAttribute(&entry, attr);
++       line = str_getline(&p); /* get the next line */
++     }
++     if (entry) DatabaseAppendEntry(&db, entry);
++     while (*p == '\n') p++; /* Skip trailing blank lines */
++   }
++   fclose(fp);
++   return db;
++ }      
++ 
++ void WriteLdif(Database *db, char *filename)
++ {
++   FILE *fp;
++   int e;
++ 
++   assert(db != NULL);
++ 
++   if (!(fp = fopen(filename, "w"))) {
++     perror("Unable to open file");
++     exit(1);
++   }
++   
++   for (e = 0; e < db->num_entries; e++) {
++     Entry *entry = db->entries[e];
++     
++     if (e > 0) {
++       fputc('\n', fp); /* Blank line to separate entries */
++     }
++     EntryPrint(entry, fp);
++   }
++   fclose(fp);
++ }
++ 
++ Entry *DatabaseFindEntryMatchAttribute(Database *dbs, Entry *entry, char *type)
++ { 
++   int se=0, a=0;
++   Attribute *attr=NULL;
++ 
++   assert(dbs);
++   assert(entry);
++   assert(type);
++ 
++   if (EntryFindAttribute(&a, entry, type) >= 0) {
++     attr = entry->attrs[a];
++   }
++   if (!attr) return NULL;
++ 
++   for (se = 0; se < dbs->num_entries; se++) {
++     Entry *sync_entry = dbs->entries[se];
++     
++     a = 0;
++     while (EntryFindAttribute(&a, sync_entry, type) >= 0) {
++       Attribute *sync_attr = sync_entry->attrs[a];
++       if (sync_attr->value_length == attr->value_length
++ 	  && memcmp(sync_attr->value, attr->value, attr->value_length) == 0) {
++ 	return sync_entry;
++       }
++       a++;
++     }
++   }
++ 
++   return NULL;
++ }
++   
++ 
++ Entry *DatabaseFindEntry(Database *dbs, Entry *entry)
++ {
++   Entry *sync_entry = NULL;
++ 
++   sync_entry = DatabaseFindEntryMatchAttribute(dbs, entry, "dn");
++   if (sync_entry) return sync_entry;
++ 
++   sync_entry = DatabaseFindEntryMatchAttribute(dbs, entry, "mail");
++   if (sync_entry) return sync_entry;
++ 
++   sync_entry = DatabaseFindEntryMatchAttribute(dbs, entry, "cn");
++   if (sync_entry) return sync_entry;
++ 
++   return NULL;
++ }
++ 
++ Attribute *AttributeCopy(Attribute *attr)
++ {
++   Attribute *new_attr = NULL;
++ 
++   assert(attr);
++   new_attr = calloc(1, sizeof(Attribute));
++   new_attr->type = strdup(attr->type);
++   /* Leave enough space for the \0 */
++   new_attr->value = malloc(attr->value_length+1);
++   new_attr->value_length = attr->value_length;
++   memcpy(new_attr->value, attr->value, attr->value_length+1);
++ 
++   return new_attr;
++ }
++ 
++ Entry *EntryCopy(Entry *entry)
++ {
++   Entry *new_entry = NULL;
++   int a = 0;
++ 
++   assert(entry);
++ 
++   for (a = 0; a < entry->num_attrs; a++) {
++     EntryAppendAttribute(&new_entry, AttributeCopy(entry->attrs[a]));
++   }
++   return new_entry;
++ }
++ 
++ char *EntryGetAttribute(Entry *entry, char *type)
++ {
++   int a = 0;
++   if (EntryFindAttribute(&a, entry, type) == -1) return NULL;
++   return entry->attrs[a]->value;
++ }
++ 
++ /*  These are the important functions below. They implement the interface that
++     the abstract synchronization layer invokes */
++ 
++ /* Get a Pilot ID for a local record, or 0 if no Pilot ID has been set. Any
++    local ID mechanism is not relevent, only IDs given by the Pilot. */
++ unsigned long GetPilotID(SyncAbs * thisSA,LocalRecord * entry) 
++ {
++   int a = 0;
++ 
++   assert(entry);
++   EntryFindAttribute(&a, entry, "xpilot-id");
++   if (a < entry->num_attrs) {
++     return atol(entry->attrs[a]->value);
++   } else {
++     return 0;
++   }
++ }
++ 
++ /* Set the ID on a local record to match a given Pilot ID. */
++ int SetPilotID(SyncAbs * thisSA, LocalRecord *entry, unsigned long ID)
++ {
++   char buf [40];
++ 
++   assert(entry);
++   sprintf(buf, "%ld", ID);
++   EntrySetAttribute(&entry, "xpilot-id", buf);
++   return 0;
++ }
++ 
++ /* Free up the LocalRecord returned by MatchRecord */
++ int FreeMatch(SyncAbs * thisSA, LocalRecord ** Local)
++ {
++   assert(Local);
++   *Local = NULL;
++   return 0;
++ }
++ 
++ /* Iterate over all LocalRecords, in arbitrary order */
++ int Iterate(SyncAbs * thisSA, LocalRecord ** Local) 
++ {
++   LocalRecord *entry = NULL;
++   Database *db = NULL;
++ 
++   assert(thisSA);
++   assert(thisSA->db_p);
++   assert(Local);
++ 
++   db = *(thisSA->db_p);
++   if (!db) {
++     *Local = NULL;
++     return 0;
++   }
++ 
++   entry = *Local;
++   if( !entry) {
++     entry = db->entries[0];
++   } else {
++     int e = 0;
++ 
++     /* Look for the current entry */
++     for (e = 0; e < db->num_entries; e++) {
++       if (entry == db->entries[e])
++ 	break;
++     }
++     /* Move to the next one */
++     e++;
++     if (e < db->num_entries)
++       entry = db->entries[e];
++     else 
++       entry = NULL;
++   }
++   *Local = entry;
++   return (entry != NULL);
++ }
++ 
++ /* NOTE: IterateSpecific() just returns the next record
++    which is new, modified, or deleted.  The 3rd and 4th 
++    parameters are ignored */
++ int IterateSpecific(SyncAbs * thisSA, LocalRecord ** Local, 
++ 		    int flag, int archived) 
++ {
++   LocalRecord *entry = NULL;
++   Database *db = NULL;
++   int e = 0;
++ 
++   assert(thisSA);
++   assert(thisSA->db_p);
++   assert(Local);
++ 
++   db = *(thisSA->db_p);
++   if (!db) {
++     *Local = NULL;
++     return 0;
++   }
++ 
++   entry = *Local;
++   if( !entry) {
++     entry = db->entries[0];
++   } else {
++ 
++     /* Look for the current entry */
++     for (e = 0; e < db->num_entries; e++) {
++       if (entry == db->entries[e])
++ 	break;
++     }
++     /* Move to the next one */
++     e++;
++     if (e < db->num_entries)
++       entry = db->entries[e];
++     else 
++       entry = NULL;
++   }
++   while (entry && entry->attr == RecordNothing) {
++     e++;
++     if (e < db->num_entries)
++       entry = db->entries[e];
++     else 
++       entry = NULL;
++   }
++ 
++   *Local = entry;
++ 
++   if (entry) {
++     char *dn = EntryGetAttribute(entry, "dn");
++     if (entry->attr == RecordNew) {
++       dprintf("Adding the following record to the pilot:\n\t");
++     }
++     if (entry->attr == RecordModified) {
++       dprintf("Modifying the following record on the pilot:\n\t");
++     }
++     if (entry->attr == RecordDeleted) {
++       dprintf("Deleting the following record on the pilot:\n\t");
++     }
++     dprintf("%s\n\n", dn?dn:"No dn attribute");
++   }
++   return (entry != NULL);
++ }
++ 
++ /* Set status of local record */
++ int SetStatus(SyncAbs * thisSA,LocalRecord * Local, int status) {
++   Local->attr = status;
++   d2printf("Changed the status on the following record to %d:\n", status);
++   d2EntryPrint((Entry *)Local, stdout);
++   d2printf("\n");
++   return 0;
++ }
++ 
++ /* There is no GetStatus, the abstract layer used Local->attr */
++ 
++ /* Set archival status of local record */
++ int SetArchived(SyncAbs * thisSA,LocalRecord * Local,int archived) {
++         Local->archived = archived;
++ 	return 0;
++ }
++ 
++ /* There is no GetStatus, the abstract layer used Local->archived */
++ 
++ char *PilotGetPhone(struct AddressAppInfo *aai, 
++ 		    struct Address *ai, char *name)
++ {
++   int p = 0;
++   
++   assert(aai);
++   assert(ai);
++   for (p = 0; p < 5; p++) {
++     if (strcmp(aai->phoneLabels[ai->phoneLabel[p]], name) == 0) break;
++   }
++   if (p >= 5) return NULL;
++   return (ai->entry[entryPhone1 + p]);
++ }
++ 
++ 
++ int PilotFindLabel(struct AddressAppInfo *aai, 
++ 		    char *name)
++ {
++   int p = 0;
++   
++   assert(aai);
++   if (!name) return 0;
++   for (p = 0; p < 8; p++) {
++     if (strcmp(aai->phoneLabels[p], name) == 0) break;
++   }
++   if (p >= 8) return -1;
++   return p;
++ }
++ 
++ 
++ 
++ /* Given a PilotRecord, try and find a local record with a matching ID */
++ int MatchRecord(SyncAbs * thisSA,  LocalRecord ** Local, PilotRecord * p) 
++ {
++   Database *db = NULL;
++   Entry theEntry;
++   Entry *entry = NULL;
++   Attribute theAttr;
++   Attribute *attr = NULL;
++   char buf[40];
++ 
++   assert(thisSA);
++   assert(thisSA->db_p);
++ 
++   db = *(thisSA->db_p);
++   if (!db) {
++     *Local = NULL;
++     return -1;
++   }
++ 
++   entry = &theEntry;
++   memset(entry, 0, sizeof(Entry));
++   attr = &theAttr;
++   attr->type = strdup("xpilot-id");
++   sprintf(buf, "%ld", p->ID);
++   attr->value = buf;
++   attr->value_length = strlen(attr->value);
++   EntryAppendAttribute(&entry, attr);
++   *Local = DatabaseFindEntryMatchAttribute(db, entry, "xpilot-id");
++   if (*Local == NULL && thisSA->slow_sync) {
++     struct Address ai;
++     struct AddressAppInfo *aai = NULL;
++     char *gn = NULL;
++     char *sn = NULL; 
++     char *cn = NULL;
++     char *mail = NULL;
++ 
++     Entry tmpEntryStruct;
++     Entry *tmpEntry = &tmpEntryStruct;
++ 
++     aai = thisSA->aai;
++     unpack_Address(&ai, p->record, p->length);
++ 
++     gn = ai.entry[entryFirstname];
++     sn = ai.entry[entryLastname];
++     mail = PilotGetPhone(aai, &ai, "E-mail");
++     if (gn || sn) {
++       if (gn) {
++ 	StringAppend(&cn, gn);
++       }
++       if (sn) {
++ 	if (gn) StringAppend(&cn, " ");
++ 	StringAppend(&cn, sn);
++       }
++     } else if (mail) {
++       StringAppend(&cn, mail);
++     }
++ 
++     memset(tmpEntry, 0, sizeof(Entry));
++     EntrySetAttribute(&tmpEntry, "mail", mail);
++     EntrySetAttribute(&tmpEntry, "cn", cn);
++       
++     *Local = DatabaseFindEntry(db, tmpEntry);
++     if (*Local) {
++       SetPilotID(thisSA, *Local, p->ID);
++     }
++   }
++ 
++   return ((*Local == NULL) ? -1 : 0);
++ }
++ 
++ /* Given a PilotRecord, store it in the local database */
++ int StoreRemote(SyncAbs * thisSA, PilotRecord* p) {
++   LocalRecord *entry = NULL;
++   struct Address ai;
++   Database **db_p = NULL;
++   struct AddressAppInfo *aai = NULL;
++   char buf[40];
++   long new_ID = 0;
++   char *mail = NULL;
++ 
++   assert(thisSA);
++   db_p = thisSA->db_p;
++   aai = thisSA->aai;
++   assert(aai);
++ 
++   if (p->ID != 0) {
++     /* possible replacement record */
++     if (MatchRecord(thisSA, &entry, p) == -1) {
++       new_ID = p->ID;
++     }
++   } 
++   
++   unpack_Address(&ai, p->record, p->length);
++ 
++   {
++     char *gn = ai.entry[entryFirstname];
++     char *sn = ai.entry[entryLastname];
++     char *cn = NULL;
++     char *dn = NULL;
++     char timestamp[32];
++ 
++     mail = PilotGetPhone(aai, &ai, "E-mail");
++     if (gn || sn) {
++       if (gn) {
++ 	StringAppend(&cn, gn);
++       }
++       if (sn) {
++ 	if (gn) StringAppend(&cn, " ");
++ 	StringAppend(&cn, sn);
++       }
++     } else if (mail) {
++       StringAppend(&cn, mail);
++     }
++ 
++     /* If this is a new entry and there is already an entry with the
++        same "mail" or "cn" we should use a new "mail" and "cn" because
++        Netscape needs them to be unique */
++     {
++       Entry tmpEntryStruct;
++       Entry *tmpEntry = &tmpEntryStruct;
++ 
++       memset(tmpEntry, 0, sizeof(Entry));
++       EntrySetAttribute(&tmpEntry, "mail", mail);
++       EntrySetAttribute(&tmpEntry, "cn", cn);
++       
++       while ((p->ID == 0 || new_ID != 0)
++ 	  && DatabaseFindEntry(*db_p, tmpEntry)) {
++ 	char *new_cn = NULL;
++ 	char *new_mail = NULL;
++ 	
++ 	StringAppend(&new_cn, "!");
++ 	if (cn) {
++ 	  StringAppend(&new_cn, cn);
++ 	  free(cn);
++ 	}
++ 	cn = new_cn;
++ 
++ 	StringAppend(&new_mail, "!");
++ 	if (mail) {
++ 	  StringAppend(&new_mail, mail);
++ 	  /* Don't free(mail) because it was returned by PilotGetPhone */
++ 	}
++ 	mail = new_mail;
++ 	EntrySetAttribute(&tmpEntry, "mail", mail);
++ 	EntrySetAttribute(&tmpEntry, "cn", cn);
++       }
++       while (tmpEntry->num_attrs)
++ 	EntryDeleteAttribute(tmpEntry, 0);
++     }
++ 
++     if (cn) {
++       StringAppend(&dn, "cn=");
++       StringAppend(&dn, cn);
++       if (mail) {
++ 	StringAppend(&dn, ",mail=");
++ 	StringAppend(&dn, mail);
++       }
++     } else {
++       StringAppend(&dn, "x-dn=missing-cn-and-missing-mail");
++     }
++     {
++       time_t cur_time = time(NULL);
++       strftime(timestamp, 32, "%Y%m%d%H%M%SZ", gmtime(&cur_time));
++     }
++       
++     EntrySetAttribute(&entry, "dn", dn);
++     EntrySetAttribute(&entry, "modifytimestamp", timestamp);
++     EntrySetAttribute(&entry, "cn", cn);
++   }
++ 
++   EntrySetAttribute(&entry, "sn", ai.entry[entryLastname]);
++   EntrySetAttribute(&entry, "givenname", ai.entry[entryFirstname]);
++   EntrySetAttribute(&entry, "o", ai.entry[entryCompany]);
++   EntrySetAttribute(&entry, "streetaddress", ai.entry[entryAddress]);
++   EntrySetAttribute(&entry, "locality", ai.entry[entryCity]);
++   EntrySetAttribute(&entry, "st", ai.entry[entryState]);
++   EntrySetAttribute(&entry, "postalcode", ai.entry[entryZip]);
++   EntrySetAttribute(&entry, "countryname", ai.entry[entryCountry]);
++   EntrySetAttribute(&entry, "title", ai.entry[entryTitle]);
++   EntrySetAttribute(&entry, "description", ai.entry[entryNote]);
++   EntrySetAttribute(&entry, "xpilot-custom1", ai.entry[entryCustom1]);
++   EntrySetAttribute(&entry, "xpilot-custom2", ai.entry[entryCustom2]);
++   EntrySetAttribute(&entry, "xpilot-custom3", ai.entry[entryCustom3]);
++   EntrySetAttribute(&entry, "xpilot-custom4", ai.entry[entryCustom4]);
++   EntrySetAttribute(&entry, "xpilot-phone1", ai.entry[entryPhone1]);
++   EntrySetAttribute(&entry, "xpilot-phone2", ai.entry[entryPhone2]);
++   EntrySetAttribute(&entry, "xpilot-phone3", ai.entry[entryPhone3]);
++   EntrySetAttribute(&entry, "xpilot-phone4", ai.entry[entryPhone4]);
++   EntrySetAttribute(&entry, "xpilot-phone5", ai.entry[entryPhone5]);
++   EntrySetAttribute(&entry, "xpilot-phonelabel1", 
++ 		    aai->phoneLabels[ai.phoneLabel[0]]);
++   EntrySetAttribute(&entry, "xpilot-phonelabel2", 
++ 		    aai->phoneLabels[ai.phoneLabel[1]]);
++   EntrySetAttribute(&entry, "xpilot-phonelabel3", 
++ 		    aai->phoneLabels[ai.phoneLabel[2]]);
++   EntrySetAttribute(&entry, "xpilot-phonelabel4", 
++ 		    aai->phoneLabels[ai.phoneLabel[3]]);
++   EntrySetAttribute(&entry, "xpilot-phonelabel5", 
++ 		    aai->phoneLabels[ai.phoneLabel[4]]);
++   sprintf(buf, "%d", ai.showPhone);
++   EntrySetAttribute(&entry, "xpilot-showphone", buf);
++   EntrySetAttribute(&entry, "telephonenumber", PilotGetPhone(aai, &ai, "Work"));
++   EntrySetAttribute(&entry, "xmozillaanyphone", PilotGetPhone(aai, &ai, "Work"));
++   EntrySetAttribute(&entry, "homephone", PilotGetPhone(aai, &ai, "Home"));
++   EntrySetAttribute(&entry, "facsimiletelephonenumber",
++ 		    PilotGetPhone(aai, &ai, "Fax"));
++   EntrySetAttribute(&entry, "pagerphone", PilotGetPhone(aai, &ai, "Pager"));
++   EntrySetAttribute(&entry, "cellphone", PilotGetPhone(aai, &ai, "Mobile"));
++   EntrySetAttribute(&entry, "mail", mail);
++ 
++   sprintf(buf, "%d", p->category);
++   EntrySetAttribute(&entry, "xpilot-categoryID", buf);
++ 
++   /*
++   EntrySetAttribute(&entry, "TBD", PilotGetPhone(aai, &ai, "Other"));
++   EntrySetAttribute(&entry, "TBD", PilotGetPhone(aai, &ai, "Main"));
++   */
++ 
++   if (p->ID == 0 || new_ID != 0) {
++     /* new record */
++     Attribute oc;
++     memset(&oc, 0, sizeof(Attribute));
++     oc.type = "objectclass";
++     oc.value = "top";
++     oc.value_length = strlen(oc.value);
++     EntryAppendAttribute(&entry, AttributeCopy(&oc));
++     oc.value = "person";
++     oc.value_length = strlen(oc.value);
++     EntryAppendAttribute(&entry, AttributeCopy(&oc));
++ 
++     EntrySetAttribute(&entry, "xmozillausehtmlmail", "FALSE");
++     EntrySetAttribute(&entry, "xmozillauseconferenceserver", "0");
++ 
++     if (new_ID != 0) {
++       thisSA->SetPilotID(thisSA, entry, new_ID);
++     }
++ 
++     DatabaseAppendEntry(db_p, entry);
++     thisSA->db_p = db_p;
++   }
++ 
++ 
++   if (p->attr == RecordDeleted || p->archived) 
++     entry->attr = RecordDeleted;
++   else
++     entry->attr = RecordNothing;
++ 
++   entry->secret = p->secret;
++   entry->archived = p->archived;
++ 
++   free_Address(&ai);
++ 
++   if (entry) {
++     char *dn = EntryGetAttribute(entry, "dn");
++     if (p->attr == RecordDeleted) {
++       dprintf("Scheduling the following record for deletion on the PC:\n\t");
++     } else if (p->attr == RecordNew || p->ID == 0 || new_ID != 0) {
++       dprintf("Adding the following record to the PC:\n\t");
++     } else if (p->attr == RecordModified) {
++       dprintf("Modifying the following record on the PC:\n\t");
++     }
++     if (p->archived) {
++       dprintf("Scheduling the following record for archival on the PC:\n\t");
++     }
++     dprintf("%s\n\n", dn?dn:"No dn attribute");
++   }
++ 
++   return 0;	
++ }
++ 
++ /* Given a local record, construct a PilotRecord suitable for
++    transmission to a Pilot */
++ PilotRecord * Transmit(SyncAbs* thisSA, LocalRecord* entry) 
++ {
++   static PilotRecord p;
++   struct Address ai;
++   struct AddressAppInfo *aai = NULL;
++   char *s;
++ 
++   assert(thisSA);
++   aai = thisSA->aai;
++   assert(aai);
++ 
++   ai.entry[entryLastname] = EntryGetAttribute(entry, "sn");
++   ai.entry[entryFirstname] = EntryGetAttribute(entry, "givenname");
++ 
++   ai.entry[entryCompany] = EntryGetAttribute(entry, "o");
++   ai.entry[entryAddress] = EntryGetAttribute(entry, "streetaddress");
++   ai.entry[entryCity] = EntryGetAttribute(entry, "locality");
++   ai.entry[entryState] = EntryGetAttribute(entry, "st");
++   ai.entry[entryZip] = EntryGetAttribute(entry, "postalcode");
++   ai.entry[entryCountry] = EntryGetAttribute(entry, "countryname");
++   ai.entry[entryTitle] = EntryGetAttribute(entry, "title");
++   ai.entry[entryNote] = EntryGetAttribute(entry, "description");
++   ai.entry[entryCustom1] = EntryGetAttribute(entry, "xpilot-custom1");
++   ai.entry[entryCustom2] = EntryGetAttribute(entry, "xpilot-custom2");
++   ai.entry[entryCustom3] = EntryGetAttribute(entry, "xpilot-custom3");
++   ai.entry[entryCustom4] = EntryGetAttribute(entry, "xpilot-custom4");
++   ai.entry[entryPhone1] = EntryGetAttribute(entry, "xpilot-phone1");
++   if (ai.entry[entryPhone1]) {
++     d2printf("ai.entry[entryPhone1]=%s, ai.entry[entryPhone1][strlen(ai.entry[entryPhone1])-1]=%c (%d)\n",
++ 	   ai.entry[entryPhone1],
++ 	   ai.entry[entryPhone1][strlen(ai.entry[entryPhone1])-1],
++ 	   ai.entry[entryPhone1][strlen(ai.entry[entryPhone1])-1]);
++   }
++   ai.entry[entryPhone2] = EntryGetAttribute(entry, "xpilot-phone2");
++   ai.entry[entryPhone3] = EntryGetAttribute(entry, "xpilot-phone3");
++   ai.entry[entryPhone4] = EntryGetAttribute(entry, "xpilot-phone4");
++   ai.entry[entryPhone5] = EntryGetAttribute(entry, "xpilot-phone5");
++   ai.phoneLabel[0] 
++     = PilotFindLabel(aai, EntryGetAttribute(entry, "xpilot-phonelabel1"));
++   ai.phoneLabel[1] 
++     = PilotFindLabel(aai, EntryGetAttribute(entry, "xpilot-phonelabel2"));
++   ai.phoneLabel[2] 
++     = PilotFindLabel(aai, EntryGetAttribute(entry, "xpilot-phonelabel3"));
++   ai.phoneLabel[3] 
++     = PilotFindLabel(aai, EntryGetAttribute(entry, "xpilot-phonelabel4"));
++   ai.phoneLabel[4] 
++     = PilotFindLabel(aai, EntryGetAttribute(entry, "xpilot-phonelabel5"));
++   s = EntryGetAttribute(entry, "xpilot-showphone");
++   if (s) {
++     ai.showPhone = atoi(s);
++   } else {
++     ai.showPhone = 0;
++   }
++ 
++   {
++     /* If it is a list, use the cn as the last name and put the list
++      members in a note with a message indicating it should be edited
++      on the Desktop */
++     int a = 0; 
++     int isList = 0;
++ 
++     while (EntryFindAttribute(&a, entry, "objectclass") >= 0) {
++       if (strcmp(entry->attrs[a++]->value, "groupOfNames") == 0) {
++ 	isList = 1;
++ 	break;
++       }
++     }
++     if (isList) {
++       char *note = NULL;
++       StringAppend(&note, "DO NOT EDIT ON THE PILOT!\n");
++       if (ai.entry[entryNote]) StringAppend(&note, ai.entry[entryNote]);
++       StringAppend(&note, "\n");
++       ai.entry[entryLastname] = EntryGetAttribute(entry, "cn");
++       a = 0;
++       while (EntryFindAttribute(&a, entry, "member") >= 0) {
++ 	if (entry->attrs[a]->value) {
++ 	  StringAppend(&note, entry->attrs[a]->value);
++ 	  StringAppend(&note, "\n");
++ 	}
++ 	a++;
++       }
++       ai.entry[entryNote] = note;
++     }
++   }
++ 
++   p.length = pack_Address(&ai, NULL, 0);
++   p.record = (unsigned char*)calloc(1, p.length);
++   pack_Address(&ai, p.record, p.length);
++ 
++   {
++     char *catID = EntryGetAttribute(entry, "xpilot-categoryID");
++     p.category = catID ? atoi(catID) : 0;
++   }
++   p.attr = RecordNothing;
++ 
++   p.archived = entry->archived;
++   p.secret = entry->secret;
++ 	
++   return &p;
++ }
++ 
++ /* Free PilotRecord created by Transmit */
++ int FreeTransmit(SyncAbs* thisSA, LocalRecord* Local, PilotRecord* Remote) 
++ {
++   free(Remote->record);
++   return 0;
++ }
++ 
++ static int strcmpnull(char *a, char *b)
++ {
++   if ((a == NULL || *a == 0) && (b == NULL || *b == 0)) return 0;
++   if (a == NULL) return -1;
++   if (b == NULL) return 1;
++   return strcmp(a, b);
++ }
++ 
++ /* Compare a local record and pilot record for inequality */
++ int Compare(SyncAbs * thisSA, LocalRecord *entry, PilotRecord* p) 
++ {
++   struct Address ai;
++   Database **db_p = NULL;
++   struct AddressAppInfo *aai = NULL;
++   int retval = 0;
++ 
++   assert(thisSA);
++   db_p = thisSA->db_p;
++   aai = thisSA->aai;
++   assert(aai);
++ 
++   unpack_Address(&ai, p->record, p->length);
++   if (strcmpnull(EntryGetAttribute(entry, "sn"),
++ 		 ai.entry[entryLastname]) !=0) {
++     retval = -1;
++   } else if (strcmpnull(EntryGetAttribute(entry, "givenname"),
++ 			ai.entry[entryFirstname]) !=0) {
++     retval = -1;
++   } else if (strcmpnull(EntryGetAttribute(entry, "o"), 
++ 			ai.entry[entryCompany]) != 0) {
++     retval = -1;
++   } else if (strcmpnull(EntryGetAttribute(entry, "streetaddress"), 
++ 			ai.entry[entryAddress]) != 0) {
++     retval = -1;
++   } else if (strcmpnull(EntryGetAttribute(entry, "locality"),
++ 			ai.entry[entryCity]) != 0) {
++     retval = -1;
++   } else if (strcmpnull(EntryGetAttribute(entry, "st"), 
++ 			ai.entry[entryState]) != 0) {
++     retval = -1;
++   } else if (strcmpnull(EntryGetAttribute(entry, "postalcode"),
++ 			ai.entry[entryZip]) != 0) {
++     retval = -1;
++   } else if (strcmpnull(EntryGetAttribute(entry, "countryname"),
++ 			ai.entry[entryCountry]) != 0) {
++     retval = -1;
++   } else if (strcmpnull(EntryGetAttribute(entry, "title"),
++ 			ai.entry[entryTitle]) != 0) {
++     retval = -1;
++   } else if (strcmpnull(EntryGetAttribute(entry, "description"),
++ 			ai.entry[entryNote]) != 0) {
++     retval = -1;
++   } else if (strcmpnull(EntryGetAttribute(entry, "telephonenumber"),
++ 			PilotGetPhone(aai, &ai, "Work")) != 0) {
++     retval = -1;
++   } else if (strcmpnull(EntryGetAttribute(entry, "homephone"),
++ 			PilotGetPhone(aai, &ai, "Home")) != 0) {
++     retval = -1;
++   } else if (strcmpnull(EntryGetAttribute(entry, "facsimiletelephonenumber"),
++ 			PilotGetPhone(aai, &ai, "Fax")) != 0) {
++     retval = -1;
++   } else if (strcmpnull(EntryGetAttribute(entry, "pagerphone"),
++ 			PilotGetPhone(aai, &ai, "Pager")) != 0) {
++     retval = -1;
++   } else if (strcmpnull(EntryGetAttribute(entry, "cellphone"),
++ 			PilotGetPhone(aai, &ai, "Mobile")) != 0) {
++     retval = -1;
++   } else if (strcmpnull(EntryGetAttribute(entry, "mail"),
++ 			PilotGetPhone(aai, &ai, "E-mail")) != 0) {
++     retval = -1;
++   }
++   if (retval == -1) {
++     static int reported = 0;
++ 
++     if (!reported) {
++       dlp_AddSyncLogEntry(thisSA->sd, "At least one record was modified/deleted on one platform and modified/deleted on the other in a different way.  The modified versions will appear on both platforms, possibly resulting in an unwanted record on both platforms.  Delete the unwanted records on one platform and HotSync again.\n");
++       reported = 0;
++     }
++   }
++ 
++   return retval;
++ }
++ 
++ /* Find a local backup record and compare it to the pilot record for
++    inequality */
++ int CompareBackup(SyncAbs * thisSA, LocalRecord* entry, PilotRecord* p)
++ {
++   /* TBD: Is this function ever actually used? */
++   return Compare(thisSA, entry, p);
++ }
++ 
++ /* Delete all local records */
++ int DeleteAll(SyncAbs * thisSA) 
++ {
++   Database *db = NULL;
++ 
++   assert(thisSA);
++   if (!thisSA->db_p) return 0;
++   db = *(thisSA->db_p);
++   while (db->num_entries)
++     DatabaseDeleteEntry(db, 0);
++   return 0;
++ }
++ 
++ /* Do a local purge, deleting all records marked RecordDeleted, and
++    archiving all records marked for archiving */
++ int Purge(SyncAbs * thisSA) 
++ {
++   Database *db = NULL;
++   int e = 0;
++ 
++   assert(thisSA);
++   if (!thisSA->db_p) return 0;
++   db = *(thisSA->db_p);
++   e = 0;
++   while (e < db->num_entries) {
++     char *dn = NULL;
++     assert(db->entries);
++     assert(db->entries[e]);
++ 
++     dn = EntryGetAttribute(db->entries[e], "dn");
++     if (db->entries[e]->archived) {
++       dprintf("Archiving the following record on the PC:\n\t");
++       dprintf("%s\n\n", dn?dn:"No dn attribute");
++       DatabaseAppendEntry(thisSA->db_archive_p, EntryCopy(db->entries[e]));
++     }
++     if (db->entries[e]->attr == RecordDeleted) {
++       dprintf("Deleting the following record on the PC:\n\t");
++       dprintf("%s\n\n", dn?dn:"No dn attribute");
++ 
++       DatabaseDeleteEntry(db, e);
++     } else {
++       e++;
++     }
++   }
++   return 0;
++ }
++ 
++ /* Add remote record to archive. l is non-NULL if there is a matching local record */
++ int ArchiveRemote(SyncAbs * s, LocalRecord * l, PilotRecord * p) {
++   /* Not necessary.  Remote records marked for archival all also
++      marked as modified, so StoreRemote stores them in the local
++      database.  Purge moves them to the archive database. */
++   return 0;
++ }
++ 
++ int ClearStatusArchiveLocal(SyncAbs *thisSA, LocalRecord *entry)
++ {
++   /* TODO */
++   return 0;
++ }
++ 
++ int ArchiveLocal(SyncAbs *thisSA, LocalRecord *entry)
++ {
++   /* TODO */
++   return 0;
++ }
++ 
++ void SyncWithPilot(Database **db_sync_p, Database **db_archive_p, 
++ 		   int slow_sync) 
++ {
++   struct pi_sockaddr addr;
++   int db;
++   int sd;
++   struct PilotUser U;
++   int ret;
++   struct SyncAbs abs;
++   int quiet = 0;
++ 
++   if (getenv("PILOTPORT")) {
++     strcpy(addr.pi_device,getenv("PILOTPORT"));
++   } else {
++     strcpy(addr.pi_device,PILOTPORT);
++   }
++   addr.pi_family = PI_AF_SLP;
++ 
++   /* Set up abstraction structure */  
++   abs.MatchRecord = MatchRecord;
++   abs.FreeMatch = FreeMatch;
++   abs.Iterate = Iterate;
++   abs.IterateSpecific = IterateSpecific;
++   abs.SetStatus = SetStatus;
++   abs.SetArchived = SetArchived;
++   abs.SetPilotID = SetPilotID;
++   abs.GetPilotID = GetPilotID;
++   abs.StoreRemote = StoreRemote;
++   abs.ArchiveLocal = ArchiveLocal;
++   abs.ClearStatusArchiveLocal = ClearStatusArchiveLocal;
++   abs.ArchiveRemote = ArchiveRemote;
++   abs.DeleteAll = DeleteAll;
++   abs.Purge = Purge;
++   abs.CompareBackup = CompareBackup;
++   abs.Compare = Compare;
++   abs.Transmit = Transmit;
++   abs.FreeTransmit = FreeTransmit;
++ 
++   abs.db_p = db_sync_p;
++   abs.db_archive_p = db_archive_p;
++ 
++   if (!quiet) {
++     fprintf(stderr,
++       "Please insert Pilot in cradle on %s and press HotSync button.\n",
++       addr.pi_device);
++   }
++   
++   if (!(sd = pi_socket(PI_AF_SLP, PI_SOCK_STREAM, PI_PF_PADP))) {
++     perror("pi_socket");
++     exit(1);
++   }
++   
++   ret = pi_bind(sd, (struct sockaddr*)&addr, sizeof(addr));
++   if(ret == -1) {
++     perror("pi_bind");
++     exit(1);
++   }
++ 
++   ret = pi_listen(sd,1);
++   if(ret == -1) {
++     perror("pi_listen");
++     exit(1);
++   }
++ 
++   sd = pi_accept(sd, 0, 0);
++   if(sd == -1) {
++     perror("pi_accept");
++     exit(1);
++   }
++ 
++   /* Ask the pilot who it is. */
++   dlp_ReadUserInfo(sd,&U);
++   
++   /* Tell user (via Pilot) that we are starting things up */
++   dlp_OpenConduit(sd);
++   
++   /* Open the Address database, store access handle in db */
++   if(dlp_OpenDB(sd, 0, dlpOpenRead|dlpOpenWrite, "AddressDB", &db) < 0) {
++     puts("Unable to open AddressDB");
++     dlp_AddSyncLogEntry(sd, "Unable to open AddressDB.\n");
++     exit(1);
++   }
++ 
++   abs.sd = sd;
++ 
++   /* Get the AddressApplicationInfo */
++   abs.aai = (struct AddressAppInfo *)malloc(sizeof(struct AddressAppInfo));
++ 
++   {
++     int l;
++     char buf[0xffff];
++ 
++     l = dlp_ReadAppBlock(sd, db, 0, (unsigned char *)buf, 0xffff);
++     unpack_AddressAppInfo(abs.aai, (unsigned char *)buf, l);
++   }
++   
++   abs.slow_sync = slow_sync;
++   if (slow_sync) {
++     SlowSync(sd, db, &abs);
++   } else {
++     FastSync(sd, db, &abs);
++   }
++   
++   
++   free(abs.aai);
++ 
++   /* Close the database */
++   dlp_CloseDB(sd, db);
++   
++   /* Tell the user who it is, with a different PC id. */
++   /* TBD: What is this? */
++   U.lastSyncPC = 0xDEADBEEF;
++   U.successfulSyncDate = time(NULL);
++   U.lastSyncDate = U.successfulSyncDate;
++   dlp_WriteUserInfo(sd,&U);
++ 
++   dlp_AddSyncLogEntry(sd, "Wrote addresses to Pilot.\n");
++   
++   /* All of the following code is now unnecessary, but harmless */
++   
++   dlp_EndOfSync(sd,0);
++   pi_close(sd);
++ }
++ 
++ void EntrySetPhone(Entry **entry_p, char *phoneLabel, char *value)
++ {
++   int i = 1;
++   int found = 0;
++   int firstUnused = 0;
++   char *label = NULL;
++   char *number = NULL;
++   char buf[40];
++ 
++   for (i = 1; entry_p && i <= 5 && !found; i++) {
++ 
++     sprintf(buf, "xpilot-phonelabel%d", i);
++     label = EntryGetAttribute(*entry_p, buf);
++     if (label && strcmp(label, phoneLabel) == 0) {
++       found = 1;
++       break;
++     }
++     sprintf(buf, "xpilot-phone%d", i);
++     number = EntryGetAttribute(*entry_p, buf);
++     if (firstUnused == 0 && (!number || number[0] == '\0')) {
++       firstUnused = i;
++     }
++   }
++   if (found) {
++     sprintf(buf, "xpilot-phone%d", i);
++     EntrySetAttribute(entry_p, buf, value);
++   } else if (value && value[0]) {
++     if (firstUnused) {
++       sprintf(buf, "xpilot-phonelabel%d", firstUnused);
++       EntrySetAttribute(entry_p, buf, phoneLabel);
++       sprintf(buf, "xpilot-phone%d", firstUnused);
++       EntrySetAttribute(entry_p, buf, value);
++     } else {
++       fprintf(stderr, 
++ 	      "No unused phone slots on pilot to store %s in.\n", value);
++     }
++   }
++ }
++ 
++ /* Are changes in this attribute worth marking the record as changed? */
++ int PropagationAttributeQ(Attribute *attr)
++ {
++   const int num_prop_types = 19;
++   char *prop_types[] = {
++     "cn",
++     "mail",
++     "o",
++     "locality",
++     "givenname",
++     "sn",
++     "st",
++     "description",
++     "title",
++     "streetaddress",
++     "postalcode",
++     "countryname",
++     "telephonenumber",
++     "homephone",
++     "facsimiletelephonenumber",
++     "ou",
++     "pagerphone",
++     "cellphone",
++     "xmozillaanyphone",
++   };
++   int t = 0;
++ 
++   assert(attr);
++   for (t = 0; t < num_prop_types; t++) {
++     if (strcmp(prop_types[t], attr->type) == 0) return 1;
++   }
++   return 0;
++ }
++ 
++ void MergeToDb(Database **db_sync_p, Database *db)
++ {
++   int e, a;
++   const int num_netscape_types = 26;
++   char *netscape_types[] = {
++     "dn",
++     "modifytimestamp",
++     "cn",
++     "xmozillanickname",
++     "mail",
++     "xmozillausehtmlmail",
++     "o",
++     "locality",
++     "givenname",
++     "sn",
++     "st",
++     "description",
++     "title",
++     "streetaddress",
++     "postalcode",
++     "countryname",
++     "telephonenumber",
++     "homephone",
++     "facsimiletelephonenumber",
++     "xmozillauseconferenceserver",
++     "ou",
++     "pagerphone",
++     "cellphone",
++     "homeurl",
++     "xmozillaanyphone",
++     "objectclass",
++   };
++ 
++   assert(db_sync_p != NULL  && db != NULL);
++   
++   /* Mark all sync entries as deleted initially */
++   if (db_sync_p) {
++     Database *dbs = *db_sync_p;
++     
++     for (e = 0; dbs && e < dbs->num_entries; e++) {
++       Entry *entry = dbs->entries[e];
++       entry->attr = RecordDeleted;
++     }
++   }
++       
++ 
++   for (e = 0; e < db->num_entries; e++) {
++     Entry *entry = db->entries[e];
++     Entry *sync_entry = NULL;
++ 
++     /* Find a matching entry */
++     if (*db_sync_p) {
++       sync_entry = DatabaseFindEntry(*db_sync_p, entry);
++     }
++     
++     if (!sync_entry) {
++       /* If none found, make a new one */
++       sync_entry = EntryCopy(entry);
++       d2printf("The following entry is new on the PC:\n");
++       d2EntryPrint(sync_entry, stdout);
++       d2printf("\n");
++       DatabaseAppendEntry(db_sync_p, sync_entry);
++       sync_entry->attr = RecordNew;
++     } else {
++       d2printf("The following entry already exists on the PC:\n");
++       d2EntryPrint(sync_entry, stdout);
++       d2printf("\n");
++       /* Assume the entry is unchanged unless proven otherwise */
++       sync_entry->attr = RecordNothing;
++ 
++       /* Look for attributes that we use which are new, modified, or
++          deleted and propogate them to the sync database. */
++ 
++       /* Mark all of the attributes that we use as deleted initially. */
++       for (a = 0; a < num_netscape_types; a++) {
++ 	int sa = 0;
++ 
++ 	while (EntryFindAttribute(&sa, sync_entry, 
++ 				  netscape_types[a]) >= 0) {
++ 	  sync_entry->attrs[sa++]->status = RecordDeleted;
++ 	}
++       }
++ 
++       /* See if any attributes are new or have been changed */
++       for (a = 0; a < entry->num_attrs; a++) {
++ 	Attribute *attr = entry->attrs[a];
++ 	Attribute *sync_attr = NULL;
++ 	int sa = 0;
++ 	int t = 0;
++ 
++ 	/* If this isn't one of the attributes we use, just skip it */
++ 	for (t = 0; t < num_netscape_types; t++) {
++ 	  if (strcmp(attr->type, netscape_types[t]) == 0) break;
++ 	}
++ 	if (t >= num_netscape_types) {
++ 	  continue;
++ 	}
++ 
++ 	/* Find the first matching attribute still marked RecordDeleted */
++ 	while (sa < sync_entry->num_attrs 
++ 	       && EntryFindAttribute(&sa, sync_entry, 
++ 				     attr->type) >= 0
++ 	       && sync_entry->attrs[sa]->status != RecordDeleted) {
++ 	  sa++;
++ 	}
++ 
++ 	if (sa >= sync_entry->num_attrs) {
++ 	  /* If none found, make a new one */
++ 	  sync_attr = AttributeCopy(attr);
++ 	  EntryAppendAttribute(&sync_entry, sync_attr);
++ 	  if (PropagationAttributeQ(sync_attr)) {
++ 	    sync_attr->status = RecordNew;
++ 	    d2printf("The following attribute is new on the PC:\n\t");
++ 	    d2AttributePrint(sync_attr, stdout);
++ 	    sync_entry->attr = RecordModified;
++ 	  } else {
++ 	    sync_attr->status = RecordNothing;
++ 	  }
++ 	} else {
++ 	  /* If we found it, compare it */
++ 	  sync_attr = sync_entry->attrs[sa];
++ 	  if (attr->value_length != sync_attr->value_length 
++ 	      || memcmp(attr->value, sync_attr->value, attr->value_length)) {
++ 	    /* Not the same, so overwrite with the new value */
++ 	    if (PropagationAttributeQ(sync_attr)) {
++ 	      d2printf("The following attribute on the PC changed from:\n\t");
++ 	      d2AttributePrint(sync_attr, stdout);
++ 	      d2printf("To:\n\t");
++ 	      d2AttributePrint(attr, stdout);
++ 	    }
++ 
++ 	    free(sync_attr);
++ 	    sync_attr = AttributeCopy(attr);
++ 	    sync_entry->attrs[sa] = sync_attr;
++ 
++ 	    if (PropagationAttributeQ(sync_attr)) {
++ 	      sync_attr->status = RecordModified;
++ 	      sync_entry->attr = RecordModified;
++ 	    } else {
++ 	      sync_attr->status = RecordNothing;
++ 	    }
++ 	  } else {
++ 	    /* It is the same so mark it unchanged */
++ 	    sync_attr->status = RecordNothing;
++ 	  }
++ 	}
++       } /* for "a" loop */
++ 
++       /* If any of the attributes that we use were not matched, then they
++ 	 should be deleted and the record should be marked as modified */
++       for (a = 0; a < num_netscape_types; a++) {
++ 	int sa = 0;
++ 
++ 	while (EntryFindAttribute(&sa, sync_entry, 
++ 				  netscape_types[a]) >= 0) {
++ 	  if (sync_entry->attrs[sa]->status == RecordDeleted) {
++ 	    d2printf("The following attribute was deleted on the PC:\n\t");
++ 	    d2AttributePrint(sync_entry->attrs[sa], stdout);
++ 	    EntryDeleteAttribute(sync_entry, sa);
++ 	    sync_entry->attr = RecordModified;
++ 	  } else {
++ 	    sa++;
++ 	  } /* if */
++ 	} /* while */
++       } /* for */
++ 
++     } /* if matching entry */
++ 
++     /* For each phone type, look for a corresponding pilot field.
++        Replace the contents of the first corresponding field.  If
++        there is no corresponding field, look for an empty/unused field
++        and set its label and contents.  If there are no empty/unused
++        fields, there is no place to put the info on the pilot so give
++        up (with possible warning message). */
++     assert(sync_entry);
++     EntrySetPhone(&sync_entry, "Work", 
++ 		  EntryGetAttribute(sync_entry, "telephonenumber"));
++     EntrySetPhone(&sync_entry, "Home",
++ 		  EntryGetAttribute(sync_entry, "homephone"));
++     EntrySetPhone(&sync_entry, "Fax",
++ 		  EntryGetAttribute(sync_entry, "facsimiletelephonenumber"));
++     EntrySetPhone(&sync_entry, "Pager",
++ 		  EntryGetAttribute(sync_entry, "pagerphone"));
++     EntrySetPhone(&sync_entry, "Mobile",
++ 		  EntryGetAttribute(sync_entry, "cellphone"));
++     EntrySetPhone(&sync_entry, "E-mail",
++ 		  EntryGetAttribute(sync_entry, "mail"));
++   } /* for each entry */
++ 
++   /* Notify user of deleted entries */
++   if (db_sync_p) {
++     Database *dbs = *db_sync_p;
++     
++     for (e = 0; dbs && e < dbs->num_entries; e++) {
++       Entry *entry = dbs->entries[e];
++       if (entry->attr == RecordDeleted) {
++ 	d2printf("The following entry was deleted on the PC:\n");
++ 	d2EntryPrint(entry, stdout);
++ 	d2printf("\n");
++       }
++     }
++   }
++ 
++ }
++ 
++ 
++ int main(int argc, char *argv[])
++ {
++   char *ldif_file = NULL;
++   char *ldif_sync_file = NULL;
++   char *ldif_archive_file = NULL;
++   char *ldif_archive_default = "archive.ldif";
++   char *ldif_sync_default = "sync.ldif";
++   Database *db = NULL;
++   Database *db_sync = NULL;
++   Database *db_archive = NULL;
++   int slow_sync = 0;
++   char *usage = 
++ #include "sync-ldif.usage.h"
++     ;
++   char *home = getenv("HOME");
++   int arg = 1;
++ 
++   if (arg < argc && strcmp(argv[arg], "-d") == 0) {
++     sync_ldif_debug = 1;
++     arg++;
++   }
++ 
++   if (argc - arg < 1 || argc - arg > 3) {
++     fprintf(stderr, usage);
++     exit(1);
++   }
++ 
++   ldif_file = argv[arg];
++   db = ReadLdif(ldif_file); 
++   if (!db) {
++     fprintf(stderr, "Failed to open %s for reading\n", ldif_file);
++     exit(1);
++   }
++   arg++;
++ 
++   if (arg < argc) {
++     StringAppend(&ldif_sync_file, argv[arg]);
++     arg++;
++   } else {
++     if (home) {
++       StringAppend(&ldif_sync_file, home);
++       StringAppend(&ldif_sync_file, "/");
++     }
++     StringAppend(&ldif_sync_file, ".sync-ldif");
++     mkdir(ldif_sync_file, 0755);
++     StringAppend(&ldif_sync_file, "/");
++     StringAppend(&ldif_sync_file, ldif_sync_default);
++   }
++ 
++   if (arg < argc) {
++     StringAppend(&ldif_archive_file, argv[arg]);
++     arg++;
++   } else {
++     if (home) {
++       StringAppend(&ldif_archive_file, home);
++       StringAppend(&ldif_archive_file, "/");
++     }
++     StringAppend(&ldif_archive_file, ".sync-ldif");
++     mkdir(ldif_archive_file, 0755);
++     StringAppend(&ldif_archive_file, "/");
++     StringAppend(&ldif_archive_file, ldif_archive_default);
++   }
++ 
++   /* Read the sync database or create a new one and do a slow sync 
++      if one doesn't exist */
++   db_sync = ReadLdif(ldif_sync_file);
++   if (!db_sync) {
++     fprintf(stderr, "Warning: Synchronization file (%s) not found.  Performing a slow sync to create an initial one.\n", ldif_sync_file);
++     db_sync = DatabaseCreate();
++     slow_sync = 1;
++   }
++ 
++   MergeToDb(&db_sync, db);
++ 
++   /* Read the archive database or create a new one if one doesn't exist */
++   db_archive = ReadLdif(ldif_archive_file);
++   if (!db_archive) {
++     fprintf(stderr, "Creating an archive file (%s)\n", ldif_archive_file);
++     db_archive = DatabaseCreate();
++   }
++ 
++   SyncWithPilot(&db_sync, &db_archive, slow_sync);
++   WriteLdif(db_sync, ldif_sync_file);
++   WriteLdif(db_archive, ldif_archive_file);
++   WriteLdif(db_sync, ldif_file);
++   return 0;
++ }
+Index: pilot-link/sync-ldif.usage.h
+diff -c /dev/null pilot-link/sync-ldif.usage.h:1.2
+*** /dev/null	Wed Apr  7 01:06:21 1999
+--- pilot-link/sync-ldif.usage.h	Wed Apr  7 00:41:31 1999
+***************
+*** 0 ****
+--- 1,88 ----
++ 
++ "\n"
++ "\n"
++ "Usage: sync-ldif [-v] <ldif_file> [<ldif_sync_file> [<ldif_archive_file>]]\n"
++ "\n"
++ "sync-ldif attempts to synchronize the PalmPilot address book with a\n"
++ "Netscape Communicator address book LDIF file.\n"
++ "\n"
++ "To use it:\n"
++ "\n"
++ "0. BE SAFE AND BACKUP YOUR PALMPILOT AND YOUR COMMUNICATOR ADDRESS\n"
++ "BOOK.  To backup you Communicator address book, create a new address\n"
++ "book, select all of your old address book entries (i.e. cards) and\n"
++ "copy them into the new address book.\n"
++ "\n"
++ "1. Select 'File/Export' in your Communicator address book and enter a\n"
++ "file name such as 'net.ldif'.  This is the <ldif_file>.\n"
++ "\n"
++ "2. Run 'sync-ldif -v <ldif_file>'.  It should read <ldif_file>,\n"
++ "synchronize with the PalmPilot, and then replace <ldif_file> with a\n"
++ "synchronized version suitable for importing into Communicator.  It\n"
++ "also reads and writes two other files.  See below for details.  The\n"
++ "'-v' option causes 'sync-ldif' to be more verbose and print a short\n"
++ "message each time it makes a modification to the PalmPilot or\n"
++ "<ldif_file>.\n"
++ "\n"
++ "3. Delete all of the entries in your Communicator address book.  The\n"
++ "menu items 'Edit/Select All' and 'Edit/Delete' should do the trick.\n"
++ "You made a backup right?\n"
++ "\n"
++ "4. Select 'File/Import' in your Communicator address book and enter the\n"
++ "name of the <ldif_file> you used in step 1.\n"
++ "\n"
++ "With a little luck, both Communicator and your PalmPilot should now\n"
++ "contain entries from both.\n"
++ "\n"
++ "The first time you run the program, it will do a slow sync and create\n"
++ "a directory in your home directory called '.sync-ldif/'.  Here it will\n"
++ "create and maintain the default <ldif_sync_file> 'sync.ldif' and the\n"
++ "default <ldif_archive_file> 'archive.ldif'.  If you feel daring, you\n"
++ "can override either of these two locations when you run the program.\n"
++ "This might be necessary if you have multiple Communicator address\n"
++ "books, or multiple PalmPilots.\n"
++ "\n"
++ "<ldif_sync_file> contains the <ldif_file> that resulted from the last\n"
++ "run of the program.  It is used to determine what changed in\n"
++ "Communicator between syncs.  WARNING #1: If you synchronize your\n"
++ "PalmPilot address book with something other than <ldif_sync_file>\n"
++ "(e.g. another computer, application, or file), you should remove\n"
++ "<ldif_sync_file> to force a slow sync.  WARNING #2: Do not synchronize\n"
++ "multiple PalmPilots with the same <ldif_sync_file>.\n"
++ "\n"
++ "<ldif_archive_file> contains all entries that you marked for archival\n"
++ "on the PalmPilot.  The program appends newly archived entries each\n"
++ "time it runs.  To recover entries from the archive file, use\n"
++ "Communicator to import <ldif_archive_file> into a new address book and\n"
++ "then copy the desired entries to your main address book.\n"
++ "\n"
++ "If either your PalmPilot or your Communicator address book becomes\n"
++ "corrupted, restore it from backup, remove <ldif_sync_file> to force a\n"
++ "slow sync, and run sync-ldif again.\n"
++ "\n"
++ "FAQ: What is with the entries which start with '!' within Communicator?\n"
++ "\n"
++ "Short answer: They indicate a potential conflict.  Look for another\n"
++ "entry with the same name or email.  If you find one, do a manual merge\n"
++ "if necessary and then delete one.  If you don't find a matching\n"
++ "entry, do not worry about it.  One way or the other, remove the '!'s and\n"
++ "everything should be OK.\n"
++ "\n"
++ "Long answer: If you (a) add an entry on the PalmPilot, (b) modify an\n"
++ "existing entry in different ways in Communicator and the PalmPilot, or\n"
++ "(c) modify an entry on the PalmPilot such that it has the same name or\n"
++ "email as an entry in Communicator which currently exists or has been\n"
++ "deleted since the last sync, the sync algorithm tries to create a new\n"
++ "entry in Communicator.  This new entry must have a unique name and\n"
++ "email.  If the name or email you want already exists in Communicator,\n"
++ "the sync algorithm prepends '!'s to both the email and the name until\n"
++ "they are both unique in Communicator.\n"
++ "\n"
++ "PalmPilot is a registered trademark of 3Com Corporation or its\n"
++ "subsidiaries.\n"
++ "\n"
++ "Netscape and Netscape Communicator are registered trademarks of Netscape\n"
++ "Communications Corporation in the United States and other countries.\n"
++ "\n"
++ 
++ "\n"
+Index: pilot-link/libsock/sync.c
+diff -c pilot-link/libsock/sync.c:1.1.1.1 pilot-link/libsock/sync.c:1.7
+*** pilot-link/libsock/sync.c:1.1.1.1	Sat Jan  9 16:51:07 1999
+--- pilot-link/libsock/sync.c	Wed Apr  7 00:41:43 1999
+***************
+*** 1,4 ****
+--- 1,7 ----
+  /* sync.c:  Pilot synchronization logic
++  * 
++  * IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT
++  * READ ALL OF THE COMMENTS AT THE TOP OF THIS FILE BEFORE PROCEEDING.
+   *
+   * Code written by Kenneth Albanowski, based on work apparently
+   * Copyright (C) 1996, U.S. Robotics Inc. (Possibly Copyright
+***************
+*** 7,12 ****
+--- 10,17 ----
+   * This file contains no information directly copied from the PC Conduit SDK,
+   * but paraphrases many of the algorithms used in that source.
+   *
++  * 10 Jan 1999 Dean Brettle <dean@brettle.com>:
++  *         Added implementation of fast-sync and slow-sync algorithms.
+   */
+   
+  /* Note: This file currently does nothing useful, and even if completed
+***************
+*** 34,41 ****
+   * In keeping with the sprit of the EU practice for reverse engineering, the
+   * interface that I have designed to plug into the Palm algorithms has been
+   * retained.
+   *
+!  */
+   
+  #include <stdio.h>
+  #include "pi-source.h"
+--- 39,60 ----
+   * In keeping with the sprit of the EU practice for reverse engineering, the
+   * interface that I have designed to plug into the Palm algorithms has been
+   * retained.
++  * 
++  * Revised revised revision (Dean Brettle): I tried to write those
++  * sections that were deleted.  I never saw the original code and I
++  * don't have a copy of the SDK so copyright issues should not be a
++  * problem.
+   *
+!  * Revised revised revised revision (Dean Brettle): I have
+!  * successfully used this module to write a address book conduit for
+!  * Netscape Communicator.  HOWEVER, it was a major pain.  I would not
+!  * recommend it to anyone else.  Moreover, Kenneth has told me that he
+!  * agrees that this interface is too difficult and that it is
+!  * basically no longer supported.  I am providing the implementation
+!  * as an unofficial patch, but Kenneth is understandably reluctant to
+!  * include it in the official pilot-link.  Hopefully, this will
+!  * discourage people from trying to use this module.
+!  * */
+   
+  #include <stdio.h>
+  #include "pi-source.h"
+***************
+*** 45,82 ****
+  #define Abstract_sync
+  #include "pi-sync.h"
+  
+  /* Given a remote (Pilot) record, stored in a PilotRecord structure, determine what,
+     if anything, should be done with it, by looking at its flags, and possibly looking
+     it up in the local database. */
+! int SyncRecord(int handle, int db, PilotRecord * Remote, struct SyncAbs * s, int slowsync) {
+!   /* --- Paraphrased code derived from Palm;s Conduit SDK elided --- */
+!   abort(); /* For lack of anything better to do */
+!   return 0;
+  }
+  
+  /* Iterate over local records, copying records to remote, or deleting, or
+      archiving, as flags dictate. This is the last step in any sync. */
+! void MergeToRemote(int handle, int db, struct SyncAbs * s) {
+!   /* --- Paraphrased code derived from Palm's Conduit SDK elided --- */
+!   abort(); /* For lack of anything better to do */
+!   return;
+  }
+  
+! /* Perform a "slow" sync. This requires that the local (PC) has
+!    consistent, accurate, and sufficient modification flags. All
+!    of the records on the remote (Pilot) are pulled in, and compared
+!    for modifications */
+! int SlowSync(int handle, int db, struct SyncAbs * s ) {
+  	int index = 0;
+  	int retval = 0;
+  	unsigned char buffer[0xffff];
+  	PilotRecord p;
+  	p.record = buffer;
+! 	
+!   	/* --- Paraphrased code derived from Palm's Conduit SDK elided --- */
+  	index = 0;
+  	
+! 	while(dlp_ReadRecordByIndex(handle,db, index, p.record, &p.ID, &p.length, &p.attr, &p.category)>=0) {
+  		p.secret = p.attr & dlpRecAttrSecret;
+  		p.archived = p.attr & dlpRecAttrArchived;
+  		if(p.attr & dlpRecAttrDeleted)
+--- 64,497 ----
+  #define Abstract_sync
+  #include "pi-sync.h"
+  
++ #define dprintf if (0) printf
++ 
++ typedef	int (*SyncAction)(int handle, 
++ 			  int db,
++ 			  PilotRecord *pilot,
++ 			  LocalRecord *pc,
++ 			  struct SyncAbs * s,
++ 			  int slowsync);
++ 
++ static int CreatePC(int handle, int db, PilotRecord *pilot,
++ 	     LocalRecord *pc, struct SyncAbs * s, int slowsync) {
++ 	return s->StoreRemote(s, pilot);
++ }
++ 
++ static int IfDifferentCreatePC(int handle, int db, PilotRecord *pilot,
++ 			LocalRecord *pc, struct SyncAbs * s, int slowsync) {
++ 	int retval = 0;
++ 
++ 	if (s->Compare(s, pc, pilot) != 0) {
++ 		/* Break the link between the pilot and pc records */
++ 		retval = s->SetPilotID(s, pc, 0);
++ 		if (retval == 0) 
++ 			retval = s->SetStatus(s, pc, RecordNew);
++ 		/* Create a new record on the PC which matches the
++                    pilot record (including its ID) */
++ 		if (retval == 0) 
++ 			retval = s->StoreRemote(s, pilot);
++ 	}
++ 
++ 	return retval;
++ }
++ 
++ static int ReplacePC(int handle, int db, PilotRecord *pilot, 
++ 	      LocalRecord *pc, struct SyncAbs * s, int slowsync) {
++ 	int retval = 0;
++ 
++ 	retval = s->StoreRemote(s, pilot);
++ 	return retval;
++ }
++ 
++ static int ReplacePCAndUndelete(int handle, int db, PilotRecord *pilot, 
++ 			  LocalRecord *pc, struct SyncAbs * s, int slowsync) {
++ 	int retval = 0;
++ 	retval = ReplacePC(handle, db, pilot, pc, s, slowsync);
++ 	if (retval == 0) retval = s->SetStatus(s, pc, RecordNothing);
++ 	return retval;
++ }
++ 
++ static int DeletePC(int handle, int db, PilotRecord *pilot, 
++ 	     LocalRecord *pc, struct SyncAbs * s, int slowsync) {
++ 	return s->SetStatus(s, pc, RecordDeleted);
++ }
++ 
++ static int IfSameDeletePC(int handle, int db, PilotRecord *pilot, 
++ 	     LocalRecord *pc, struct SyncAbs * s, int slowsync) {
++ 	if (s->Compare(s, pc, pilot) == 0)
++ 		return s->SetStatus(s, pc, RecordDeleted);
++ 	return 0;
++ }
++ 
++ static SyncAction pcActionTable[4][5] = {
++ 	/* We are going to try to implement the following behavior:
++ 
++ 	        Action                   Pilot             PC
++                                          Record Status     Record Status*/
++ 	{
++ 		NULL,                 /* Nothing           Nothing */
++ 		NULL,                 /* Nothing           New */
++ 		NULL,                 /* Nothing           Deleted */
++ 		NULL,                 /* Nothing           Modified */
++ 		CreatePC,             /* Nothing           Unmatched */
++ 	},
++ 	/* Note that new pilot records will have a status of Modified not New
++ 	   so this row will never be used.  It is here only for symmetry. */
++ 	{
++ 		CreatePC,             /* New               Nothing */
++ 		IfDifferentCreatePC,  /* New               New */
++ 		ReplacePCAndUndelete, /* New               Deleted */
++ 		IfDifferentCreatePC,  /* New               Modified */
++ 		CreatePC,             /* New               Unmatched */
++ 	},
++ 	{
++                 DeletePC,             /* Deleted           Nothing */
++                 NULL,                 /* Deleted           New */
++                 NULL,                 /* Deleted           Deleted */
++                 IfSameDeletePC,       /* Deleted           Modified */
++                 NULL,                 /* Deleted           Unmatched */
++ 	},
++ 	{
++ 		ReplacePC,            /* Modified          Nothing */
++ 		IfDifferentCreatePC,  /* Modified          New */
++ 		ReplacePCAndUndelete, /* Modified          Deleted */
++ 		IfDifferentCreatePC,  /* Modified          Modified */
++ 		CreatePC,             /* Modified          Unmatched */
++ 	}
++ };
++ 
++ 
++ static int CreatePi(int handle, int db, PilotRecord *pilot,
++ 	     LocalRecord *pc, struct SyncAbs * s, int slowsync) {
++ 	int retval = 0;
++ 	PilotRecord * p = s->Transmit(s,pc);
++ 	unsigned long newID;
++ 
++ 	if (!p) return -1;
++ 	p->attr = 0;
++ 	if(p->secret)
++ 		p->attr |= dlpRecAttrSecret ;
++ 	p->ID = 0; /* Make sure a new record is created */
++ 	if (retval >= 0) 
++ 		retval = (dlp_WriteRecord(handle, db, p->attr, p->ID, 
++ 					  p->category, p->record, p->length,
++ 					  &newID) < 0 );
++ 	if (retval >= 0) retval = s->SetPilotID(s, pc, newID);
++ 	s->FreeTransmit(s, pc, p);
++ 	return retval;
++ }
++ 
++ static int IfDifferentCreatePi(int handle, int db, PilotRecord *pilot,
++ 			LocalRecord *pc, struct SyncAbs * s, int slowsync) {
++ 	int retval = 0;
++ 
++ 	if (s->Compare(s, pc, pilot) != 0) {
++ 		if (retval >= 0) 
++ 			retval = CreatePi(handle, db, pilot, pc, s, slowsync);
++ 	}
++ 
++ 	return retval;
++ }
++ 
++ static int ReplacePi(int handle, int db, PilotRecord *pilot, 
++ 	      LocalRecord *pc, struct SyncAbs * s, int slowsync) {
++ 	int retval = 0;
++ 	PilotRecord * p = s->Transmit(s,pc);
++ 
++ 	if (!p) return -1;
++ 	if (!pilot) return -1;
++ 	p->attr = 0;
++ 	if(p->secret)
++ 		p->attr |= dlpRecAttrSecret ;
++ 	p->ID = pilot->ID; /* Make sure we replace an existing record */
++ 	if (retval >= 0) 
++ 		retval = (dlp_WriteRecord(handle, db, p->attr, p->ID, 
++ 					  p->category, p->record, p->length,
++ 					  NULL) < 0 );
++ 	s->FreeTransmit(s, pc, p);
++ 	return retval;
++ }
++ 
++ static int ReplacePiAndUndelete(int handle, int db, PilotRecord *pilot, 
++ 			  LocalRecord *pc, struct SyncAbs * s, int slowsync) {
++ 	int retval = 0;
++ 	/* Calling ReplacePi doesn't "undelete", so instead we let
++            that record be deleted and create a new one */
++ 	retval = CreatePi(handle, db, pilot, pc, s, slowsync);
++ 	return retval;
++ }
++ 
++ static int DeletePi(int handle, int db, PilotRecord *pilot, 
++ 	     LocalRecord *pc, struct SyncAbs * s, int slowsync) {
++   dprintf("In DeletePi()\n");
++   if (!pilot) return -1;
++   dprintf("Deleting %ld\n", pilot->ID);
++   return dlp_DeleteRecord(handle, db, 0, pilot->ID);
++ }
++ 
++ static int IfSameDeletePi(int handle, int db, PilotRecord *pilot, 
++ 	     LocalRecord *pc, struct SyncAbs * s, int slowsync) {
++ 	if (s->Compare(s, pc, pilot) == 0) {
++ 		if (!pilot) return -1;
++ 		return dlp_DeleteRecord(handle, db, 0, pilot->ID);
++ 	}
++ 	return 0;
++ }
++ 
++ static SyncAction pilotActionTable[4][5] = {
++ 	/* We are going to try to implement the following behavior:
++ 
++ 	        Action                   PC                Pilot
++                                          Record Status     Record Status*/
++ 	{
++ 		NULL,                 /* Nothing           Nothing */
++ 		NULL,                 /* Nothing           New */
++ 		NULL,                 /* Nothing           Deleted */
++ 		NULL,                 /* Nothing           Modified */
++ 		CreatePi,             /* Nothing           Unmatched */
++ 	},
++ 	{
++ 		CreatePi,             /* New               Nothing */
++ 		IfDifferentCreatePi,  /* New               New */
++ 		ReplacePiAndUndelete, /* New               Deleted */
++ 		IfDifferentCreatePi,  /* New               Modified */
++ 		CreatePi,             /* New               Unmatched */
++ 	},
++ 	{
++                 DeletePi,             /* Deleted           Nothing */
++                 NULL,                 /* Deleted           New */
++                 NULL,                 /* Deleted           Deleted */
++                 NULL,                 /* Deleted           Modified */
++                 NULL,                 /* Deleted           Unmatched */
++ 	},
++ 	{
++ 		ReplacePi,            /* Modified          Nothing */
++ 		IfDifferentCreatePi,  /* Modified          New */
++ 		ReplacePiAndUndelete, /* Modified          Deleted */
++ 		IfDifferentCreatePi,  /* Modified          Modified */
++ 		CreatePi,             /* Modified          Unmatched */
++ 	}
++ };
++ 
++ 
++ 
+  /* Given a remote (Pilot) record, stored in a PilotRecord structure, determine what,
+     if anything, should be done with it, by looking at its flags, and possibly looking
+     it up in the local database. */
+! static int MergeRecordToLocal(int handle, int db, PilotRecord *pilot, struct SyncAbs * s, int slowsync) {
+! 	int status = 0;
+! 	int retval = 0;
+! 	int pcStatus = 0;
+! 	int pilotStatus = 0;
+! 	SyncAction sa;
+! 
+! 	LocalRecord *pc = NULL;
+! 
+! 	/* Find the matching local record, if any. */
+! 	status = s->MatchRecord(s, &pc, pilot);
+! 
+! 	/* Archive the record if requested */
+! 	if(pilot->archived) {
+! 		retval = s->ArchiveRemote(s, pc, pilot);
+! 	}
+! 
+! 	if (status == 0) {
+! 		switch (pc->attr) {
+! 		case RecordNothing:  pcStatus = 0; break;
+! 		case RecordNew:      pcStatus = 1; break;
+! 		case RecordDeleted:  pcStatus = 2; break;
+! 		case RecordModified: pcStatus = 3; break;
+! 		default: retval = -1;
+! 		}
+! 	} else {
+! 		pcStatus = 4; /* Unmatched */
+! 	}
+! 
+! 		
+! 	/* For slow syncs, assume that the pilot record changed if
+! 	   it is different than the PC record, even if it isn't marked as
+! 	   modified.  Note: if the PC record was modified or deleted, this
+! 	   will result in a new PC record being created. */
+! 	if (slowsync) {
+! 	  if (!pc) {
+! 	    pilot->attr = RecordNew;
+! 	  } else if (s->Compare(s, pc, pilot) != 0) {
+! 	    pilot->attr = RecordModified;
+! 	  } else 
+! 	    pilot->attr = RecordNothing;
+! 	}
+! 	switch (pilot->attr) {
+! 	case RecordNothing:  pilotStatus = 0; break;
+! 	case RecordNew:      pilotStatus = 1; break;
+! 	case RecordDeleted:  pilotStatus = 2; break;
+! 	case RecordModified: pilotStatus = 3; break;
+! 	default: retval = -1;
+! 	}
+! 
+! 	/* Look up the appropriate action */
+! 	sa = pcActionTable[pilotStatus][pcStatus];
+! 
+! 	/* Assuming the action is non-null and we haven't encountered an error
+! 	   so far, call the action */
+! 	if (sa && retval >= 0) {
+! 		retval = (*sa)(handle, db, pilot, pc, s, slowsync);
+! 	}
+! 
+! 	/* Let the SyncAbs free memory if necessary */
+! 	s->FreeMatch(s, &pc);
+! 	return retval;
+! }
+! 
+! 
+! /* Given a local record, stored in a LocalRecord structure, determine what,
+!    if anything, should be done with it, by looking at its flags, and possibly looking
+!    it up in the pilot. */
+! static int MergeRecordToRemote(int handle, int db, LocalRecord *pc, struct SyncAbs * s, int slowsync) {
+! 
+! 
+! 	int status = 0;
+! 	int retval = 0;
+! 	int pcStatus = 0;
+! 	int pilotStatus = 0;
+! 	SyncAction sa;
+! 	unsigned char buffer[0xffff];
+! 	PilotRecord p;
+! 	PilotRecord *pilot = &p;
+! 	int index = 0;
+! 	long id = 0;
+! 
+! 	memset(&p, 0, sizeof(PilotRecord));
+! 	p.record = buffer;
+! 	id = s->GetPilotID(s, pc);
+! 	dprintf("id=%ld\n", id);
+! 	if (id) {
+! 	  /* Find the matching remote record, if any. */
+! 	  status = dlp_ReadRecordById(handle, db, id,
+! 				      p.record, &index, &p.length, &p.attr,
+! 				      &p.category);
+! 	  p.secret = p.attr & dlpRecAttrSecret;
+! 	  p.archived = p.attr & dlpRecAttrArchived;
+! 	  if(p.attr & dlpRecAttrDeleted)
+! 	    p.attr = RecordDeleted;
+! 	  else if (p.attr & dlpRecAttrDirty)
+! 	    p.attr = RecordModified;
+! 	  else
+! 	    p.attr = RecordNothing;
+! 
+! 	  if (status < 0 && status != dlpErrNotFound) {
+! 	    fprintf(stderr, "ReadRecordById Error: %s\n", dlp_strerror(status));
+! 	    return 0;
+! 	  }
+! 	}
+! 	pilot->ID = id;
+! 
+! 	/* Archive the record if requested */
+! 	if(pc->archived) {
+! 		retval = s->ArchiveLocal(s, pc);
+! 		if (retval >= 0) retval = s->ClearStatusArchiveLocal(s, pc);
+! 	}
+! 
+! 	if (status > 0) {
+! 		switch (pilot->attr) {
+! 		case RecordNothing:  pilotStatus = 0; break;
+! 		case RecordNew:      pilotStatus = 1; break;
+! 		case RecordDeleted:  pilotStatus = 2; break;
+! 		case RecordModified: pilotStatus = 3; break;
+! 		default: retval = -1;
+! 		}
+! 	} else {
+! 		pilotStatus = 4; /* Unmatched */
+! 		pilot = NULL;
+! 	}
+! 
+! 		
+! 	/* For slow syncs, assume that the PC record changed if
+! 	   it is different than the pilot record, even if it isn't marked as
+! 	   modified.  Note: if the pilot record was modified or deleted, this
+! 	   will result in a new pilot record being created. */
+! 	if (slowsync) {
+! 	  if (!pilot) {
+! 	    pc->attr = RecordNew;
+! 	  } else if (s->Compare(s, pc, pilot) != 0) {
+! 	    pc->attr = RecordModified;
+! 	  } else 
+! 	    pc->attr = RecordNothing;
+! 	}
+! 	switch (pc->attr) {
+! 	case RecordNothing:  pcStatus = 0; break;
+! 	case RecordNew:      pcStatus = 1; break;
+! 	case RecordDeleted:  pcStatus = 2; break;
+! 	case RecordModified: pcStatus = 3; break;
+! 	default: retval = -1;
+! 	}
+! 
+! 	/* Look up the appropriate action */
+! 	sa = pilotActionTable[pcStatus][pilotStatus];
+! 
+! 	dprintf("pcStatus=%d, pilotStatus=%d, retval=%d\n",
+! 	       pcStatus, pilotStatus, retval);
+! 	/* Assuming the action is non-null and we haven't encountered an error
+! 	   so far, call the action */
+! 	if (sa && retval >= 0) {
+! 		retval = (*sa)(handle, db, pilot, pc, s, slowsync);
+! 		if (retval < 0) {
+! 		  fprintf(stderr, "pilotAction Error: %s\n", dlp_strerror(retval));
+! 		  return retval;
+! 		}
+! 	}
+! 
+! 	return retval;
+  }
+  
+  /* Iterate over local records, copying records to remote, or deleting, or
+      archiving, as flags dictate. This is the last step in any sync. */
+! static int MergeToRemote(int handle, int db, struct SyncAbs * s, int slowsync) {
+! 	
+! 	LocalRecord *pc = NULL;
+! 	int retval = 0;
+! 
+! 	while (1) {
+! 		if (slowsync) {
+! 			if (s->Iterate(s, &pc) < 0 || !pc) break;
+! 		} else {
+! 		  /* NOTE: IterateSpecific() just returns the next record
+! 		     which is new, modified, or deleted.  The 3rd and 4th 
+! 		     parameters are ignored */
+! 			if (s->IterateSpecific(s, &pc, 0, 0) < 0 || !pc) break;
+! 		}
+! 		retval = MergeRecordToRemote(handle, db, pc, s, slowsync);
+! 		if (retval < 0)
+! 			break;
+! 	}
+! 	s->Purge(s);
+! 	return 0;
+  }
+  
+! 
+! 
+! 
+! 
+! /* Iterate over remote records, copying records to local, or marking
+!     local records for deletion, or archiving, as flags dictate. */
+! static int MergeToLocal(int handle, int db, struct SyncAbs * s, int slowsync) {
+!   	/* --- Paraphrased code derived from Palm's Conduit SDK elided --- */
+  	int index = 0;
+  	int retval = 0;
+  	unsigned char buffer[0xffff];
+  	PilotRecord p;
++ 
+  	p.record = buffer;
+! 
+  	index = 0;
+  	
+! 	while(1) {
+! 		if (slowsync) {
+! 			if (dlp_ReadRecordByIndex(handle,db, index, p.record, &p.ID, &p.length, &p.attr, &p.category) < 0) break;
+! 		} else {
+! 			if (dlp_ReadNextModifiedRec(handle,db, p.record, &p.ID, &index, &p.length, &p.attr, &p.category) < 0) break;
+! 		}
+! 		
+  		p.secret = p.attr & dlpRecAttrSecret;
+  		p.archived = p.attr & dlpRecAttrArchived;
+  		if(p.attr & dlpRecAttrDeleted)
+***************
+*** 85,95 ****
+  			p.attr = RecordModified;
+  		else
+  			p.attr = RecordNothing;
+! 		SyncRecord(handle, db, &p, s, 1);
+  		index++;
+  	}
+! 	
+! 	MergeToRemote(handle,db,s);
+  	
+  	return retval;
+  }
+--- 500,526 ----
+  			p.attr = RecordModified;
+  		else
+  			p.attr = RecordNothing;
+! 		retval = MergeRecordToLocal(handle, db, &p, s, slowsync);
+! 		if (retval < 0)
+! 			break;
+  		index++;
+  	}
+! 	if (retval >= 0) retval = dlp_CleanUpDatabase(handle, db);
+! 	if (retval >= 0) retval = dlp_ResetSyncFlags(handle, db);
+! 	return retval;
+! }
+! 
+! /* Perform a "slow" sync. This requires that the local (PC) has
+!    consistent, accurate, and sufficient modification flags. All
+!    of the records on the remote (Pilot) are pulled in, and compared
+!    for modifications */
+! int SlowSync(int handle, int db, struct SyncAbs * s ) {
+! 	int retval = 0;
+! 
+! 	retval = MergeToLocal(handle, db, s, 1);
+! 
+! 	if (retval >= 0) 
+! 		retval = MergeToRemote(handle,db,s, 1);
+  	
+  	return retval;
+  }
+***************
+*** 98,123 ****
+     local (PC) have consistent, accurate, and sufficient modification flags.
+     If this is not true, a slow sync should be used */
+  int FastSync(int handle, int db, struct SyncAbs * s ) {
+- 	int index = 0;
+  	int retval = 0;
+! 	unsigned char buffer[0xffff];
+! 	PilotRecord p;
+! 	p.record = buffer;
+! 	
+! 	while(dlp_ReadNextModifiedRec(handle,db, p.record, &p.ID, &index, &p.length, &p.attr, &p.category)>=0) {
+! 	        printf("Got a modified record\n");
+! 		p.secret = p.attr & dlpRecAttrSecret;
+! 		p.archived = p.attr & dlpRecAttrArchived;
+! 		if(p.attr & dlpRecAttrDeleted)
+! 			p.attr = RecordDeleted;
+! 		else if (p.attr & dlpRecAttrDirty)
+! 			p.attr = RecordModified;
+! 		else
+! 			p.attr = RecordNothing;
+! 		SyncRecord(handle, db, &p, s, 0);
+! 	}
+! 	
+! 	MergeToRemote(handle,db,s);
+  	
+  	return retval;
+  }
+--- 529,540 ----
+     local (PC) have consistent, accurate, and sufficient modification flags.
+     If this is not true, a slow sync should be used */
+  int FastSync(int handle, int db, struct SyncAbs * s ) {
+  	int retval = 0;
+! 
+! 	retval = MergeToLocal(handle, db, s, 0);
+! 
+! 	if (retval >= 0) 
+! 		retval = MergeToRemote(handle,db,s, 0);
+  	
+  	return retval;
+  }
+***************
+*** 126,136 ****
+  int CopyToRemote(int handle, int db, struct SyncAbs * s) {
+  	LocalRecord * Local = 0;
+  	int retval = 0;
+! 	dlp_DeleteRecord(handle, db, 1, 0);
+  	while(s->Iterate(s,&Local) && Local) {
+  		if (Local->archived) {
+  			retval = s->ClearStatusArchiveLocal(s,Local);
+- 			s->SetStatus(s,Local,RecordDeleted);
+  		} else if (Local->attr != RecordDeleted) {
+  			PilotRecord * p = s->Transmit(s,Local);
+  			s->SetStatus(s,Local,RecordNothing);
+--- 543,557 ----
+  int CopyToRemote(int handle, int db, struct SyncAbs * s) {
+  	LocalRecord * Local = 0;
+  	int retval = 0;
+! 	retval = dlp_DeleteRecord(handle, db, 1, 0);
+! 	if (retval < 0) {
+! 	  fprintf(stderr, "Error deleting all records: %s\n", 
+! 		  dlp_strerror(retval));
+! 	  return retval;
+! 	}
+  	while(s->Iterate(s,&Local) && Local) {
+  		if (Local->archived) {
+  			retval = s->ClearStatusArchiveLocal(s,Local);
+  		} else if (Local->attr != RecordDeleted) {
+  			PilotRecord * p = s->Transmit(s,Local);
+  			s->SetStatus(s,Local,RecordNothing);
+***************
+*** 139,148 ****
+  				p->attr |= dlpRecAttrSecret ;
+  			retval = (dlp_WriteRecord(handle, db, p->attr, p->ID, 
+  		                p->category, p->record, p->length, 0) < 0 );
+  		        s->FreeTransmit(s,Local, p);
+  		}
+  	}
+! 	s->Purge(s);
+  	return retval;
+  }
+  
+--- 560,570 ----
+  				p->attr |= dlpRecAttrSecret ;
+  			retval = (dlp_WriteRecord(handle, db, p->attr, p->ID, 
+  		                p->category, p->record, p->length, 0) < 0 );
++ 			if (retval < 0) break;
+  		        s->FreeTransmit(s,Local, p);
+  		}
+  	}
+! 	if (retval >= 0) s->Purge(s);
+  	return retval;
+  }
+  
