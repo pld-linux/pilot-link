@@ -9,7 +9,7 @@ Source:		ftp://ryeham.ee.ryerson.ca/pub/PalmOS/%{name}.%{version}.tar.gz
 Patch0:		pilot-link-perl-install.patch
 Patch1:		pilot-link.perl.patch
 Patch2:		pilot-link-pixdir.patch
-Patch3:		ftp://ryeham.ee.ryerson.ca/pub/PalmOS/pilot-link.sync-ldif.patch
+Patch3:		pilot-link.sync-ldif.patch
 BuildPrereq:	libstdc++-devel
 BuildPrereq:	ncurses-devel
 BuildPrereq:	readline-devel
@@ -54,6 +54,7 @@ Pilot link static libraries.
 %patch3 -p1
 
 %build
+chmod +w configure
 autoconf
 %ifarch armv4l
 libtoolize --copy --force
