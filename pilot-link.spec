@@ -5,7 +5,7 @@ Summary(pt_BR):	UtilitАrios de transferЙncia de dados entre Unix e o Pilot
 Summary(ru):	Утилита пересылки файлов между Linux и PalmPilot
 Summary(uk):	Утил╕та пересилки файл╕в м╕ж Linux та PalmPilot
 Name:		pilot-link
-Version:	0.11.5
+Version:	0.11.6
 Release:	1
 License:	GPL
 Group:		Applications/Communications
@@ -135,7 +135,7 @@ PalmPilot.
 %setup -q
 
 %build
-rm -f missing
+#rm -f missing
 %{__libtoolize}
 %{__aclocal}
 %{__autoheader}
@@ -146,13 +146,13 @@ CFLAGS="%{rpmcflags} -I%{_prefix}/X11R6/include"
 CXXFLAGS="%{rpmcflags} -fno-rtti -fno-exceptions -fno-implicit-templates"
 %configure
 
-%{__make} LIBDIR="%{_datadir}"
+%{__make} LIBDIR="%{_datadir}" SED=/bin/sed
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_datadir}
 
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
+%{__make} install DESTDIR=$RPM_BUILD_ROOT SED=/bin/sed
 
 %clean
 rm -rf $RPM_BUILD_ROOT
