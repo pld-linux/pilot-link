@@ -1,0 +1,29 @@
+--- pilot-link-0.11.8/configure.in.orig	Tue Jul  1 21:08:09 2003
++++ pilot-link-0.11.8/configure.in	Tue Oct 14 14:23:40 2003
+@@ -351,6 +351,7 @@
+ 
+ AC_ARG_WITH(readline,      [  --with-readline         use readline               [default=yes]])
+ if test "x$with_readline" != "xno"; then
++	ac_save_LIBS="$LIBS"
+ LIBS="$LIBS -lreadline"
+ 	dnl Let's check all the possible places for readline
+ 	for termlib in ncurses curses termcap terminfo termlib ; do
+@@ -368,6 +369,7 @@
+         AC_TRY_LINK(,[(void)readline(0);], 
+                 RL_LIBS="-lreadline -l${termlib}"))
+ 
++	LIBS="$ac_save_LIBS"
+         if test "x$RL_LIBS" = "x"; then 
+                 AC_MSG_RESULT(not found)
+                 AC_MSG_ERROR([Development headers for readline were not found. Please correct.])
+--- pilot-link-0.11.8/libpisync/Makefile.am.orig	Sat May 11 00:18:10 2002
++++ pilot-link-0.11.8/libpisync/Makefile.am	Tue Oct 14 14:34:57 2003
+@@ -9,7 +9,7 @@
+ 	sync.c
+ 
+ libpisync_la_LIBADD = \
+-	$(ICONV_LIBS)
++	$(ICONV_LIBS) ../libpisock/libpisock.la
+ 
+ libpisync_la_LDFLAGS = \
+ 	-export-dynamic -version-info $(PISYNC_CURRENT):$(PISYNC_REVISION):$(PISYNC_AGE)
