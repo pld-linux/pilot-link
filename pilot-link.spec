@@ -111,8 +111,6 @@ install -d $RPM_BUILD_ROOT%{_datadir}
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
-gzip -9nf ChangeLog README*
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -121,7 +119,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc *.gz
+%doc ChangeLog README*
 %attr(755,root,root) %{_libdir}/lib*.so.*.*
 %attr(755,root,root) %{_bindir}/*
 %{_datadir}/pilot-link
