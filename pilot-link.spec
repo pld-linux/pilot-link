@@ -109,7 +109,7 @@ aplicações Pilot.
 libtoolize --copy --force
 aclocal
 chmod +w configure
-autoconf
+%{__autoconf}
 
 CFLAGS="%{rpmcflags} -I%{_prefix}/X11R6/include"
 CXXFLAGS="%{rpmcflags} -fno-rtti -fno-exceptions -fno-implicit-templates"
