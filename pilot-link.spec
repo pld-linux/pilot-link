@@ -12,7 +12,6 @@ Group:		Applications/Communications
 Source0:	http://www.pilot-link.org/source/%{name}-%{version}.tar.gz
 # Source0-md5: f51ad0900548a6600de7513cc8f606e6
 URL:		http://www.pilot-link.org/
-Patch0:		%{name}-configure.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -135,27 +134,26 @@ PalmPilot.
 
 %prep
 %setup -q
-# %patch0 -p1
 
 %build
-#rm -f missing
+rm -f missing
 %{__libtoolize}
 %{__aclocal}
 %{__autoheader}
 %{__autoconf}
 %{__automake}
 
-CFLAGS="%{rpmcflags} -I%{_prefix}/X11R6/include"
+CFLAGS="%{rpmcflags} -I/usr/X11R6/include"
 CXXFLAGS="%{rpmcflags} -fno-rtti -fno-exceptions -fno-implicit-templates"
 %configure
 
-%{__make} LIBDIR="%{_datadir}" SED=/bin/sed
+%{__make} LIBDIR="%{_datadir}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_datadir}
 
-%{__make} install DESTDIR=$RPM_BUILD_ROOT SED=/bin/sed
+%{__make} install DESTDIR=$RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
