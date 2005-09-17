@@ -6,7 +6,7 @@ Summary(ru):	Утилита пересылки файлов между Linux и PalmPilot
 Summary(uk):	Утил╕та пересилки файл╕в м╕ж Linux та PalmPilot
 Name:		pilot-link
 Version:	0.11.8
-Release:	5
+Release:	6
 License:	GPL
 Group:		Applications/Communications
 Source0:	http://www.pilot-link.org/source/%{name}-%{version}.tar.bz2
@@ -25,7 +25,7 @@ BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
 BuildRequires:	perl-base >= 1:5.6
 BuildRequires:	python-devel
-BuildRequires:	readline-devel >= 4.2
+BuildRequires:	readline-devel >= 5.0
 BuildRequires:	tcl-devel >= 8.3.2
 BuildRequires:	tk-devel >= 8.3.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
