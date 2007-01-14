@@ -6,7 +6,7 @@ Summary(ru):	Утилита пересылки файлов между Linux и PalmPilot
 Summary(uk):	Утил╕та пересилки файл╕в м╕ж Linux та PalmPilot
 Name:		pilot-link
 Version:	0.11.8
-Release:	7
+Release:	8
 License:	GPL
 Group:		Applications/Communications
 Source0:	http://www.pilot-link.org/source/%{name}-%{version}.tar.bz2
