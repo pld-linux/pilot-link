@@ -12,7 +12,9 @@ Version:	0.12.1
 Release:	1
 License:	GPL
 Group:		Applications/Communications
-Source0:	http://downloads.pilot-link.org/%{name}-%{version}.tar.bz2
+# http://downloads.pilot-link.org/%{name}-%{version}.tar.bz2
+# unfortunately forbids wget as User-Agent (used by our distfiles)
+Source0:	%{name}-%{version}.tar.bz2
 # Source0-md5:	80579c6f68eb583f54294d5651c4632b
 Patch0:		%{name}-ac.patch
 URL:		http://www.pilot-link.org/
