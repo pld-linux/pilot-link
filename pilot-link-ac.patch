@@ -1,0 +1,30 @@
+diff -urN pilot-link-0.12.1.org/configure.ac pilot-link-0.12.1/configure.ac
+--- pilot-link-0.12.1.org/configure.ac	2006-08-29 01:36:47.000000000 +0200
++++ pilot-link-0.12.1/configure.ac	2007-01-16 22:27:22.324067500 +0100
+@@ -55,17 +55,6 @@
+ AC_SUBST(PISYNC_REVISION)
+ AC_SUBST(PISYNC_AGE)
+ 
+-dnl Eat -Werror so configure will run properly, if the user provided it
+-enable_werror=no
+-save_CFLAGS="$CFLAGS"
+-CFLAGS=`echo $save_CFLAGS | sed -e s/-Werror//g`
+-CXXFLAGS=`echo $save_CXXFLAGS | sed -e s/-Werror//g`
+-if test "x$CFLAGS" != "x$save_CFLAGS"; then
+-	dnl -Werror was set; treat it as implicit --enable-werror below
+-	enable_werror="yes"
+-fi
+-
+-
+ dnl Check host type
+ AC_CANONICAL_HOST
+ AC_CANONICAL_SYSTEM
+@@ -735,7 +724,7 @@
+ AC_ARG_ENABLE(compile-werror,
+ 	      [  --enable-compile-werror
+                           Causes warnings to be treated as errors in GCC],
+-	      enable_werror=yes)
++	      enable_werror=yes, enable_werror=no)
+ if test "x$GCC" = "xyes" -a "x$enable_werror" = "xyes"; then
+ 	CFLAGS="$CFLAGS -Werror"
+ fi

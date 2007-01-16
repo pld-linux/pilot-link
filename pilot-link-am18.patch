@@ -1,8 +1,0 @@
---- pilot-link-0.11.8/pilot-link.m4.in.orig	Fri Mar 14 19:07:05 2003
-+++ pilot-link-0.11.8/pilot-link.m4.in	Tue Dec 30 03:25:25 2003
-@@ -1,4 +1,4 @@
--AC_DEFUN(AC_PILOT_LINK_HOOK,
-+AC_DEFUN([AC_PILOT_LINK_HOOK],
- [
- PILOT_LINK_VERS=@PILOT_LINK_VERS@
- PILOT_LINK_MAJOR=@PILOT_LINK_MAJOR@
