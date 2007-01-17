@@ -1,6 +1,9 @@
 # TODO:
 # - perl/python/tcl bindings subpackages
-%bcond_with	tcl
+#
+# Conditional build:
+%bcond_with	tcl	# Tcl/Tk bindings
+#
 Summary:	File transfer utilities between Linux and PalmPilots
 Summary(es):	Bibliotecas estáticas necesarias para generar aplicaciones Pilot
 Summary(pl):	Narzêdzia do przesy³ania plików miêdzy Linuksem a PalmPilotami
