@@ -174,7 +174,8 @@ sed -i -e 's#/lib #/lib64 #g' -e 's#/lib/#/lib64/#g' m4/python.m4
 	--with-python
 
 
-%{__make} \
+# perl part fails with -jN > 1
+%{__make} -j1 \
 	LIBDIR="%{_datadir}"
 
 %install
