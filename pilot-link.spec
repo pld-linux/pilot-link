@@ -1,3 +1,9 @@
+# TODO:
+# - perl/python/tcl bindings subpackages
+#
+# Conditional build:
+%bcond_with	tcl	# Tcl/Tk bindings
+#
 Summary:	File transfer utilities between Linux and PalmPilots
 Summary(es):	Bibliotecas estáticas necesarias para generar aplicaciones Pilot
 Summary(pl):	Narzêdzia do przesy³ania plików miêdzy Linuksem a PalmPilotami
@@ -5,30 +11,34 @@ Summary(pt_BR):	Utilitários de transferência de dados entre Unix e o Pilot
 Summary(ru):	õÔÉÌÉÔÁ ÐÅÒÅÓÙÌËÉ ÆÁÊÌÏ× ÍÅÖÄÕ Linux É PalmPilot
 Summary(uk):	õÔÉÌ¦ÔÁ ÐÅÒÅÓÉÌËÉ ÆÁÊÌ¦× Í¦Ö Linux ÔÁ PalmPilot
 Name:		pilot-link
-Version:	0.11.8
-Release:	5
+Version:	0.12.1
+Release:	1
 License:	GPL
 Group:		Applications/Communications
-Source0:	http://www.pilot-link.org/source/%{name}-%{version}.tar.bz2
-# Source0-md5:	586f84add601e8b86da3093ab784e997
-Patch0:		%{name}-tcl_m4.patch
-Patch1:		%{name}-link.patch
-Patch2:		%{name}-am18.patch
-Patch3:		%{name}-iconv-in-glibc.patch
-Patch4:		%{name}-setcharset.patch
+# http://downloads.pilot-link.org/%{name}-%{version}.tar.bz2
+# unfortunately forbids wget as User-Agent (used by our distfiles)
+Source0:	%{name}-%{version}.tar.bz2
+# Source0-md5:	80579c6f68eb583f54294d5651c4632b
+Patch0:		%{name}-ac.patch
 URL:		http://www.pilot-link.org/
-BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bison
+BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
+BuildRequires:	libusb-devel
 BuildRequires:	perl-base >= 1:5.6
+BuildRequires:	popt-devel
 BuildRequires:	python-devel
-BuildRequires:	readline-devel >= 4.2
+BuildRequires:	readline-devel >= 5.0
+%if %{with tcl}
 BuildRequires:	tcl-devel >= 8.3.2
 BuildRequires:	tk-devel >= 8.3.2
+%endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		_ulibdir	%{_prefix}/lib
 
 %description
 This suite of tools allows you to upload and download programs and
@@ -140,23 +150,32 @@ PalmPilot.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
+
+%if "%{_lib}" == "lib64"
+sed -i -e 's#/lib #/lib64 #g' -e 's#/lib/#/lib64/#g' m4/python.m4
+%endif
 
 %build
 %{__libtoolize}
-%{__aclocal}
+%{__aclocal} -I m4
 %{__autoheader}
 %{__autoconf}
 %{__automake}
 
-CFLAGS="%{rpmcflags} -I/usr/X11R6/include"
-CXXFLAGS="%{rpmcflags} -fno-rtti -fno-exceptions -fno-implicit-templates"
-%configure
+%configure \
+	%{!?debug:--disable-debug} \
+	--enable-conduits \
+	--enable-threads \
+	--enable-libusb \
+	--with-libpng=%{_prefix} \
+	--without-included-popt \
+	--with-perl \
+	%{!?with_tcl:--without-tcl}%{?with_tcl:--with-tcl=%{_ulibdir}} \
+	--with-python
 
-%{__make} \
+
+# perl part fails with -jN > 1
+%{__make} -j1 \
 	LIBDIR="%{_datadir}"
 
 %install
@@ -168,8 +187,8 @@ rm -rf $RPM_BUILD_ROOT
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post   -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
@@ -185,6 +204,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/lib*.la
 %{_includedir}/*
 %{_aclocaldir}/*
+%{_pkgconfigdir}/*.pc
 
 %files static
 %defattr(644,root,root,755)
