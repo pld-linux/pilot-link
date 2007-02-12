@@ -5,11 +5,11 @@
 %bcond_with	tcl	# Tcl/Tk bindings
 #
 Summary:	File transfer utilities between Linux and PalmPilots
-Summary(es):	Bibliotecas estАticas necesarias para generar aplicaciones Pilot
-Summary(pl):	NarzЙdzia do przesyЁania plikСw miЙdzy Linuksem a PalmPilotami
-Summary(pt_BR):	UtilitАrios de transferЙncia de dados entre Unix e o Pilot
-Summary(ru):	Утилита пересылки файлов между Linux и PalmPilot
-Summary(uk):	Утил╕та пересилки файл╕в м╕ж Linux та PalmPilot
+Summary(es.UTF-8):   Bibliotecas estц║ticas necesarias para generar aplicaciones Pilot
+Summary(pl.UTF-8):   Narzд≥dzia do przesyе┌ania plikцЁw miд≥dzy Linuksem a PalmPilotami
+Summary(pt_BR.UTF-8):   Utilitц║rios de transferц╙ncia de dados entre Unix e o Pilot
+Summary(ru.UTF-8):   пёя┌п╦п╩п╦я┌п╟ п©п╣я─п╣я│я▀п╩п╨п╦ я└п╟п╧п╩п╬п╡ п╪п╣п╤п╢я┐ Linux п╦ PalmPilot
+Summary(uk.UTF-8):   пёя┌п╦п╩я√я┌п╟ п©п╣я─п╣я│п╦п╩п╨п╦ я└п╟п╧п╩я√п╡ п╪я√п╤ Linux я┌п╟ PalmPilot
 Name:		pilot-link
 Version:	0.12.1
 Release:	1
@@ -51,43 +51,43 @@ or Perl bindings.
 Now also with support for USB PalmOS devices (Sony CLIE, Palm m5xx,
 Handspring Visor).
 
-%description -l es
-Bibliotecas estАticas necesarias para generar aplicaciones Pilot.
+%description -l es.UTF-8
+Bibliotecas estц║ticas necesarias para generar aplicaciones Pilot.
 
-%description -l pl
-Ten zestaw narzЙdzi pozwala na przesyЁanie programСw i plikСw z danymi
-pomiЙdzy maszyn╠ linuksow╠/uniksow╠ a PalmPilotem. Ma kilka
-dodatkowych narzЙdzi pozwalaj╠cych na synchronizacjЙ kalendarza
-PalmPilota z programem Ical. Aby u©ywaФ interfejsu do Pythona, Tcl lub
-Perla, mo©e byФ potrzeba zajrzenia do ╪rСdeЁ pilot-linka.
+%description -l pl.UTF-8
+Ten zestaw narzд≥dzi pozwala na przesyе┌anie programцЁw i plikцЁw z danymi
+pomiд≥dzy maszynд┘ linuksowд┘/uniksowд┘ a PalmPilotem. Ma kilka
+dodatkowych narzд≥dzi pozwalajд┘cych na synchronizacjд≥ kalendarza
+PalmPilota z programem Ical. Aby uе╪ywaд┤ interfejsu do Pythona, Tcl lub
+Perla, moе╪e byд┤ potrzeba zajrzenia do е╨rцЁdeе┌ pilot-linka.
 
-Obecna wersja dziaЁa rСwnie© z urz╠dzeniami z PalmOS wyposa©onymi w
+Obecna wersja dziaе┌a rцЁwnieе╪ z urzд┘dzeniami z PalmOS wyposaе╪onymi w
 port USB (Sony CLIE, Palm m5xx, Handspring Visor).
 
-%description -l pt_BR
+%description -l pt_BR.UTF-8
 Este conjunto de ferramentas permite transferir programas e dados
-entre mАquinas *nix e o Palm Pilot. Alguns utilitАrios extras permitem
-coisas como sincronizar dados entre o calendАrio do Pilot e o Ical.
+entre mц║quinas *nix e o Palm Pilot. Alguns utilitц║rios extras permitem
+coisas como sincronizar dados entre o calendц║rio do Pilot e o Ical.
 
-%description -l uk
-Цей наб╕р ╕нструмент╕в дозволя╓ вам переносити програми та файли даних
-м╕ж системами Linux та PalmPilot. В╕н ма╓ також к╕лька додаткових
-утил╕т, як╕ забезпечують так╕ реч╕ як синхронизац╕я календаря
-PalmPilot та Ical.
+%description -l uk.UTF-8
+п╕п╣п╧ п╫п╟п╠я√я─ я√п╫я│я┌я─я┐п╪п╣п╫я┌я√п╡ п╢п╬п╥п╡п╬п╩я▐я■ п╡п╟п╪ п©п╣я─п╣п╫п╬я│п╦я┌п╦ п©я─п╬пЁя─п╟п╪п╦ я┌п╟ я└п╟п╧п╩п╦ п╢п╟п╫п╦я┘
+п╪я√п╤ я│п╦я│я┌п╣п╪п╟п╪п╦ Linux я┌п╟ PalmPilot. п▓я√п╫ п╪п╟я■ я┌п╟п╨п╬п╤ п╨я√п╩я▄п╨п╟ п╢п╬п╢п╟я┌п╨п╬п╡п╦я┘
+я┐я┌п╦п╩я√я┌, я▐п╨я√ п╥п╟п╠п╣п╥п©п╣я┤я┐я▌я┌я▄ я┌п╟п╨я√ я─п╣я┤я√ я▐п╨ я│п╦п╫я┘я─п╬п╫п╦п╥п╟я├я√я▐ п╨п╟п╩п╣п╫п╢п╟я─я▐
+PalmPilot я┌п╟ Ical.
 
-%description -l ru
-Этот набор инструментов позволяет вам переносить программы и файлы
-данных между системами Linux и PalmPilot. Он имеет также несколько
-дополнительных утилит, обеспечивающих такие вещи как синхронизация
-календаря PalmPilot и Ical.
+%description -l ru.UTF-8
+п╜я┌п╬я┌ п╫п╟п╠п╬я─ п╦п╫я│я┌я─я┐п╪п╣п╫я┌п╬п╡ п©п╬п╥п╡п╬п╩я▐п╣я┌ п╡п╟п╪ п©п╣я─п╣п╫п╬я│п╦я┌я▄ п©я─п╬пЁя─п╟п╪п╪я▀ п╦ я└п╟п╧п╩я▀
+п╢п╟п╫п╫я▀я┘ п╪п╣п╤п╢я┐ я│п╦я│я┌п╣п╪п╟п╪п╦ Linux п╦ PalmPilot. п·п╫ п╦п╪п╣п╣я┌ я┌п╟п╨п╤п╣ п╫п╣я│п╨п╬п╩я▄п╨п╬
+п╢п╬п©п╬п╩п╫п╦я┌п╣п╩я▄п╫я▀я┘ я┐я┌п╦п╩п╦я┌, п╬п╠п╣я│п©п╣я┤п╦п╡п╟я▌я┴п╦я┘ я┌п╟п╨п╦п╣ п╡п╣я┴п╦ п╨п╟п╨ я│п╦п╫я┘я─п╬п╫п╦п╥п╟я├п╦я▐
+п╨п╟п╩п╣п╫п╢п╟я─я▐ PalmPilot п╦ Ical.
 
 %package devel
 Summary:	Pilot development header files
-Summary(es):	Archivos de inclusiСn para el desarrollo de programas
-Summary(pl):	Pliki nagЁСwkowe do biblioteki pilot-link
-Summary(pt_BR):	Arquivos de inclusЦo para o desenvolvimento de programas
-Summary(ru):	Файлы для разработки программ взаимодействия с PalmPilot
-Summary(uk):	Файли для розробки програм вза╓мод╕╖ з PalmPilot
+Summary(es.UTF-8):   Archivos de inclusiцЁn para el desarrollo de programas
+Summary(pl.UTF-8):   Pliki nagе┌цЁwkowe do biblioteki pilot-link
+Summary(pt_BR.UTF-8):   Arquivos de inclusцёo para o desenvolvimento de programas
+Summary(ru.UTF-8):   п╓п╟п╧п╩я▀ п╢п╩я▐ я─п╟п╥я─п╟п╠п╬я┌п╨п╦ п©я─п╬пЁя─п╟п╪п╪ п╡п╥п╟п╦п╪п╬п╢п╣п╧я│я┌п╡п╦я▐ я│ PalmPilot
+Summary(uk.UTF-8):   п╓п╟п╧п╩п╦ п╢п╩я▐ я─п╬п╥я─п╬п╠п╨п╦ п©я─п╬пЁя─п╟п╪ п╡п╥п╟я■п╪п╬п╢я√я≈ п╥ PalmPilot
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
@@ -95,56 +95,56 @@ Requires:	%{name} = %{version}-%{release}
 This package contains the development headers that are used to build
 the pilot-link package.
 
-%description devel -l es
-Este paquete contiene los archivos de inclusiСn necesarios para crear
+%description devel -l es.UTF-8
+Este paquete contiene los archivos de inclusiцЁn necesarios para crear
 aplicaciones Pilot.
 
-%description devel -l pl
-Ten pakiet zawiera pliki nagЁСwkowe u©ywane przy budowaniu pakietu
+%description devel -l pl.UTF-8
+Ten pakiet zawiera pliki nagе┌цЁwkowe uе╪ywane przy budowaniu pakietu
 pilot-link.
 
-%description devel -l pt_BR
-Este pacote contИm os arquivos de inclusЦo necessАrios para gerar
-aplicaГУes Pilot.
+%description devel -l pt_BR.UTF-8
+Este pacote contц╘m os arquivos de inclusцёo necessц║rios para gerar
+aplicaц╖ц╣es Pilot.
 
-%description devel -l ru
-Этот пакет содержит файлы заголовков C для построения программ
-взаимодействия с PalmPilot.
+%description devel -l ru.UTF-8
+п╜я┌п╬я┌ п©п╟п╨п╣я┌ я│п╬п╢п╣я─п╤п╦я┌ я└п╟п╧п╩я▀ п╥п╟пЁп╬п╩п╬п╡п╨п╬п╡ C п╢п╩я▐ п©п╬я│я┌я─п╬п╣п╫п╦я▐ п©я─п╬пЁя─п╟п╪п╪
+п╡п╥п╟п╦п╪п╬п╢п╣п╧я│я┌п╡п╦я▐ я│ PalmPilot.
 
-%description devel -l uk
-Цей пакет м╕стить файли заголовк╕в C для побудови програм вза╓мод╕╖ з
+%description devel -l uk.UTF-8
+п╕п╣п╧ п©п╟п╨п╣я┌ п╪я√я│я┌п╦я┌я▄ я└п╟п╧п╩п╦ п╥п╟пЁп╬п╩п╬п╡п╨я√п╡ C п╢п╩я▐ п©п╬п╠я┐п╢п╬п╡п╦ п©я─п╬пЁя─п╟п╪ п╡п╥п╟я■п╪п╬п╢я√я≈ п╥
 PalmPilot.
 
 %package static
 Summary:	Pilot link static libraries
-Summary(es):	Bibliotecas estАticas necesarias para crear aplicaciones Pilot
-Summary(pl):	Statyczne biblioteki pilot-link
-Summary(pt_BR):	Bibliotecas estАticas necessАrias para gerar aplicaГУes Pilot
-Summary(ru):	Статические библиотеки для разработки программ взаимодействия с PalmPilot
-Summary(uk):	Статичн╕ б╕бл╕отеки для розробки програм вза╓мод╕╖ з PalmPilot
+Summary(es.UTF-8):   Bibliotecas estц║ticas necesarias para crear aplicaciones Pilot
+Summary(pl.UTF-8):   Statyczne biblioteki pilot-link
+Summary(pt_BR.UTF-8):   Bibliotecas estц║ticas necessц║rias para gerar aplicaц╖ц╣es Pilot
+Summary(ru.UTF-8):   п║я┌п╟я┌п╦я┤п╣я│п╨п╦п╣ п╠п╦п╠п╩п╦п╬я┌п╣п╨п╦ п╢п╩я▐ я─п╟п╥я─п╟п╠п╬я┌п╨п╦ п©я─п╬пЁя─п╟п╪п╪ п╡п╥п╟п╦п╪п╬п╢п╣п╧я│я┌п╡п╦я▐ я│ PalmPilot
+Summary(uk.UTF-8):   п║я┌п╟я┌п╦я┤п╫я√ п╠я√п╠п╩я√п╬я┌п╣п╨п╦ п╢п╩я▐ я─п╬п╥я─п╬п╠п╨п╦ п©я─п╬пЁя─п╟п╪ п╡п╥п╟я■п╪п╬п╢я√я≈ п╥ PalmPilot
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Pilot link static libraries.
 
-%description static -l es
-Este paquete contiene las bibliotecas estАticas necesarias para crear
+%description static -l es.UTF-8
+Este paquete contiene las bibliotecas estц║ticas necesarias para crear
 aplicaciones Pilot.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Statyczne biblioteki pilot-link.
 
-%description static -l pt_BR
-Este pacote contИm as bibliotecas estАticas necessАrias para gerar
-aplicaГУes Pilot.
+%description static -l pt_BR.UTF-8
+Este pacote contц╘m as bibliotecas estц║ticas necessц║rias para gerar
+aplicaц╖ц╣es Pilot.
 
-%description static -l ru
-Этот пакет содержит статические библиотеки для построения программ
-взаимодействия с PalmPilot.
+%description static -l ru.UTF-8
+п╜я┌п╬я┌ п©п╟п╨п╣я┌ я│п╬п╢п╣я─п╤п╦я┌ я│я┌п╟я┌п╦я┤п╣я│п╨п╦п╣ п╠п╦п╠п╩п╦п╬я┌п╣п╨п╦ п╢п╩я▐ п©п╬я│я┌я─п╬п╣п╫п╦я▐ п©я─п╬пЁя─п╟п╪п╪
+п╡п╥п╟п╦п╪п╬п╢п╣п╧я│я┌п╡п╦я▐ я│ PalmPilot.
 
-%description static -l uk
-Цей пакет м╕стить статичн╕ б╕бл╕отеки для побудови програм вза╓мод╕╖ з
+%description static -l uk.UTF-8
+п╕п╣п╧ п©п╟п╨п╣я┌ п╪я√я│я┌п╦я┌я▄ я│я┌п╟я┌п╦я┤п╫я√ п╠я√п╠п╩я√п╬я┌п╣п╨п╦ п╢п╩я▐ п©п╬п╠я┐п╢п╬п╡п╦ п©я─п╬пЁя─п╟п╪ п╡п╥п╟я■п╪п╬п╢я√я≈ п╥
 PalmPilot.
 
 %prep
