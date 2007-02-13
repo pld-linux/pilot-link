@@ -5,11 +5,11 @@
 %bcond_with	tcl	# Tcl/Tk bindings
 #
 Summary:	File transfer utilities between Linux and PalmPilots
-Summary(es.UTF-8):   Bibliotecas estáticas necesarias para generar aplicaciones Pilot
-Summary(pl.UTF-8):   Narzędzia do przesyłania plików między Linuksem a PalmPilotami
-Summary(pt_BR.UTF-8):   Utilitários de transferência de dados entre Unix e o Pilot
-Summary(ru.UTF-8):   Утилита пересылки файлов между Linux и PalmPilot
-Summary(uk.UTF-8):   Утиліта пересилки файлів між Linux та PalmPilot
+Summary(es.UTF-8):	Bibliotecas estáticas necesarias para generar aplicaciones Pilot
+Summary(pl.UTF-8):	Narzędzia do przesyłania plików między Linuksem a PalmPilotami
+Summary(pt_BR.UTF-8):	Utilitários de transferência de dados entre Unix e o Pilot
+Summary(ru.UTF-8):	Утилита пересылки файлов между Linux и PalmPilot
+Summary(uk.UTF-8):	Утиліта пересилки файлів між Linux та PalmPilot
 Name:		pilot-link
 Version:	0.12.1
 Release:	1
@@ -83,11 +83,11 @@ PalmPilot та Ical.
 
 %package devel
 Summary:	Pilot development header files
-Summary(es.UTF-8):   Archivos de inclusión para el desarrollo de programas
-Summary(pl.UTF-8):   Pliki nagłówkowe do biblioteki pilot-link
-Summary(pt_BR.UTF-8):   Arquivos de inclusão para o desenvolvimento de programas
-Summary(ru.UTF-8):   Файлы для разработки программ взаимодействия с PalmPilot
-Summary(uk.UTF-8):   Файли для розробки програм взаємодії з PalmPilot
+Summary(es.UTF-8):	Archivos de inclusión para el desarrollo de programas
+Summary(pl.UTF-8):	Pliki nagłówkowe do biblioteki pilot-link
+Summary(pt_BR.UTF-8):	Arquivos de inclusão para o desenvolvimento de programas
+Summary(ru.UTF-8):	Файлы для разработки программ взаимодействия с PalmPilot
+Summary(uk.UTF-8):	Файли для розробки програм взаємодії з PalmPilot
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
@@ -117,11 +117,11 @@ PalmPilot.
 
 %package static
 Summary:	Pilot link static libraries
-Summary(es.UTF-8):   Bibliotecas estáticas necesarias para crear aplicaciones Pilot
-Summary(pl.UTF-8):   Statyczne biblioteki pilot-link
-Summary(pt_BR.UTF-8):   Bibliotecas estáticas necessárias para gerar aplicações Pilot
-Summary(ru.UTF-8):   Статические библиотеки для разработки программ взаимодействия с PalmPilot
-Summary(uk.UTF-8):   Статичні бібліотеки для розробки програм взаємодії з PalmPilot
+Summary(es.UTF-8):	Bibliotecas estáticas necesarias para crear aplicaciones Pilot
+Summary(pl.UTF-8):	Statyczne biblioteki pilot-link
+Summary(pt_BR.UTF-8):	Bibliotecas estáticas necessárias para gerar aplicações Pilot
+Summary(ru.UTF-8):	Статические библиотеки для разработки программ взаимодействия с PalmPilot
+Summary(uk.UTF-8):	Статичні бібліотеки для розробки програм взаємодії з PalmPilot
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
