@@ -19,6 +19,7 @@ Source0:	http://downloads.pilot-link.org/%{name}-%{version}.tar.bz2
 # Source0-md5:	257124484d50552679c53cae8e118aa3
 Patch0:		%{name}-ac.patch
 Patch1:		%{name}-open.patch
+Patch2:		%{name}-man.patch
 URL:		http://www.pilot-link.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -151,6 +152,7 @@ PalmPilot.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %if "%{_lib}" == "lib64"
 sed -i -e 's#/lib #/lib64 #g' -e 's#/lib/#/lib64/#g' m4/python.m4
