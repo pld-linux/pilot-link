@@ -11,17 +11,19 @@ Summary(pt_BR.UTF-8):	Utilitários de transferência de dados entre Unix e o Pil
 Summary(ru.UTF-8):	Утилита пересылки файлов между Linux и PalmPilot
 Summary(uk.UTF-8):	Утиліта пересилки файлів між Linux та PalmPilot
 Name:		pilot-link
-Version:	0.12.2
-Release:	3
+Version:	0.12.3
+Release:	1
 License:	GPL
 Group:		Applications/Communications
 Source0:	http://downloads.pilot-link.org/%{name}-%{version}.tar.bz2
-# Source0-md5:	c1f4db8f32a2ee916fedb9a2dac8aa26
+# Source0-md5:	257124484d50552679c53cae8e118aa3
 Patch0:		%{name}-ac.patch
+Patch1:		%{name}-open.patch
 URL:		http://www.pilot-link.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bison
+BuildRequires:	bluez-libs-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
@@ -148,6 +150,7 @@ PalmPilot.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %if "%{_lib}" == "lib64"
 sed -i -e 's#/lib #/lib64 #g' -e 's#/lib/#/lib64/#g' m4/python.m4
@@ -165,6 +168,7 @@ sed -i -e 's#/lib #/lib64 #g' -e 's#/lib/#/lib64/#g' m4/python.m4
 	--enable-conduits \
 	--enable-threads \
 	--enable-libusb \
+	--with-bluez \
 	--with-libpng=%{_prefix} \
 	--without-included-popt \
 	--with-perl \
