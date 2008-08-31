@@ -1,0 +1,11 @@
+diff -urN pilot-link-0.12.3.org/doc/Makefile.am pilot-link-0.12.3/doc/Makefile.am
+--- pilot-link-0.12.3.org/doc/Makefile.am	2007-11-09 18:24:38.000000000 +0100
++++ pilot-link-0.12.3/doc/Makefile.am	2008-08-31 20:35:59.289489746 +0200
+@@ -1,7 +1,5 @@
+-if BUILD_XML
+ if ENABLE_XSLTPROC
+ SUBDIRS = xml man
+-endif
+ else
+ SUBDIRS = man
+ endif
