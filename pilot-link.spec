@@ -12,7 +12,7 @@ Summary(ru.UTF-8):	Утилита пересылки файлов между Lin
 Summary(uk.UTF-8):	Утиліта пересилки файлів між Linux та PalmPilot
 Name:		pilot-link
 Version:	0.12.3
-Release:	3
+Release:	4
 License:	GPL
 Group:		Applications/Communications
 Source0:	http://downloads.pilot-link.org/%{name}-%{version}.tar.bz2
