@@ -12,7 +12,7 @@ Summary(ru.UTF-8):	Утилита пересылки файлов между Lin
 Summary(uk.UTF-8):	Утиліта пересилки файлів між Linux та PalmPilot
 Name:		pilot-link
 Version:	0.12.3
-Release:	5
+Release:	6
 License:	GPL
 Group:		Applications/Communications
 Source0:	http://downloads.pilot-link.org/%{name}-%{version}.tar.bz2
@@ -20,6 +20,7 @@ Source0:	http://downloads.pilot-link.org/%{name}-%{version}.tar.bz2
 Patch0:		%{name}-ac.patch
 Patch1:		%{name}-open.patch
 Patch2:		%{name}-man.patch
+Patch3:		%{name}-libpng.patch
 URL:		http://www.pilot-link.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -153,6 +154,7 @@ PalmPilot.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %if "%{_lib}" == "lib64"
 sed -i -e 's#/lib #/lib64 #g' -e 's#/lib/#/lib64/#g' m4/python.m4
