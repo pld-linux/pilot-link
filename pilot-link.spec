@@ -30,9 +30,12 @@ BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
 BuildRequires:	libusb-compat-devel
+BuildRequires:	perl-ExtUtils-MakeMaker
 BuildRequires:	perl-base >= 1:5.6
+BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
 BuildRequires:	python-devel
+BuildRequires:	python-modules
 BuildRequires:	readline-devel >= 5.0
 %if %{with tcl}
 BuildRequires:	tcl-devel >= 8.3.2
