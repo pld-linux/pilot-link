@@ -11,12 +11,12 @@ Summary(pt_BR.UTF-8):	Utilitários de transferência de dados entre Unix e o Pil
 Summary(ru.UTF-8):	Утилита пересылки файлов между Linux и PalmPilot
 Summary(uk.UTF-8):	Утиліта пересилки файлів між Linux та PalmPilot
 Name:		pilot-link
-Version:	0.12.3
-Release:	6
-License:	GPL
+Version:	0.12.4
+Release:	1
+License:	GPL v2+
 Group:		Applications/Communications
 Source0:	http://downloads.pilot-link.org/%{name}-%{version}.tar.bz2
-# Source0-md5:	257124484d50552679c53cae8e118aa3
+# Source0-md5:	a62baf6fd709c6a3d93077abda936e7a
 Patch0:		%{name}-ac.patch
 Patch1:		%{name}-open.patch
 Patch2:		%{name}-man.patch
@@ -61,7 +61,7 @@ Ten zestaw narzędzi pozwala na przesyłanie programów i plików z danymi
 pomiędzy maszyną linuksową/uniksową a PalmPilotem. Ma kilka
 dodatkowych narzędzi pozwalających na synchronizację kalendarza
 PalmPilota z programem Ical. Aby używać interfejsu do Pythona, Tcl lub
-Perla, może być potrzeba zajrzenia do źródeł pilot-linka.
+Perla, może zaistnieć potrzeba zajrzenia do źródeł pilot-linka.
 
 Obecna wersja działa również z urządzeniami z PalmOS wyposażonymi w
 port USB (Sony CLIE, Palm m5xx, Handspring Visor).
@@ -157,7 +157,7 @@ PalmPilot.
 %patch3 -p1
 
 %if "%{_lib}" == "lib64"
-sed -i -e 's#/lib #/lib64 #g' -e 's#/lib/#/lib64/#g' m4/python.m4
+%{__sed} -i -e 's#/lib #/lib64 #g' -e 's#/lib/#/lib64/#g' m4/python.m4
 %endif
 
 %build
