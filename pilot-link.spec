@@ -201,6 +201,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc ChangeLog README* doc/README.usb doc/README.debugging NEWS
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_libdir}/lib*.so.*.*
+%attr(755,root,root) %ghost %{_libdir}/libpisock.so.9
+%attr(755,root,root) %ghost %{_libdir}/libpisync.so.1
 %{_datadir}/pilot-link
 %{_mandir}/man[17]/*
 
