@@ -11,12 +11,12 @@ Summary(pt_BR.UTF-8):	Utilitários de transferência de dados entre Unix e o Pil
 Summary(ru.UTF-8):	Утилита пересылки файлов между Linux и PalmPilot
 Summary(uk.UTF-8):	Утиліта пересилки файлів між Linux та PalmPilot
 Name:		pilot-link
-Version:	0.12.4
+Version:	0.12.5
 Release:	1
 License:	GPL v2+
 Group:		Applications/Communications
 Source0:	http://downloads.pilot-link.org/%{name}-%{version}.tar.bz2
-# Source0-md5:	a62baf6fd709c6a3d93077abda936e7a
+# Source0-md5:	568c55bf504b044f6fbd50baa407c990
 Patch0:		%{name}-ac.patch
 Patch1:		%{name}-open.patch
 Patch2:		%{name}-man.patch
