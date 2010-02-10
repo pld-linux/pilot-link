@@ -32,6 +32,7 @@ BuildRequires:	libtool
 BuildRequires:	libusb-compat-devel
 BuildRequires:	perl-ExtUtils-MakeMaker
 BuildRequires:	perl-base >= 1:5.6
+BuildRequires:	perl-devel
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
 BuildRequires:	python-devel
