@@ -1,0 +1,49 @@
+--- pilot-link-0.12.5/src/pilot-dlpsh.c~	2009-06-04 15:26:19.000000000 +0200
++++ pilot-link-0.12.5/src/pilot-dlpsh.c	2013-11-03 09:27:00.449103169 +0100
+@@ -389,7 +389,7 @@
+ 
+ 	strftime(timebuf, 80, "Now setting Palm time from desktop to: "
+ 			      "%a %b %d %H:%M:%S %Z %Y\n", tm_ptr);
+-	printf(timebuf);
++	printf("%s", timebuf);
+ 	gettimeofday(&tv, 0);
+ 	ltime = tv.tv_sec + 1;
+ 	usleep(1000000 - tv.tv_usec);
+--- pilot-link-0.12.5/src/pilot-hinotes.c~	2009-06-04 15:26:19.000000000 +0200
++++ pilot-link-0.12.5/src/pilot-hinotes.c	2013-11-03 09:27:46.303998160 +0100
+@@ -80,7 +80,7 @@
+ 	else
+ 		printf("\n");
+ 	printf("\n");
+-	printf(m.text);
++	printf("%s", m.text);
+ 	printf("\n");
+ }
+ 
+--- pilot-link-0.12.5/src/pilot-xfer.c~	2010-02-07 03:21:18.000000000 +0100
++++ pilot-link-0.12.5/src/pilot-xfer.c	2013-11-03 09:28:48.562785630 +0100
+@@ -2478,7 +2478,7 @@
+ 					fprintf(stderr, "   ERROR: '%s' is not a directory or does not exist.\n"
+ 							"   Please supply a directory name when performing a "
+ 							"backup or restore and try again.\n\n", dirname);
+-					fprintf(stderr,gracias);
++					fprintf(stderr, "%s", gracias);
+ 					return 1;
+ 				}
+ 			}
+@@ -2488,13 +2488,13 @@
+ 			if (rargc > 0)
+ 			{
+ 				fprintf(stderr,"   ERROR: Do not pass additional arguments to -busrlLC.\n");
+-				fprintf(stderr,gracias);
++				fprintf(stderr, "%s", gracias);
+ 				return 1;
+ 			}
+ 			break;
+ 		case palm_op_noop:
+ 			fprintf(stderr,"   ERROR: Must specify one of -bursimfdlC.\n");
+-			fprintf(stderr,gracias);
++			fprintf(stderr, "%s", gracias);
+ 			return 1;
+ 			break;
+ 		case palm_op_merge:
