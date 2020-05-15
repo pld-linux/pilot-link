@@ -1,7 +1,9 @@
 # TODO:
-# - perl/python/tcl bindings subpackages
+# - java/tcl bindings subpackages
 #
 # Conditional build:
+%bcond_without	perl	# Perl bindings
+%bcond_without	python	# Python bindings
 %bcond_with	tcl	# Tcl/Tk bindings
 #
 Summary:	File transfer utilities between Linux and PalmPilots
@@ -12,7 +14,7 @@ Summary(ru.UTF-8):	Утилита пересылки файлов между Lin
 Summary(uk.UTF-8):	Утиліта пересилки файлів між Linux та PalmPilot
 Name:		pilot-link
 Version:	0.12.5
-Release:	9
+Release:	10
 License:	GPL v2+
 Group:		Applications/Communications
 Source0:	http://downloads.pilot-link.org/%{name}-%{version}.tar.bz2
@@ -25,7 +27,7 @@ Patch4:		%{name}-format.patch
 # from fc
 Patch5:		pilot-link-0.12.5-redefinePerlsymbols.patch
 URL:		http://www.pilot-link.org/
-BuildRequires:	autoconf
+BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake
 BuildRequires:	bison
 BuildRequires:	bluez-libs-devel
@@ -35,12 +37,13 @@ BuildRequires:	libtool
 BuildRequires:	libusb-compat-devel
 BuildRequires:	perl-ExtUtils-MakeMaker
 BuildRequires:	perl-base >= 1:5.6
-BuildRequires:	perl-devel
+%{?with_perl:BuildRequires:	perl-devel >= 1:5.6}
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
-BuildRequires:	python-devel
+%{?with_python:BuildRequires:	python-devel >= 2}
 BuildRequires:	python-modules
 BuildRequires:	readline-devel >= 5.0
+BuildRequires:	rpmbuild(macros) >= 1.745
 %if %{with tcl}
 BuildRequires:	tcl-devel >= 8.3.2
 BuildRequires:	tk-devel >= 8.3.2
@@ -156,6 +159,30 @@ aplicações Pilot.
 Цей пакет містить статичні бібліотеки для побудови програм взаємодії з
 PalmPilot.
 
+%package -n perl-PDA-Pilot
+Summary:	PDA::Pilot - Perl binding to pilot-link library
+Summary(pl.UTF-8):	PDA::Pilot - wiązanie Perla do biblioteki pilot-link
+Group:		Development/Languages/Perl
+Requires:	%{name} = %{version}-%{release}
+
+%description -n perl-PDA-Pilot
+PDA::Pilot - Perl binding to pilot-link library.
+
+%description -n perl-PDA-Pilot -l pl.UTF-8
+PDA::Pilot - wiązanie Perla do biblioteki pilot-link.
+
+%package -n python-pilot-link
+Summary:	Python binding to pilot-link library
+Summary(pl.UTF-8):	Wiązanie Pythona do biblioteki pilot-link
+Group:		Libraries/Python
+Requires:	%{name} = %{version}-%{release}
+
+%description -n python-pilot-link
+Python binding to pilot-link library.
+
+%description -n python-pilot-link -l pl.UTF-8
+Wiązanie Pythona do biblioteki pilot-link.
+
 %prep
 %setup -q
 %patch0 -p1
@@ -165,29 +192,32 @@ PalmPilot.
 %patch4 -p1
 %patch5 -p1
 
-%if "%{_lib}" == "lib64"
-%{__sed} -i -e 's#/lib #/lib64 #g' -e 's#/lib/#/lib64/#g' m4/python.m4
+%if "%{_lib}" != "lib"
+%{__sed} -i -e 's#/lib\>#/%{_lib}#g' m4/python.m4
 %endif
+
+# script that produces a script - has additional shebang embedded inside
+%{__sed} -i -e 's,^#!/usr/bin/env perl,#!%{__perl},' src/pilot-ietf2datebook.pl
+
+%{__sed} -i -e '1s,/usr/bin/env perl,%{__perl},' bindings/Perl/dump.pl
 
 %build
 %{__libtoolize}
 %{__aclocal} -I m4
-%{__autoheader}
 %{__autoconf}
+%{__autoheader}
 %{__automake}
-
 %configure \
+	ac_cv_lib_iconv_libiconv=no \
 	%{!?debug:--disable-debug} \
 	--enable-conduits \
-	--enable-threads \
 	--enable-libusb \
+	--enable-threads \
 	--with-bluez \
-	--with-libpng=%{_prefix} \
 	--without-included-popt \
-	--with-perl \
-	%{!?with_tcl:--without-tcl}%{?with_tcl:--with-tcl=%{_ulibdir}} \
-	--with-python
-
+	%{?with_perl:--with-perl} \
+	%{?with_python:--with-python} \
+	--with-tcl=%{!?with_tcl:no}%{?with_tcl:%{_ulibdir}}
 
 # perl part fails with -jN > 1
 %{__make} -j1 \
@@ -199,6 +229,12 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+%if %{with python}
+%py_comp $RPM_BUILD_ROOT%{py_sitedir}
+%py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
+%py_postclean
+%endif
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -208,21 +244,49 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc ChangeLog README* doc/README.usb doc/README.debugging NEWS
-%attr(755,root,root) %{_bindir}/*
-%attr(755,root,root) %{_libdir}/lib*.so.*.*
+%attr(755,root,root) %{_bindir}/pilot-*
+%attr(755,root,root) %{_libdir}/libpisock.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libpisock.so.9
+%attr(755,root,root) %{_libdir}/libpisync.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libpisync.so.1
 %{_datadir}/pilot-link
-%{_mandir}/man[17]/*
+%{_mandir}/man1/ietf2datebook.1*
+%{_mandir}/man1/pilot-*.1*
+%{_mandir}/man7/pilot-link.7*
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib*.so
-%{_libdir}/lib*.la
-%{_includedir}/*
-%{_aclocaldir}/*
-%{_pkgconfigdir}/*.pc
+%attr(755,root,root) %{_libdir}/libpisock.so
+%attr(755,root,root) %{_libdir}/libpisync.so
+%{_libdir}/libpisock.la
+%{_libdir}/libpisync.la
+%{_includedir}/pi-*.h
+%{_aclocaldir}/pilot-link.m4
+%{_pkgconfigdir}/pilot-link.pc
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/lib*.a
+%{_libdir}/libpisock.a
+%{_libdir}/libpisync.a
+
+%if %{with perl}
+%files -n perl-PDA-Pilot
+%defattr(644,root,root,755)
+%dir %{perl_vendorarch}/PDA
+%{perl_vendorarch}/PDA/Pilot.pm
+%{perl_vendorarch}/PDA/dump.pl
+%dir %{perl_vendorarch}/auto/PDA
+%dir %{perl_vendorarch}/auto/PDA/Pilot
+%attr(755,root,root) %{perl_vendorarch}/auto/PDA/Pilot/Pilot.so
+%{perl_vendorarch}/auto/PDA/Pilot/autosplit.ix
+%{_mandir}/man3/PDA::Pilot.3pm*
+%endif
+
+%if %{with python}
+%files -n python-pilot-link
+%defattr(644,root,root,755)
+%attr(755,root,root) %{py_sitedir}/_pisock.so
+%{py_sitedir}/pisock.py[co]
+%{py_sitedir}/pisockextras.py[co]
+%{py_sitedir}/python_libpisock-%{version}-py*.egg-info
+%endif
