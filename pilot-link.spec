@@ -14,7 +14,7 @@ Summary(ru.UTF-8):	Утилита пересылки файлов между Lin
 Summary(uk.UTF-8):	Утиліта пересилки файлів між Linux та PalmPilot
 Name:		pilot-link
 Version:	0.12.5
-Release:	10
+Release:	11
 License:	GPL v2+
 Group:		Applications/Communications
 Source0:	http://downloads.pilot-link.org/%{name}-%{version}.tar.bz2
@@ -48,6 +48,8 @@ BuildRequires:	rpmbuild(macros) >= 1.745
 BuildRequires:	tcl-devel >= 8.3.2
 BuildRequires:	tk-devel >= 8.3.2
 %endif
+Requires:	%{name}-libs = %{version}-%{release}
+Requires:	perl-PDA-Pilot = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_ulibdir	%{_prefix}/lib
@@ -93,6 +95,18 @@ PalmPilot та Ical.
 дополнительных утилит, обеспечивающих такие вещи как синхронизация
 календаря PalmPilot и Ical.
 
+%package libs
+Summary:	Pilot link shared libraries
+Summary(pl.UTF-8):	Biblioteki współdzielone pilot-link
+Group:		Libraries
+Conflicts:	pilot-link < 0.12.5-11
+
+%description libs
+Pilot link shared libraries.
+
+%description libs -l pl.UTF-8
+Biblioteki współdzielone pilot-link.
+
 %package devel
 Summary:	Pilot development header files
 Summary(es.UTF-8):	Archivos de inclusión para el desarrollo de programas
@@ -101,7 +115,7 @@ Summary(pt_BR.UTF-8):	Arquivos de inclusão para o desenvolvimento de programas
 Summary(ru.UTF-8):	Файлы для разработки программ взаимодействия с PalmPilot
 Summary(uk.UTF-8):	Файли для розробки програм взаємодії з PalmPilot
 Group:		Development/Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}-libs = %{version}-%{release}
 
 %description devel
 This package contains the development headers that are used to build
@@ -163,7 +177,7 @@ PalmPilot.
 Summary:	PDA::Pilot - Perl binding to pilot-link library
 Summary(pl.UTF-8):	PDA::Pilot - wiązanie Perla do biblioteki pilot-link
 Group:		Development/Languages/Perl
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}-libs = %{version}-%{release}
 
 %description -n perl-PDA-Pilot
 PDA::Pilot - Perl binding to pilot-link library.
@@ -175,7 +189,7 @@ PDA::Pilot - wiązanie Perla do biblioteki pilot-link.
 Summary:	Python binding to pilot-link library
 Summary(pl.UTF-8):	Wiązanie Pythona do biblioteki pilot-link
 Group:		Libraries/Python
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}-libs = %{version}-%{release}
 
 %description -n python-pilot-link
 Python binding to pilot-link library.
@@ -238,21 +252,24 @@ rm -rf $RPM_BUILD_ROOT
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	-p /sbin/ldconfig
-%postun	-p /sbin/ldconfig
+%post	libs -p /sbin/ldconfig
+%postun	libs -p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
 %doc ChangeLog README* doc/README.usb doc/README.debugging NEWS
 %attr(755,root,root) %{_bindir}/pilot-*
-%attr(755,root,root) %{_libdir}/libpisock.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libpisock.so.9
-%attr(755,root,root) %{_libdir}/libpisync.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libpisync.so.1
 %{_datadir}/pilot-link
 %{_mandir}/man1/ietf2datebook.1*
 %{_mandir}/man1/pilot-*.1*
 %{_mandir}/man7/pilot-link.7*
+
+%files libs
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libpisock.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libpisock.so.9
+%attr(755,root,root) %{_libdir}/libpisync.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libpisync.so.1
 
 %files devel
 %defattr(644,root,root,755)
