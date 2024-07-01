@@ -222,6 +222,7 @@ Wiązanie Pythona do biblioteki pilot-link.
 %{__autoheader}
 %{__automake}
 %configure \
+	PYTHON="%{__python}" \
 	ac_cv_lib_iconv_libiconv=no \
 	%{!?debug:--disable-debug} \
 	--enable-conduits \
