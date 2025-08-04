@@ -1,0 +1,24 @@
+--- pilot-link-0.12.5/bindings/Perl/Pilot.xs.orig	2025-08-04 13:38:25.051586394 +0200
++++ pilot-link-0.12.5/bindings/Perl/Pilot.xs	2025-08-04 13:51:49.459786137 +0200
+@@ -2574,16 +2574,18 @@
+ 	OUTPUT:
+ 	RETVAL
+ 
+-int
++SV*
+ getRecords(self)
+ 	PDA::Pilot::DLP::DB *self
+ 	CODE:
+ 	{
+-		int result = dlp_ReadOpenDBInfo(self->socket, self->handle, &RETVAL);
++		int count;
++		int result = dlp_ReadOpenDBInfo(self->socket, self->handle, &count);
+ 		if (result < 0) {
+ 			RETVAL = newSVsv(&PL_sv_undef);
+ 			self->errnop = result;
+-		}
++		} else
++			RETVAL = newSViv(count);
+ 	}
+ 	OUTPUT:
+ 	RETVAL

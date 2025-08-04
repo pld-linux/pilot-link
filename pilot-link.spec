@@ -26,6 +26,7 @@ Patch3:		%{name}-libpng.patch
 Patch4:		%{name}-format.patch
 # from fc
 Patch5:		pilot-link-0.12.5-redefinePerlsymbols.patch
+Patch6:		types.patch
 URL:		http://www.pilot-link.org/
 BuildRequires:	autoconf >= 2.53
 BuildRequires:	automake
@@ -205,6 +206,7 @@ Wiązanie Pythona do biblioteki pilot-link.
 %patch -P3 -p1
 %patch -P4 -p1
 %patch -P5 -p1
+%patch -P6 -p1
 
 %if "%{_lib}" != "lib"
 %{__sed} -i -e 's#/lib\>#/%{_lib}#g' m4/python.m4
